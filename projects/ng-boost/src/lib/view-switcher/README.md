@@ -194,7 +194,7 @@ Or instad of using `*boost-view="'circles'"` you can create your own directive:
 @Directive({
   selector: '[appViewCircles],[app-view-circles]'
 })
-export class ViewTableDirective extends ViewSelector {
+export class ViewCirclesDirective extends ViewSelector {
   viewType: AvailableViewType = 'circles';
 }
 ```
