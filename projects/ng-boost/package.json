@@ -1,6 +1,16 @@
 {
   "name": "ng-boost",
   "version": "0.0.1",
+  "description": "Angular library, which boosts up a development by enforcing consistent patterns.",
+  "author": "Maciej Sawicki",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Humberd/ng-boost.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Humberd/ng-boost/issues"
+  },
   "scripts": {
     "build": "ng build",
     "build:watch": "ng build --watch"
