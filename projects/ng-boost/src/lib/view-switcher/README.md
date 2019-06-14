@@ -142,7 +142,7 @@ export class OrganizationsComponent {
 }
 ````
 
-### 3. Display 2 additional views (circles and triangles)
+### 3. Displays 2 additional views (circles and triangles)
 
 ```typescript
 @Component({
