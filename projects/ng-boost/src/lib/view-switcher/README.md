@@ -13,7 +13,7 @@ View Switcher is a convenient solution for switching between different presentat
 
 ## How to use?
 
-1. Import `ViewSwitcherModule` in your `AppModule`:
+1. Import `ViewSwitcherModule` to your `AppModule`:
 
 ```typescript
 @NgModule({
