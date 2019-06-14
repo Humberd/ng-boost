@@ -22,7 +22,7 @@ import { defaultViewTypes, VIEW_SWITCHER_ROOT_CONFIG_TOKEN, ViewTypesRootConfig 
   ]
 })
 export class ViewSwitcherModule {
-  static forRoot(rootConfig: ViewTypesRootConfig): ModuleWithProviders {
+  static forRoot(rootConfig: ViewTypesRootConfig = {}): ModuleWithProviders {
     return {
       ngModule: ViewSwitcherModule,
       providers: [
