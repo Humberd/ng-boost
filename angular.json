@@ -40,7 +40,11 @@
     },
     "ng-boost-examples": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "projects/ng-boost-examples",
       "sourceRoot": "projects/ng-boost-examples/src",
       "prefix": "app",
@@ -59,7 +63,7 @@
               "projects/ng-boost-examples/src/assets"
             ],
             "styles": [
-              "projects/ng-boost-examples/src/styles.css"
+              "projects/ng-boost-examples/src/styles.scss"
             ],
             "scripts": []
           },
