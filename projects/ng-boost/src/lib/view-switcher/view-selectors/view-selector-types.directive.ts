@@ -8,7 +8,6 @@ import { AvailableViewType } from '../_services/view-switcher.service';
 })
 export class ViewTableDirective extends ViewSelector {
   viewType: AvailableViewType = 'table';
-
 }
 
 @Directive({
