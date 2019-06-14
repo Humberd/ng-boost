@@ -220,3 +220,28 @@ And then use it along others:
   This is a triangles view
 </div>
 ```
+
+### 4. Globally adds a third view type and marks it as default
+
+```typescript
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    ViewSwitcherModule.forRoot({
+      storage: sessionStorage,
+      viewTypes: [ 
+        ...defaultViewTypes(),
+        {
+          id: 'stripes',
+          icon: 'mat-stripes' 
+        }
+      ],
+      defaultType: 'stripes'
+    }),
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+```
