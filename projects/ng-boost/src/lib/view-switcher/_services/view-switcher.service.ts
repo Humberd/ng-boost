@@ -26,7 +26,7 @@ export class ViewSwitcherService {
       defaultType: rootConfig.defaultType,
       storage: rootConfig.storage,
       ...localConfig,
-      storageKey: `selected-view-type-${localConfig.storageKey}`
+      storageKey: `boost-selected-view-type-${localConfig.storageKey}`
     };
 
     if (!this.isInViewTypes(this.config.defaultType)) {
