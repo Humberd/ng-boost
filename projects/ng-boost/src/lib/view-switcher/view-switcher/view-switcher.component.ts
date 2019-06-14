@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AvailableViewType, ViewSwitcherService, ViewType } from '../_services/view-switcher.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AvailableViewType, ViewSwitcherService, ViewType } from '../_services/view-switcher.service';
 
 // import { LiveAnnouncer } from '@angular/cdk/a11y';
 
