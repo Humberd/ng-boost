@@ -1,6 +1,6 @@
 {
   "name": "ng-boost",
-  "version": "0.0.5",
+  "version": "0.0.9",
   "description": "Angular library, which boosts up a development by enforcing consistent patterns.",
   "author": "Maciej Sawicki",
   "license": "MIT",
@@ -14,11 +14,12 @@
   "scripts": {
     "build": "ng build",
     "build:watch": "ng build --watch",
-    "publish-lib": "npm run build && npm publish ..\\..\\dist\\ng-boost\\"
+    "publish-lib": "npm version patch && npm run build && npm publish ..\\..\\dist\\ng-boost\\"
   },
   "peerDependencies": {
     "@angular/common": "^8.0.1",
     "@angular/core": "^8.0.1",
+    "@angular/cdk": "^8.0.1",
     "rxjs": "^6.5.2"
   }
 }
