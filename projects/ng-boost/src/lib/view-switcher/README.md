@@ -4,10 +4,10 @@ View Switcher is a convenient solution for switching between different presentat
 
 ## Features:
 
-* Ready to use - out of the box implements 2 most common view types: `grid` and `table`.
-* Persistable - saves currently displayed view type in a storage.
-* Extensible - if neccessary easily extends to view types of your choice.  
-* Configurable - has both global configuration, so there is no need to repeat yourself,
+* **Ready to use** - out of the box implements 2 most common view types: `grid` and `table`.
+* **Persistable** - saves currently displayed view type in a storage.
+* **Extensible** - easily extends to view types of your choice.  
+* **Configurable** - has both global configuration, so there is no need to repeat yourself,
  and local configuration in case of local override.
 
 
