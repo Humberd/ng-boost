@@ -195,7 +195,7 @@ Or instad of using `*boost-view="'circles'"` you can create your own directive:
   selector: '[appViewCircles],[app-view-circles]'
 })
 export class ViewCirclesDirective extends ViewSelector {
-  viewType: AvailableViewType = 'circles';
+  viewType = 'circles';
 }
 ```
 
