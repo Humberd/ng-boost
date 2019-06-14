@@ -46,6 +46,7 @@ export class AppModule {
 2. Add `ViewSwitcherService` as a provider to a Component you will use View Switcher in.
 
 ```typescript
+import { ViewSwitcherService } from './view-switcher.service'; import { Component } from '@angular/core'; 
 @Component({
   selector: 'app-jobs',
   template: `
@@ -68,3 +69,12 @@ export class AppModule {
 export class JobsComponent {
 }
 ```
+
+## Configuration
+
+|   | description | defaultValue | scope |
+|---| --- | --- | --- |
+| viewTypes | A List of available view types | \[grid,table\] | global, local |
+| defaultType | Selectes a view that should be displayed when presented for the first time. | 'table' | global, local |
+| storageKey | A key, by which the ViewSwitcher saves the state in a storage. **Must be unique.** | --- | local |
+| storage | A reference to a persistent storage object. | localStorage | global, local |
