@@ -1,6 +1,6 @@
 import { Directive, Input } from '@angular/core';
 import { ViewSelector } from './view-selector';
-import { AvailableViewType } from '../_services/view-switcher.service';
+import { AvailableViewType } from '../_models/view-switcher.model';
 
 
 @Directive({

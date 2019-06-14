@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AvailableViewType, ViewSwitcherService, ViewType } from '../_services/view-switcher.service';
-// @ts-ignore
-import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AvailableViewType, ViewType } from '../_models/view-switcher.model';
+import { ViewSwitcherService } from '../_services/view-switcher.service';
 
 @Component({
   selector: 'boost-view-switcher',
@@ -14,8 +13,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 export class ViewSwitcherComponent implements OnInit {
   notSelectedListTypes$: Observable<ViewType[]>;
 
-  constructor(public viewSwitcher: ViewSwitcherService,
-              @Optional() private liveAnnouncer: LiveAnnouncer) {
+  constructor(public viewSwitcher: ViewSwitcherService) {
   }
 
   ngOnInit(): void {
@@ -32,8 +30,6 @@ export class ViewSwitcherComponent implements OnInit {
 
   selectView(id: AvailableViewType) {
     this.viewSwitcher.selectedView = id;
-
-    this.liveAnnouncer.announce(`Switched to ${id} view`);
   }
 
 }

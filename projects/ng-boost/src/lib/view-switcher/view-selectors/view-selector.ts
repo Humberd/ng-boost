@@ -1,7 +1,8 @@
 import { Injectable, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AvailableViewType, ViewSwitcherService } from '../_services/view-switcher.service';
+import { AvailableViewType } from '../_models/view-switcher.model';
+import { ViewSwitcherService } from '../_services/view-switcher.service';
 
 @Injectable()
 export abstract class ViewSelector implements OnInit, OnDestroy {

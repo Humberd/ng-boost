@@ -10,7 +10,9 @@ import { ViewSwitcherModule } from 'ng-boost';
   ],
   imports: [
     BrowserModule,
-    ViewSwitcherModule,
+    ViewSwitcherModule.forRoot({
+      storage: sessionStorage,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,32 +1,32 @@
 import { BehaviorSubject } from 'rxjs';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Inject, Injectable } from '@angular/core';
+import {
+  AvailableViewType,
+  VIEW_SWITCHER_LOCAL_CONFIG_TOKEN,
+  VIEW_SWITCHER_ROOT_CONFIG_TOKEN,
+  ViewType,
+  ViewTypesLocalConfig,
+  ViewTypesRootConfig
+} from '../_models/view-switcher.model';
 
-export type AvailableViewType = 'table' | 'grid' | string;
 
-export interface ViewType {
-  id: AvailableViewType;
-  icon: string;
-}
-
-export interface ViewTypesConfig {
-  viewTypes?: ViewType[];
-  defaultType?: AvailableViewType;
-  storageKey: string;
-  storage?: Storage;
-}
-
-export abstract class ViewSwitcherService {
+@Injectable()
+export class ViewSwitcherService {
   private readonly _selectedView$ = new BehaviorSubject<AvailableViewType>(null);
   readonly selectedView$ = this._selectedView$.asObservable();
 
-  private readonly config: Required<ViewTypesConfig>;
+  private readonly config: Required<ViewTypesLocalConfig>;
 
-  constructor(config: ViewTypesConfig) {
+  constructor(@Inject(VIEW_SWITCHER_LOCAL_CONFIG_TOKEN) localConfig: ViewTypesLocalConfig,
+              @Inject(VIEW_SWITCHER_ROOT_CONFIG_TOKEN) rootConfig: ViewTypesRootConfig,
+              private liveAnnouncer: LiveAnnouncer) {
     this.config = {
-      viewTypes: ViewSwitcherService.defaultTypes(),
-      defaultType: 'table',
-      storage: localStorage,
-      ...config,
-      storageKey: `selected-view-type-${config.storageKey}`
+      viewTypes: rootConfig.viewTypes,
+      defaultType: rootConfig.defaultType,
+      storage: rootConfig.storage,
+      ...localConfig,
+      storageKey: `selected-view-type-${localConfig.storageKey}`
     };
 
     if (!this.isInViewTypes(this.config.defaultType)) {
@@ -53,6 +53,8 @@ export abstract class ViewSwitcherService {
 
     this._selectedView$.next(viewType);
     this.saveToStorage(viewType);
+
+    this.liveAnnouncer.announce(`Switched to ${viewType} view`);
   }
 
   static defaultTypes(): ViewType[] {
