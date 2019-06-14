@@ -24,3 +24,16 @@ export interface ViewTypesRootConfig {
 }
 
 export const VIEW_SWITCHER_ROOT_CONFIG_TOKEN = new InjectionToken<ViewTypesRootConfig>('View Switcher Root Config');
+
+export function defaultViewTypes(): ViewType[] {
+  return [
+    {
+      id: 'grid',
+      icon: 'enterprise'
+    },
+    {
+      id: 'table',
+      icon: 'list'
+    }
+  ];
+}

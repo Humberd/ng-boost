@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Provider } from '@angular/core';
 import {
   AvailableViewType,
   VIEW_SWITCHER_LOCAL_CONFIG_TOKEN,
@@ -57,16 +57,13 @@ export class ViewSwitcherService {
     this.liveAnnouncer.announce(`Switched to ${viewType} view`);
   }
 
-  static defaultTypes(): ViewType[] {
+  static configure(localConfig: ViewTypesLocalConfig): Provider[] {
     return [
       {
-        id: 'grid',
-        icon: 'enterprise'
+        provide: VIEW_SWITCHER_LOCAL_CONFIG_TOKEN,
+        useValue: localConfig
       },
-      {
-        id: 'table',
-        icon: 'list'
-      }
+      ViewSwitcherService
     ];
   }
 
