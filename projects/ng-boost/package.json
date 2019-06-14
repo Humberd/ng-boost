@@ -11,6 +11,7 @@
   "bugs": {
     "url": "https://github.com/Humberd/ng-boost/issues"
   },
+  "homepage": "https://github.com/Humberd/ng-boost#readme",
   "scripts": {
     "build": "ng build",
     "build:watch": "ng build --watch",

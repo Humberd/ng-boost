@@ -19,6 +19,7 @@
   "bugs": {
     "url": "https://github.com/Humberd/ng-boost/issues"
   },
+  "homepage": "https://github.com/Humberd/ng-boost#readme",
   "private": false,
   "dependencies": {
     "@angular/animations": "~8.0.1",
