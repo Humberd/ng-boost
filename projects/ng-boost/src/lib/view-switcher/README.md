@@ -8,7 +8,7 @@ View Switcher is a convenient solution for switching between different presentat
 * **Persistable** - saves currently displayed view type in a storage.
 * **Extensible** - easily extends to view types of your choice.  
 * **Configurable** - has both global configuration, so there is no need to repeat yourself,
- and local configuration in case of local override.
+ and local configuration in case of a local override.
 
 
 ## How to use?
