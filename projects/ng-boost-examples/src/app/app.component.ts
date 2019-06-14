@@ -1,5 +1,5 @@
 import { Component, Injectable } from '@angular/core';
-import { ViewSwitcherService } from '../../../ng-boost/src/lib/view-switcher/_services/view-switcher.service';
+import { ViewSwitcherService } from 'ng-boost';
 
 @Injectable()
 export class AViewSwitcherService extends ViewSwitcherService {
@@ -24,3 +24,4 @@ export class AViewSwitcherService extends ViewSwitcherService {
 export class AppComponent {
   title = 'ng-boost-examples';
 }
+

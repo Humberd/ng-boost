@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { ViewSwitcherModule } from '../../../ng-boost/src/lib/view-switcher';
+import { ViewSwitcherModule } from 'ng-boost';
 
 @NgModule({
   declarations: [
@@ -10,9 +10,10 @@ import { ViewSwitcherModule } from '../../../ng-boost/src/lib/view-switcher';
   ],
   imports: [
     BrowserModule,
-    ViewSwitcherModule
+    ViewSwitcherModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

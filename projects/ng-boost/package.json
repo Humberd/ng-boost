@@ -2,10 +2,12 @@
   "name": "ng-boost",
   "version": "0.0.1",
   "scripts": {
-    "build": "ng build"
+    "build": "ng build",
+    "build:watch": "ng build --watch"
   },
   "peerDependencies": {
     "@angular/common": "^8.0.1",
-    "@angular/core": "^8.0.1"
+    "@angular/core": "^8.0.1",
+    "rxjs": "^6.5.2"
   }
 }
