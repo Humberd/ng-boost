@@ -1,6 +1,8 @@
 {
   "name": "ng-boost",
   "version": "0.0.0",
+  "description": "Angular library, which boosts up a development by enforcing consistent patterns.",
+  "author": "Maciej Sawicki",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,7 +11,15 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Humberd/ng-boost.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Humberd/ng-boost/issues"
+  },
+  "private": false,
   "dependencies": {
     "@angular/animations": "~8.0.1",
     "@angular/common": "~8.0.1",
