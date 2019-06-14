@@ -1,6 +1,9 @@
 {
   "name": "ng-boost",
   "version": "0.0.1",
+  "scripts": {
+    "build": "ng build"
+  },
   "peerDependencies": {
     "@angular/common": "^8.0.1",
     "@angular/core": "^8.0.1"
