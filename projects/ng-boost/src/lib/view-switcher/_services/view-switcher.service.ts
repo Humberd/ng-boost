@@ -29,15 +29,15 @@ export abstract class ViewSwitcherService {
       storageKey: `selected-view-type-${config.storageKey}`
     };
 
-    if (!this.isInViewTypes(config.defaultType)) {
-      throw Error(`${config.defaultType} type does not exist in viewTypes`);
+    if (!this.isInViewTypes(this.config.defaultType)) {
+      throw Error(`${this.config.defaultType} type does not exist in viewTypes`);
     }
 
     const storageValue = this.loadFromStorage();
     if (this.isInViewTypes(storageValue)) {
       this._selectedView$.next(storageValue);
     } else {
-      this._selectedView$.next(config.defaultType);
+      this._selectedView$.next(this.config.defaultType);
     }
 
   }
