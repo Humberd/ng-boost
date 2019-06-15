@@ -2,17 +2,17 @@ import { Injectable, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@a
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AvailableViewType } from '../_models/view-switcher.model';
-import { ViewSwitcherService } from '../_services/view-switcher.service';
+import { BoostViewSwitcherService } from '../_services/boost-view-switcher.service';
 
 @Injectable()
-export abstract class ViewSelector implements OnInit, OnDestroy {
+export abstract class BoostViewSelector implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject();
 
   abstract viewType: AvailableViewType;
 
   constructor(private readonly templateRef: TemplateRef<any>,
               private readonly viewRef: ViewContainerRef,
-              private readonly viewTypesService: ViewSwitcherService) {
+              private readonly viewTypesService: BoostViewSwitcherService) {
   }
 
   ngOnInit(): void {

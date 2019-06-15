@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ViewSwitcherComponent } from './view-switcher/view-switcher.component';
-import { ViewDirective, ViewGridDirective, ViewTableDirective } from './view-selectors/view-selector-types.directive';
+import { BoostViewSwitcherComponent } from './view-switcher/boost-view-switcher.component';
+import { BoostViewDirective, BoostViewGridDirective, BoostViewTableDirective } from './view-selectors/view-selector-types.directive';
 import { defaultViewTypes, VIEW_SWITCHER_ROOT_CONFIG_TOKEN, ViewTypesRootConfig } from './_models/view-switcher.model';
 
 @NgModule({
@@ -9,22 +9,22 @@ import { defaultViewTypes, VIEW_SWITCHER_ROOT_CONFIG_TOKEN, ViewTypesRootConfig 
     CommonModule,
   ],
   declarations: [
-    ViewSwitcherComponent,
-    ViewTableDirective,
-    ViewGridDirective,
-    ViewDirective
+    BoostViewSwitcherComponent,
+    BoostViewTableDirective,
+    BoostViewGridDirective,
+    BoostViewDirective
   ],
   exports: [
-    ViewSwitcherComponent,
-    ViewTableDirective,
-    ViewGridDirective,
-    ViewDirective
+    BoostViewSwitcherComponent,
+    BoostViewTableDirective,
+    BoostViewGridDirective,
+    BoostViewDirective
   ]
 })
-export class ViewSwitcherModule {
+export class BoostViewSwitcherModule {
   static forRoot(rootConfig: ViewTypesRootConfig = {}): ModuleWithProviders {
     return {
-      ngModule: ViewSwitcherModule,
+      ngModule: BoostViewSwitcherModule,
       providers: [
         {
           provide: VIEW_SWITCHER_ROOT_CONFIG_TOKEN,

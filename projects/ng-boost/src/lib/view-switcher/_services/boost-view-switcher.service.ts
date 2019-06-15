@@ -12,7 +12,7 @@ import {
 
 
 @Injectable()
-export class ViewSwitcherService {
+export class BoostViewSwitcherService {
   private readonly _selectedView$ = new BehaviorSubject<AvailableViewType>(null);
   readonly selectedView$ = this._selectedView$.asObservable();
 
@@ -63,7 +63,7 @@ export class ViewSwitcherService {
         provide: VIEW_SWITCHER_LOCAL_CONFIG_TOKEN,
         useValue: localConfig
       },
-      ViewSwitcherService
+      BoostViewSwitcherService
     ];
   }
 

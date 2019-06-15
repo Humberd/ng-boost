@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AvailableViewType, ViewType } from '../_models/view-switcher.model';
-import { ViewSwitcherService } from '../_services/view-switcher.service';
+import { BoostViewSwitcherService } from '../_services/boost-view-switcher.service';
 
 @Component({
   selector: 'boost-view-switcher',
@@ -11,10 +11,10 @@ import { ViewSwitcherService } from '../_services/view-switcher.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class ViewSwitcherComponent implements OnInit {
+export class BoostViewSwitcherComponent implements OnInit {
   notSelectedListTypes$: Observable<ViewType[]>;
 
-  constructor(public viewSwitcher: ViewSwitcherService) {
+  constructor(public viewSwitcher: BoostViewSwitcherService) {
   }
 
   ngOnInit(): void {
