@@ -6,8 +6,8 @@ import { BoostViewSwitcherService } from '../_services/boost-view-switcher.servi
 
 @Component({
   selector: 'boost-view-switcher',
-  templateUrl: './view-switcher.component.html',
-  styleUrls: ['./view-switcher.component.scss'],
+  templateUrl: './boost-view-switcher.component.html',
+  styleUrls: ['./boost-view-switcher.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
