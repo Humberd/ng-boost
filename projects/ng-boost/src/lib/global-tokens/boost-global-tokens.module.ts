@@ -33,5 +33,5 @@ import { sessionStorageProvider } from './tokens/session-storage';
   ],
   declarations: []
 })
-export class GlobalTokensModule {
+export class BoostGlobalTokensModule {
 }
