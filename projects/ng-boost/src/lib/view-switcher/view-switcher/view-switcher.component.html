@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="boost-view-switcher-wrapper">
   <button *ngFor="let listType of notSelectedListTypes$ | async; trackBy: trackBy"
           (click)="selectView(listType.id)"
           [attr.aria-label]="'Switch to' + (listType.id | titlecase) + ' View'"
