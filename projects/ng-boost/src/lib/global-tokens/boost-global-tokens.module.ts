@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { locationProvider } from './tokens/location';
 import { environmentProvider } from './tokens/environment';
 import { localStorageProvider } from './tokens/local-storage';
@@ -24,14 +24,18 @@ import { sessionStorageProvider } from './tokens/session-storage';
  * Why?
  * Because it makes testing easier.
  */
-@NgModule({
-  providers: [
-    locationProvider,
-    environmentProvider,
-    localStorageProvider,
-    sessionStorageProvider
-  ],
-  declarations: []
-})
+@NgModule({})
 export class BoostGlobalTokensModule {
+
+  static forRoot(config: { environment: any }): ModuleWithProviders {
+    return {
+      ngModule: BoostGlobalTokensModule,
+      providers: [
+        locationProvider,
+        localStorageProvider,
+        sessionStorageProvider,
+        environmentProvider(config.environment),
+      ]
+    };
+  }
 }

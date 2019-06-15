@@ -1,6 +1,6 @@
 import { Directive, Input } from '@angular/core';
-import { BoostViewSelector } from './boost-view-selector.service';
 import { AvailableViewType } from '../_models/view-switcher.model';
+import { BoostViewSelector } from './view-selector';
 
 
 @Directive({
