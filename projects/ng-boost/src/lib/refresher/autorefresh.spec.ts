@@ -29,7 +29,7 @@ describe('AutorefreshConsumerImpl', () => {
     tick(1);
     expect(received).toBe('foo');
 
-    consumer.unsubscribe();
+    consumer.stop();
   }));
 
   it('should reset autorefreseh timer when manual fetch occurs', fakeAsync(() => {
@@ -54,6 +54,6 @@ describe('AutorefreshConsumerImpl', () => {
     tick(1);
     expect(received).toBe('foo');
 
-    consumer.unsubscribe();
+    consumer.stop();
   }));
 });

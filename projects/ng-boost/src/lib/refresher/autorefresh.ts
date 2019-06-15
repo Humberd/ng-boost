@@ -4,7 +4,7 @@ import { catchError, flatMap, switchMap } from 'rxjs/operators';
 export interface AutorefreshConsumer {
   fetch(): void;
 
-  unsubscribe(): void;
+  stop(): void;
 }
 
 export class AutorefreshConsumerImpl<T> implements AutorefreshConsumer {
@@ -16,6 +16,8 @@ export class AutorefreshConsumerImpl<T> implements AutorefreshConsumer {
   }
 
   start(): void {
+    this.stop();
+
     this.subscription = this.fetchEmitter$
       .pipe(
         switchMap(() => timer(0, this.period)),
@@ -34,7 +36,7 @@ export class AutorefreshConsumerImpl<T> implements AutorefreshConsumer {
     this.fetchEmitter$.next();
   }
 
-  unsubscribe(): void {
+  stop(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
