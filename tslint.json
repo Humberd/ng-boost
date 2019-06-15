@@ -80,6 +80,7 @@
       "options": [
         "allow-leading-underscore"
       ]
-    }
+    },
+    "only-arrow-functions": false
   }
 }
