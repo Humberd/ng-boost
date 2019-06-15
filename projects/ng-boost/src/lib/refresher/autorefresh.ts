@@ -1,5 +1,5 @@
-import { Observable, of, Subject, Subscription, timer } from 'rxjs';
-import { catchError, flatMap, switchMap } from 'rxjs/operators';
+import { Observable, of, OperatorFunction, pipe, Subject, Subscription, timer } from 'rxjs';
+import { catchError, delay, flatMap, switchMap, tap } from 'rxjs/operators';
 
 export interface AutorefreshConsumer {
   fetch(): void;
@@ -18,7 +18,7 @@ export enum AutorefreshMode {
   SOURCE_DEPENDANT // starts a new countdown only after surce emits a value
 }
 
-export class AutorefreshConsumerImpl<T> implements AutorefreshConsumer {
+export class AutorefreshConsumerImpl implements AutorefreshConsumer {
   private fetchEmitter$ = new Subject();
   private subscription: Subscription;
 
@@ -30,17 +30,37 @@ export class AutorefreshConsumerImpl<T> implements AutorefreshConsumer {
     this.stop();
 
     this.subscription = this.fetchEmitter$
-      .pipe(
+      .pipe(this.getRefreshPipe())
+      .subscribe();
+
+    this.fetch();
+  }
+
+  private getRefreshPipe(): OperatorFunction<any, any> {
+    if (this.config.mode === AutorefreshMode.CONSTANT) {
+      return pipe(
         switchMap(() => timer(0, this.config.period)),
         flatMap(() => this.config.source()
           .pipe(
             catchError(err => of(err))
           )
         )
-      )
-      .subscribe();
+      );
+    }
 
-    this.fetch();
+    if (this.config.mode === AutorefreshMode.SOURCE_DEPENDANT) {
+      return pipe(
+        switchMap(() => this.config.source()
+          .pipe(
+            catchError(err => of(err)),
+            delay(this.config.period),
+            tap(() => this.fetch())
+          )
+        ),
+      );
+    }
+
+    throw Error('Not implemented');
   }
 
   fetch(): void {
