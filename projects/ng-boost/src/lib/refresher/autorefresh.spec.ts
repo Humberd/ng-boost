@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { autorefresh } from './autorefresh';
+import { autorefresh, AutorefreshMode } from './autorefresh';
 import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('AutorefreshConsumerImpl', () => {
@@ -10,7 +10,11 @@ describe('AutorefreshConsumerImpl', () => {
       .pipe(
         tap(it => received = it)
       );
-    const consumer = autorefresh(() => obs, 1000);
+    const consumer = autorefresh({
+      source: () => obs,
+      period: 1000,
+      mode: AutorefreshMode.CONSTANT
+    });
 
     expect(received).toBe(null);
 
@@ -38,7 +42,11 @@ describe('AutorefreshConsumerImpl', () => {
       .pipe(
         tap(it => received = it)
       );
-    const consumer = autorefresh(() => obs, 1000);
+    const consumer = autorefresh({
+      source: () => obs,
+      period: 1000,
+      mode: AutorefreshMode.CONSTANT
+    });
 
     tick(1500);
     expect(received).toBe('foo');

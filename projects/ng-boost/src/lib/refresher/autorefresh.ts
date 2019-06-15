@@ -7,12 +7,23 @@ export interface AutorefreshConsumer {
   stop(): void;
 }
 
+export interface AutorefreshConfig {
+  source: () => Observable<any>;
+  period: number; // in milliseconds
+  mode: AutorefreshMode;
+}
+
+export enum AutorefreshMode {
+  CONSTANT, // constant refreshing every x seconds
+  SOURCE_DEPENDANT // starts a new countdown only after surce emits a value
+}
+
 export class AutorefreshConsumerImpl<T> implements AutorefreshConsumer {
   private fetchEmitter$ = new Subject();
   private subscription: Subscription;
 
-  constructor(private obs: () => Observable<T>,
-              private period: number) {
+  constructor(private config: AutorefreshConfig) {
+
   }
 
   start(): void {
@@ -20,8 +31,8 @@ export class AutorefreshConsumerImpl<T> implements AutorefreshConsumer {
 
     this.subscription = this.fetchEmitter$
       .pipe(
-        switchMap(() => timer(0, this.period)),
-        flatMap(() => this.obs()
+        switchMap(() => timer(0, this.config.period)),
+        flatMap(() => this.config.source()
           .pipe(
             catchError(err => of(err))
           )
@@ -44,8 +55,8 @@ export class AutorefreshConsumerImpl<T> implements AutorefreshConsumer {
 
 }
 
-export function autorefresh<T>(obs: () => Observable<T>, period: number): AutorefreshConsumer {
-  const consumer = new AutorefreshConsumerImpl(obs, period);
+export function autorefresh<T>(config: AutorefreshConfig): AutorefreshConsumer {
+  const consumer = new AutorefreshConsumerImpl(config);
   consumer.start();
 
   return consumer;
