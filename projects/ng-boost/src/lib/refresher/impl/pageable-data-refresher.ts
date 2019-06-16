@@ -1,6 +1,6 @@
 import { Refresher } from '../refresher';
 
-export abstract class PageableRefresher<SourceData, ParsedData = SourceData> extends Refresher<SourceData, ParsedData[]> {
+export abstract class PageableDataRefresher<SourceData, ParsedData = SourceData> extends Refresher<SourceData, ParsedData[]> {
   abstract get totalItemsCount(): number;
 
   abstract get itemsCount(): number;

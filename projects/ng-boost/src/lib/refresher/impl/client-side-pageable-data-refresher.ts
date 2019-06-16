@@ -1,11 +1,11 @@
-import { PageableRefresher } from './pageable-refresher';
+import { PageableDataRefresher } from './pageable-data-refresher';
 import { RefresherConfig } from '../refresher';
 import { AutorefreshMode } from '../autorefresh';
 import { paginateArray } from '../rxjs-operators/paginate.operator';
 import { isAscending, keyFromSortKey, sortArray } from '../rxjs-operators/sort-by.operator';
 
 // tslint:disable-next-line:max-line-length
-export abstract class DataClientSidePageableRefresher<SourceData, ParsedData = SourceData> extends PageableRefresher<SourceData, ParsedData> {
+export abstract class ClientSidePageableDataRefresher<SourceData, ParsedData = SourceData> extends PageableDataRefresher<SourceData, ParsedData> {
   private _pageNumber = 0;
   private _pageSize = 10;
   private _sort = '';
