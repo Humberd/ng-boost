@@ -1,7 +1,7 @@
 import { Refresher, RefresherConfig } from '../refresher';
 import { AutorefreshMode } from '../autorefresh';
 
-export abstract class SimpleRefresher<SourceData, ParsedData = SourceData> extends Refresher<SourceData, ParsedData> {
+export abstract class DataRefresher<SourceData, ParsedData = SourceData> extends Refresher<SourceData, ParsedData> {
 
   constructor(config: Partial<RefresherConfig> = {}) {
     super({

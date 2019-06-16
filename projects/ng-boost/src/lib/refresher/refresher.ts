@@ -167,9 +167,6 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
     this._dataError$.next(err);
   }
 
-  /**
-   * Invoked only once during ngOnInit() phase or after manual reloadWithNewParams()
-   */
   protected abstract getDataSource(): RefresherSourceType<SourceData>;
 
   protected abstract parseData(response: SourceData): ParsedData;
