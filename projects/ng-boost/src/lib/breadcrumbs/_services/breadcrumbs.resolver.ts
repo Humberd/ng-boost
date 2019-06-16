@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, UrlSegment } from '@angular/router';
-import { Breadcrumb } from './breadcrumb';
 import { Observable } from 'rxjs';
+import { Breadcrumb } from '../_models/breadcrumb';
 
 export abstract class BreadcrumbsResolver implements Resolve<Breadcrumb[]> {
   abstract resolve(

@@ -74,14 +74,14 @@ describe('BreadcrumbsService', () => {
         )
         .subscribe((crumbs: Breadcrumb[]) => {
           expect(crumbs).toEqual([{
-            text: 'First',
-            path: '/first'
+            label: 'First',
+            href: '/first'
           }, {
-            text: 'Second',
-            path: '/first/second'
+            label: 'Second',
+            href: '/first/second'
           }, {
-            text: 'Third',
-            path: '/first/second/third'
+            label: 'Third',
+            href: '/first/second/third'
           }]);
           done();
         });
@@ -126,11 +126,11 @@ describe('BreadcrumbsService', () => {
         )
         .subscribe((crumbs: Breadcrumb[]) => {
           expect(crumbs).toEqual([{
-            text: 'First',
-            path: '/first'
+            label: 'First',
+            href: '/first'
           }, {
-            text: 'Third',
-            path: '/first/second/third'
+            label: 'Third',
+            href: '/first/second/third'
           }]);
           done();
         });
@@ -147,8 +147,8 @@ describe('BreadcrumbsService', () => {
           state: RouterStateSnapshot
         ): Observable<Breadcrumb[]> | Promise<Breadcrumb[]> | Breadcrumb[] {
           return [{
-            text: 'overriden-text',
-            path: '/overriden-path'
+            label: 'overriden-text',
+            href: '/overriden-path'
           }];
         }
 
@@ -195,14 +195,14 @@ describe('BreadcrumbsService', () => {
         )
         .subscribe((crumbs: Breadcrumb[]) => {
           expect(crumbs).toEqual([{
-            text: 'First',
-            path: '/first'
+            label: 'First',
+            href: '/first'
           }, {
-            text: 'overriden-text',
-            path: '/overriden-path'
+            label: 'overriden-text',
+            href: '/overriden-path'
           }, {
-            text: 'Third',
-            path: '/first/second/third'
+            label: 'Third',
+            href: '/first/second/third'
           }]);
           done();
         });
@@ -231,8 +231,8 @@ describe('BreadcrumbsService', () => {
           state: RouterStateSnapshot
         ): Observable<Breadcrumb[]> | Promise<Breadcrumb[]> | Breadcrumb[] {
           return [{
-            text: this.translationService.getName(),
-            path: '/overriden-path'
+            label: this.translationService.getName(),
+            href: '/overriden-path'
           }];
         }
 
@@ -280,14 +280,14 @@ describe('BreadcrumbsService', () => {
         )
         .subscribe((crumbs: Breadcrumb[]) => {
           expect(crumbs).toEqual([{
-            text: 'First',
-            path: '/first'
+            label: 'First',
+            href: '/first'
           }, {
-            text: 'translatedName',
-            path: '/overriden-path'
+            label: 'translatedName',
+            href: '/overriden-path'
           }, {
-            text: 'Third',
-            path: '/first/second/third'
+            label: 'Third',
+            href: '/first/second/third'
           }]);
           done();
         });
@@ -339,12 +339,12 @@ describe('BreadcrumbsService', () => {
       const expected: Breadcrumb[][] = [
         [],
         [{
-          text: 'hello',
-          path: '/overriden-path'
+          label: 'hello',
+          href: '/overriden-path'
         }],
         [{
-          text: 'world',
-          path: '/overriden-path'
+          label: 'world',
+          href: '/overriden-path'
         }]
       ];
       service.breadcrumbs$
@@ -434,25 +434,25 @@ describe('BreadcrumbsService', () => {
       const expected: Breadcrumb[][] = [
         [],
         [{
-          text: 'Alice',
-          path: '/'
+          label: 'Alice',
+          href: '/'
         }, {
-          text: 'Bob',
-          path: '/',
+          label: 'Bob',
+          href: '/',
         }],
         [{
-          text: 'Alice goes',
-          path: '/'
+          label: 'Alice goes',
+          href: '/'
         }, {
-          text: 'Bob',
-          path: '/'
+          label: 'Bob',
+          href: '/'
         }],
         [{
-          text: 'Alice goes',
-          path: '/'
+          label: 'Alice goes',
+          href: '/'
         }, {
-          text: 'Bob goes',
-          path: '/'
+          label: 'Bob goes',
+          href: '/'
         }]
       ];
       service.breadcrumbs$
@@ -544,15 +544,15 @@ describe('BreadcrumbsService', () => {
       const expected: Breadcrumb[][] = [
         [],
         [{
-          text: 'Alice',
-          path: '/'
+          label: 'Alice',
+          href: '/'
         }, {
-          text: 'Bob',
-          path: '/',
+          label: 'Bob',
+          href: '/',
         }],
         [{
-          text: 'Alice',
-          path: '/'
+          label: 'Alice',
+          href: '/'
         }],
       ];
       service.breadcrumbs$

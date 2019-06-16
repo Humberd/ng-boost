@@ -1,4 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 /**
  * A component used a route component for testing purposes.
@@ -23,6 +24,9 @@ export class NoopOutletComponent {
   exports: [
     NoopComponent,
     NoopOutletComponent
+  ],
+  imports: [
+    RouterModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

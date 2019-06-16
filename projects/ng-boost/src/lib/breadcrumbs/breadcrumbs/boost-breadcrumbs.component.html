@@ -7,8 +7,8 @@
       <ng-container *ngIf="!last">
 
         <a class="previous-page"
-           [routerLink]="crumb.path">
-          {{ crumb.text }}
+           [routerLink]="crumb.href">
+          {{ crumb.label }}
         </a>
 
         <div class="icon-wrapper">
@@ -20,8 +20,8 @@
 
       <a *ngIf="last"
          aria-current="page"
-         [routerLink]="crumb.path">
-        {{ crumb.text }}
+         [routerLink]="crumb.href">
+        {{ crumb.label }}
       </a>
 
     </li>

@@ -1,25 +1,35 @@
 import { Injectable, Injector } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
-import { catchError, filter, map, switchMap } from 'rxjs/operators';
-import { Breadcrumb, BREADCRUMBS_FIELD_NAME } from '../_models/breadcrumb';
-import { DefaultBreadcrumbsResolver } from './default-breadcrumbs.resolver';
+import { catchError, filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { Breadcrumb } from '../_models/breadcrumb';
+import { BreadcrumbsDefaultResolver } from './breadcrumbs-default.resolver';
 import { wrapIntoObservable } from './breadcrumbs.shared';
-import { BreadcrumbsResolver } from '../_models/breadcrumbs.resolver';
-import { RouterUtilsService } from '../../../orbital-shared/router-utils/router-utils.service';
+import { RouterUtilsService } from '../../utils/router-utils.service';
+import { Destroy$ } from '../../utils/destroy';
+import { BreadcrumbsResolver } from './breadcrumbs.resolver';
+
+export const ROUTE_DATA_FIELD_NAME = 'breadcrumbs';
 
 @Injectable()
 export class BoostBreadcrumbsService {
-  private defaultResolver = new DefaultBreadcrumbsResolver();
-  private _breadcrumbs$ = new BehaviorSubject<Breadcrumb[]>([]);
+  @Destroy$() private readonly destroy$ = new Subject();
+  private readonly defaultResolver = new BreadcrumbsDefaultResolver();
+  private readonly _breadcrumbs$ = new BehaviorSubject<Breadcrumb[]>([]);
 
-  breadcrumbs$ = this._breadcrumbs$.asObservable();
+  readonly breadcrumbs$ = this._breadcrumbs$.asObservable();
+
+  get breadcrumbs() {
+    return this._breadcrumbs$.value;
+  }
 
   constructor(private router: Router,
               private injector: Injector,
-              private routerUtils: RouterUtilsService) {
+              private routerUtils: RouterUtilsService
+  ) {
     this.router.events
       .pipe(
+        takeUntil(this.destroy$),
         filter(it => it instanceof NavigationEnd),
         switchMap(() => this._resolveCrumbs()),
         map(it => ([].concat(...it)))
@@ -43,12 +53,12 @@ export class BoostBreadcrumbsService {
     const data = route.routeConfig &&
       route.routeConfig.data;
 
-    if (data && data[BREADCRUMBS_FIELD_NAME]) {
+    if (data && data[ROUTE_DATA_FIELD_NAME]) {
 
       let resolver: BreadcrumbsResolver;
 
-      if (data[BREADCRUMBS_FIELD_NAME].prototype instanceof BreadcrumbsResolver) {
-        resolver = this.injector.get<BreadcrumbsResolver>(data[BREADCRUMBS_FIELD_NAME]);
+      if (data[ROUTE_DATA_FIELD_NAME].prototype instanceof BreadcrumbsResolver) {
+        resolver = this.injector.get<BreadcrumbsResolver>(data[ROUTE_DATA_FIELD_NAME]);
       } else {
         resolver = this.defaultResolver;
       }
