@@ -89,10 +89,10 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
       this.config.period = NEVER_REFRESH;
 
       const a = dataSource.data$
-        .pipe(tap(it => this.onSuccess(it)));
+        .pipe(tap(it => this.handleSuccess(it)));
 
       const b = dataSource.dataError$
-        .pipe(tap(it => this.onError(it)));
+        .pipe(tap(it => this.handleError(it)));
 
       console.log(`Applying data source: ${dataSource.constructor.name} -> ${this.constructor.name}`);
       return merge(a, b);
@@ -102,7 +102,7 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
     return dataSource
       .pipe(
         tap({
-          next: value => this.onSuccess(value),
+          next: value => this.handleSuccess(value),
           error: err => this.handleError(err)
         })
       );
@@ -144,27 +144,41 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
     this._isInitialized$.next(false);
   }
 
-  protected onSuccess(success: SourceData): void {
+  private handleSuccess(success: SourceData): void {
+    this._onSuccess(success);
+    this.onSuccess(success);
+  }
+
+  private _onSuccess(success: SourceData): void {
     this._isLoading$.next(false);
     this._isError$.next(false);
     this._isInitialized$.next(true);
     this._data$.next(this.parseData(success));
   }
 
+  protected onSuccess(success: SourceData): void {
+    // implemented by the user
+  }
+
   private handleError(err: any): void {
     if ((err instanceof HttpErrorResponse) && err.status === 404) {
-      this.onSuccess(EMPTY);
+      this.handleSuccess(EMPTY);
       return;
     }
 
+    this._onError(err);
     this.onError(err);
   }
 
-  protected onError(err: any): void {
+  private _onError(err: any): void {
     console.error(err);
     this._isLoading$.next(false);
     this._isError$.next(true);
     this._dataError$.next(err);
+  }
+
+  protected onError(err: any): void {
+    // implemented by the user
   }
 
   protected abstract getDataSource(): RefresherSourceType<SourceData>;
