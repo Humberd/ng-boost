@@ -5,9 +5,9 @@ import { ActivatedRouteSnapshot, Route, Router, RouterStateSnapshot } from '@ang
 import { Injectable } from '@angular/core';
 import { filter, first, map, skip } from 'rxjs/operators';
 import { Breadcrumb } from '../_models/breadcrumb';
-import { BreadcrumbsResolver } from '../_models/breadcrumbs.resolver';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { NoopComponent, NoopModule } from '../../../orbital-shared/router-utils/noop.module';
+import { NoopComponent, NoopModule } from '../../utils/noop.module';
+import { BreadcrumbsResolver } from './breadcrumbs.resolver';
 
 
 describe('BreadcrumbsService', () => {
@@ -309,8 +309,8 @@ describe('BreadcrumbsService', () => {
             .pipe(
               filter(it => !!it),
               map(it => ([{
-                path: '/overriden-path',
-                text: it
+                href: '/overriden-path',
+                label: it
               }]))
             );
         }
@@ -376,8 +376,8 @@ describe('BreadcrumbsService', () => {
             .pipe(
               filter(it => !!it),
               map(it => ([{
-                path: '/',
-                text: it
+                href: '/',
+                label: it
               }]))
             );
         }
@@ -395,8 +395,8 @@ describe('BreadcrumbsService', () => {
             .pipe(
               filter(it => !!it),
               map(it => ([{
-                path: '/',
-                text: it
+                href: '/',
+                label: it
               }]))
             );
         }
@@ -487,8 +487,8 @@ describe('BreadcrumbsService', () => {
             .pipe(
               filter(it => !!it),
               map(it => ([{
-                path: '/',
-                text: it
+                href: '/',
+                label: it
               }]))
             );
         }
@@ -506,8 +506,8 @@ describe('BreadcrumbsService', () => {
             .pipe(
               filter(it => !!it),
               map(it => ([{
-                path: '/',
-                text: it
+                href: '/',
+                label: it
               }]))
             );
         }
