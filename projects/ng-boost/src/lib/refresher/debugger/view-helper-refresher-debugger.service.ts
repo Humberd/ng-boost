@@ -34,17 +34,19 @@ export interface ViewHelperRefresherDebuggerServiceTreeShakeable {
  * Notice that `debuggerService` type is in fact INTERFACE instead of a CLASS!!!.
  * This is so that bundler can remove this service when unused.
  */
+/* tslint:disable:no-string-literal */
 @Injectable()
 export class ViewHelperRefresherDebuggerService implements ViewHelperRefresherDebuggerServiceTreeShakeable {
+  private readonly STORAGE_KEY = 'ng-boost.dev-tools.refresher';
   readonly refreshers: Map<RefresherViewHelper, Saver> = new Map();
   selectedState: 'content' | 'empty' | 'loader' | 'error' | null;
 
   constructor(@Inject(SESSION_STORAGE_TOKEN) private storage: Storage) {
-    this.selectedState = storage.getItem('gvc.dev-tools.refresher') as any || null;
+    this.selectedState = storage.getItem(this.STORAGE_KEY) as any || null;
   }
 
   private saveState(value: string) {
-    this.storage.setItem('gvc.dev-tools.refresher', value);
+    this.storage.setItem(this.STORAGE_KEY, value);
   }
 
   register(helper: RefresherViewHelper) {

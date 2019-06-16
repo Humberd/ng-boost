@@ -26,7 +26,7 @@ export class BoostViewSwitcherService {
       defaultType: rootConfig.defaultType,
       storage: rootConfig.storage,
       ...localConfig,
-      storageKey: `boost-selected-view-type-${localConfig.storageKey}`
+      storageKey: `ng-boost.selected-view-type.${localConfig.storageKey}`
     };
 
     if (!this.isInViewTypes(this.config.defaultType)) {
