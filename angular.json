@@ -123,7 +123,7 @@
               "projects/ng-boost-examples/src/assets"
             ],
             "styles": [
-              "projects/ng-boost-examples/src/styles.css"
+              "projects/ng-boost-examples/src/styles.scss"
             ],
             "scripts": []
           }
