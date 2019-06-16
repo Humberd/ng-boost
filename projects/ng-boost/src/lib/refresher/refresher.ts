@@ -153,7 +153,7 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
     this._isLoading$.next(false);
     this._isError$.next(false);
     this._isInitialized$.next(true);
-    this._data$.next(this.parseData(success));
+    this._data$.next(this.modifyData(this.parseData(success)));
   }
 
   protected onSuccess(success: SourceData): void {
@@ -184,5 +184,9 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
   protected abstract getDataSource(): RefresherSourceType<SourceData>;
 
   protected abstract parseData(response: SourceData): ParsedData;
+
+  protected modifyData(parsedData: ParsedData): ParsedData {
+    return parsedData;
+  }
 
 }

@@ -85,9 +85,13 @@ export abstract class DataClientSidePageableRefresher<SourceData, ParsedData = S
     this.refresh();
   }
 
-  protected paginateData(data: ParsedData[]): ParsedData[] {
-    this._totalItemsCount = data.length;
-    const filteredResponse = data.filter(value => this.searchQueryFn(value, this._searchQuery));
+  protected parseData(response: SourceData): ParsedData[] {
+    return response as any as ParsedData[];
+  }
+
+  protected modifyData(parsedData: ParsedData[]): ParsedData[] {
+    this._totalItemsCount = parsedData.length;
+    const filteredResponse = parsedData.filter(value => this.searchQueryFn(value, this._searchQuery));
     const sortedResponse = sortArray(filteredResponse, keyFromSortKey(this.sort) as keyof ParsedData, isAscending(this.sort));
     return paginateArray(sortedResponse, this.pageNumber, this.pageSize);
   }
