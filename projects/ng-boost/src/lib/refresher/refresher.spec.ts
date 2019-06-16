@@ -16,7 +16,7 @@ class TestRefresher extends Refresher<number, number> {
     return this.source;
   }
 
-  protected parseData(response: number): number {
+  protected parseSourceData(response: number): number {
     return response;
   }
 

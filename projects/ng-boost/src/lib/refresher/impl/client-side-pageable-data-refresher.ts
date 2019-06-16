@@ -1,16 +1,12 @@
-import { PageableDataRefresher } from './pageable-data-refresher';
-import { RefresherConfig } from '../refresher';
+import { PageableDataRefresher, PageOptions } from './pageable-data-refresher';
+import { Refresher, RefresherConfig } from '../refresher';
 import { AutorefreshMode } from '../autorefresh';
 import { paginateArray } from '../rxjs-operators/paginate.operator';
 import { isAscending, keyFromSortKey, sortArray } from '../rxjs-operators/sort-by.operator';
+import { Observable } from 'rxjs';
 
 // tslint:disable-next-line:max-line-length
 export abstract class ClientSidePageableDataRefresher<SourceData, ParsedData = SourceData> extends PageableDataRefresher<SourceData, ParsedData> {
-  private _pageNumber = 0;
-  private _pageSize = 10;
-  private _sort = '';
-  private _totalItemsCount = 0;
-  private _searchQuery = '';
 
   constructor(config: Partial<RefresherConfig> = {}) {
     super({
@@ -20,81 +16,33 @@ export abstract class ClientSidePageableDataRefresher<SourceData, ParsedData = S
     });
   }
 
-  get totalItemsCount(): number {
-    return this._totalItemsCount;
-  }
+  abstract searchFilterFn(item: ParsedData, searchQuery: string): boolean;
 
-  get itemsCount(): number {
-    return this.data.length;
-  }
-
-  get pageNumber(): number {
-    return this._pageNumber;
-  }
-
-  get pageSize(): number {
-    return this._pageSize;
-  }
-
-  get sort(): string {
-    return this._sort;
-  }
-
-  get searchQuery(): string {
-    return this._searchQuery;
-  }
-
-  nextPage(): void {
-    this._pageNumber++;
-    this.refresh();
-  }
-
-  previousPage(): void {
-    this._pageNumber--;
-    this.refresh();
-  }
-
-  page(pageNumber: number, pageSize: number, sort?: string) {
-    this._pageNumber = pageNumber;
-    this._pageSize = pageSize;
-    this._sort = sort || '';
-    console.log({pageNumber, pageSize, sort});
-    this.refresh();
-  }
-
-  search(searchQuery: string) {
-    this._searchQuery = searchQuery || '';
-    console.log({searchQuery});
-    this.refresh();
-  }
-
-  /**
-   * Override this function if you want to search by custom field
-   */
-  searchQueryFn(item: ParsedData, searchQuery: string): boolean {
-    return true;
-  }
-
-  firstPage(): void {
-    this._pageNumber = 0;
-    this.refresh();
-  }
-
-  lastPage(): void {
-    this._pageNumber = Math.floor(this.data.length / this.pageSize) || 0;
-    this.refresh();
-  }
-
-  protected parseData(response: SourceData): ParsedData[] {
+  protected parseSourceData(response: SourceData): ParsedData[] {
     return response as any as ParsedData[];
   }
 
   protected modifyData(parsedData: ParsedData[]): ParsedData[] {
-    this._totalItemsCount = parsedData.length;
-    const filteredResponse = parsedData.filter(value => this.searchQueryFn(value, this._searchQuery));
+    this.totalItemsCount = parsedData.length;
+    const filteredResponse = this.searchQuery ? parsedData.filter(value => this.searchFilterFn(value, this.searchQuery)) : parsedData;
     const sortedResponse = sortArray(filteredResponse, keyFromSortKey(this.sort) as keyof ParsedData, isAscending(this.sort));
     return paginateArray(sortedResponse, this.pageNumber, this.pageSize);
   }
 
 }
 
+interface Organization {
+  id: number;
+  name: string;
+}
+
+class OrganizationsRefresher extends ClientSidePageableDataRefresher<Organization> {
+  protected getPageableDataSource(pageOptions: PageOptions): Observable<Organization> | Refresher<any, Organization> {
+    return undefined;
+  }
+
+  searchFilterFn(item: Organization, searchQuery: string): boolean {
+    return item.name === searchQuery;
+  }
+
+}

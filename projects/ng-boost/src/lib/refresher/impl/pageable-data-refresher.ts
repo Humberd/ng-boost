@@ -1,29 +1,90 @@
-import { Refresher } from '../refresher';
+import { Refresher, RefresherDataSource } from '../refresher';
+
+export interface PageOptions {
+  pageNumber: number;
+  pageSize: number;
+  sort?: string;
+  search?: string;
+}
 
 export abstract class PageableDataRefresher<SourceData, ParsedData = SourceData> extends Refresher<SourceData, ParsedData[]> {
-  abstract get totalItemsCount(): number;
+  private _pageNumber = 0;
+  private _pageSize = 10;
+  private _sort = '';
+  private _totalItemsCount = 0;
+  private _searchQuery = '';
 
-  abstract get itemsCount(): number;
+  get totalItemsCount(): number {
+    return this._totalItemsCount;
+  }
 
-  abstract get pageNumber(): number;
+  set totalItemsCount(value: number) {
+    this._totalItemsCount = value;
+  }
 
-  abstract get pageSize(): number;
+  get itemsCount(): number {
+    return this.data.length;
+  }
 
-  abstract get sort(): string;
+  get pageNumber(): number {
+    return this._pageNumber;
+  }
 
-  abstract get searchQuery(): string;
+  get pageSize(): number {
+    return this._pageSize;
+  }
 
-  abstract nextPage(): void;
+  get sort(): string {
+    return this._sort;
+  }
 
-  abstract previousPage(): void;
+  get searchQuery(): string {
+    return this._searchQuery;
+  }
 
-  abstract page(pageNumber: number, pageSize: number, sort?: string);
+  nextPage(): void {
+    this._pageNumber++;
+    this.refresh();
+  }
 
-  abstract search(searchQuery: string);
+  previousPage(): void {
+    this._pageNumber--;
+    this.refresh();
+  }
 
-  abstract searchQueryFn(item: ParsedData, searchQuery: string): boolean;
+  firstPage(): void {
+    this._pageNumber = 0;
+    this.refresh();
+  }
 
-  abstract firstPage(): void;
+  lastPage(): void {
+    this._pageNumber = Math.floor(this.totalItemsCount / this.pageSize) || 0;
+    this.refresh();
+  }
 
-  abstract lastPage(): void;
+  page(pageNumber: number, pageSize: number, sort?: string) {
+    this._pageNumber = pageNumber;
+    this._pageSize = pageSize;
+    this._sort = sort || '';
+    console.log({pageNumber, pageSize, sort});
+    this.refresh();
+  }
+
+  search(searchQuery: string) {
+    this._searchQuery = searchQuery || '';
+    console.log({searchQuery});
+    this.refresh();
+  }
+
+  protected abstract getPageableDataSource(pageOptions: PageOptions): RefresherDataSource<SourceData>;
+
+  protected getDataSource(): RefresherDataSource<SourceData> {
+    return this.getPageableDataSource({
+      pageNumber: this.pageNumber,
+      pageSize: this.pageSize,
+      sort: this.sort,
+      search: this.searchQuery
+    });
+  }
+
 }

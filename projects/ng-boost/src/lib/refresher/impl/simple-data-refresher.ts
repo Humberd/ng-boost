@@ -12,7 +12,7 @@ export abstract class SimpleDataRefresher<SourceData, ParsedData = SourceData> e
   }
 
 
-  protected parseData(response: SourceData): ParsedData {
+  protected parseSourceData(response: SourceData): ParsedData {
     return response as any as ParsedData;
   }
 }

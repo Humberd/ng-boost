@@ -9,7 +9,7 @@ export const NEVER_REFRESH = 999_999_000;
 const NOT_INITIALIZED = undefined;
 const EMPTY = null;
 
-export type RefresherSourceType<SourceData> = Observable<SourceData> | Refresher<any, SourceData>;
+export type RefresherDataSource<SourceData> = Observable<SourceData> | Refresher<any, SourceData>;
 
 /**
  * todo: change to Omit type
@@ -83,7 +83,7 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
     console.log('Autorefresh initiated');
   }
 
-  private applyDataSourceHandlers(dataSource: RefresherSourceType<SourceData>) {
+  private applyDataSourceHandlers(dataSource: RefresherDataSource<SourceData>) {
     if (dataSource instanceof Refresher) {
       /* Data refresh is already being triggered on parent Refresher. We don't want to do it twice  */
       this.config.period = NEVER_REFRESH;
@@ -153,7 +153,7 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
     this._isLoading$.next(false);
     this._isError$.next(false);
     this._isInitialized$.next(true);
-    this._data$.next(this.modifyData(this.parseData(success)));
+    this._data$.next(this.modifyData(this.parseSourceData(success)));
   }
 
   protected onSuccess(success: SourceData): void {
@@ -181,9 +181,9 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
     // implemented by the user
   }
 
-  protected abstract getDataSource(): RefresherSourceType<SourceData>;
+  protected abstract getDataSource(): RefresherDataSource<SourceData>;
 
-  protected abstract parseData(response: SourceData): ParsedData;
+  protected abstract parseSourceData(sourceData: SourceData): ParsedData;
 
   protected modifyData(parsedData: ParsedData): ParsedData {
     return parsedData;
