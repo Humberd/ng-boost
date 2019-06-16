@@ -16,7 +16,7 @@ export type RefresherSourceType<SourceData> = Observable<SourceData> | Refresher
  * @see https://stackoverflow.com/a/48216010/4256929
  */
 export interface RefresherConfig {
-  period?: number;
+  period: number;
   mode: AutorefreshMode;
 }
 
