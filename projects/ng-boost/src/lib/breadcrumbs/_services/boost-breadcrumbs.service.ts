@@ -33,7 +33,7 @@ export class BoostBreadcrumbsService {
       .pipe(
         takeUntil(this.destroy$),
         filter(it => it instanceof NavigationEnd),
-        reemitWhen(() => this.refresh$),
+        reemitWhen(this.refresh$),
         switchMap(() => this._resolveCrumbs()),
         map(it => ([].concat(...it)))
       )

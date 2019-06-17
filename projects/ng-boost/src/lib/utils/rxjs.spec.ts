@@ -44,7 +44,7 @@ describe('rxjs', () => {
 
       let emittedData: any;
       dataStream
-        .pipe(reemitWhen(() => eventEmitter))
+        .pipe(reemitWhen(eventEmitter))
         .subscribe(value => emittedData = value);
 
       dataStream.next('abc');

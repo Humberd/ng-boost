@@ -15,11 +15,11 @@ export function wrapIntoObservable<T>(value: T | Promise<T> | Observable<T>): Ob
 }
 
 /**
- * Reemits last item when {emitterFn} emits a value.
- * @param emitterFn triggers data to be reemitted.
+ * Reemits stream's last item when {notifier} emits a value.
+ * @param notifier triggers data to be reemitted.
  */
-export function reemitWhen<T>(emitterFn: () => Observable<any>): OperatorFunction<T, T> {
+export function reemitWhen<T>(notifier: Observable<any>): OperatorFunction<T, T> {
   return switchMap(it => of(it)
-    .pipe(repeatWhen(emitterFn))
+    .pipe(repeatWhen(() => notifier))
   );
 }
