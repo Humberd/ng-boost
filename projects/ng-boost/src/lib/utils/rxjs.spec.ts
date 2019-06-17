@@ -1,5 +1,5 @@
-import { wrapIntoObservable } from './rxjs';
-import { of } from 'rxjs';
+import { reemitWhen, wrapIntoObservable } from './rxjs';
+import { of, Subject } from 'rxjs';
 
 describe('rxjs', () => {
 
@@ -30,6 +30,36 @@ describe('rxjs', () => {
         expect(value).toBe(3.2);
         done();
       });
+    });
+
+  });
+
+  describe('reemitWhen', () => {
+
+    it('should reemit data', () => {
+
+      const eventEmitter = new Subject();
+
+      const dataStream = new Subject();
+
+      let emittedData: any;
+      dataStream
+        .pipe(reemitWhen(() => eventEmitter))
+        .subscribe(value => emittedData = value);
+
+      dataStream.next('abc');
+      expect(emittedData).toBe('abc');
+
+      dataStream.next('def');
+      expect(emittedData).toBe('def');
+      emittedData = null;
+
+      eventEmitter.next('event-data'); // <--- triggerint reemit
+      expect(emittedData).toBe('def');
+
+      dataStream.next('ghi');
+      expect(emittedData).toBe('ghi');
+
     });
 
   });
