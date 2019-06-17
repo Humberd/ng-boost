@@ -8,13 +8,12 @@ import { reemitWhen } from '../../utils/rxjs';
 import { Title } from '@angular/platform-browser';
 import { TitleDefaultRouteResolver } from './title-default.route.resolver';
 import { TitleRouteResolver } from './title.route.resolver';
+import { TitleMainResolver } from './title.main.resolver';
 
 @Injectable()
 export class BoostTitleService {
   static readonly EMPTY_TITLE = '';
   static readonly ROUTE_DATA_FIELD_NAME = 'title';
-
-  readonly mainTitle = 'My App';
 
   @Destroy$() private readonly destroy$ = new Subject();
   private readonly refresh$ = new Subject();
@@ -23,7 +22,8 @@ export class BoostTitleService {
               private injector: Injector,
               private routerUtils: RouterUtilsService,
               private defaultResolver: TitleDefaultRouteResolver,
-              private titleService: Title
+              private titleService: Title,
+              private titleMainResolver: TitleMainResolver
   ) {
     this.router.events
       .pipe(
@@ -33,11 +33,7 @@ export class BoostTitleService {
         switchMap(() => this._resolveTitle())
       )
       .subscribe(title => {
-        if (!title) {
-          this.titleService.setTitle(this.mainTitle);
-        } else {
-          this.titleService.setTitle(`${title} - ${this.mainTitle}`);
-        }
+        this.titleService.setTitle(this.titleMainResolver.resolve(title, 'blblal'));
       });
   }
 
