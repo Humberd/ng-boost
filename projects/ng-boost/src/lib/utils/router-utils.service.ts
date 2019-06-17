@@ -59,6 +59,10 @@ export class RouterUtilsService {
     return results;
   }
 
+  /**
+   * Resolves given {route} `data` element provided in a route definition with
+   * either a {defaultResolver} or dynamic resolver of type {resolverBaseClass}
+   */
   resolveRouteData<T>(config: ResolveRouteDataConfig<T>): Observable<T> {
     const routeData = safeResolve(() => config.route.routeConfig.data[config.fieldName]);
 
