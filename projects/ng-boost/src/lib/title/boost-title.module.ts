@@ -20,6 +20,7 @@ export class BoostTitleModule {
         TitleDefaultRouteResolver,
         {
           provide: TitleMainResolver,
+
           useClass: DefaultTitleMainResolver
         },
         {
