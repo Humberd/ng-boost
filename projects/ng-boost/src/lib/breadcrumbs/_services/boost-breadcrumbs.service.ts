@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
-import { filter, map, switchMap, takeUntil, toArray } from 'rxjs/operators';
+import { filter, flatMap, map, switchMap, takeUntil, toArray } from 'rxjs/operators';
 import { Breadcrumb } from '../_models/breadcrumb';
 import { BreadcrumbsDefaultResolver } from './breadcrumbs-default.resolver';
 import { RouterUtilsService } from '../../utils/router-utils.service';
@@ -51,7 +51,7 @@ export class BoostBreadcrumbsService {
 
     return from(routesChain)
       .pipe(
-        switchMap(it => this.resolveBreadcrumbs(it.snapshot)),
+        flatMap(it => this.resolveBreadcrumbs(it.snapshot)),
         toArray()
       );
   }
