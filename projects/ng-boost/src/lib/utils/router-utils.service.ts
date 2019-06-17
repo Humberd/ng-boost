@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { EMPTY, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, pluck } from 'rxjs/operators';
 import { wrapIntoObservable } from '../breadcrumbs/_services/breadcrumbs.shared';
 import { safeResolve } from './safe-resolve';
 
@@ -32,10 +32,13 @@ export class RouterUtilsService {
     return undefined;
   }
 
+  /**
+   * Traverses a router tree from root to a leaf looking for {@param}.
+   */
   getParam$(param: string): Observable<string> {
     for (const route of this.getCurrentRoutesChain()) {
       if (route.snapshot.paramMap.has(param)) {
-        return route.paramMap.pipe(map(it => it.get(param)));
+        return route.params.pipe(pluck(param));
       }
     }
     return EMPTY;
