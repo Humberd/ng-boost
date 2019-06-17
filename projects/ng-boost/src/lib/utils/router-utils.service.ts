@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router, UrlSegment } from '@angular/router';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, pluck } from 'rxjs/operators';
 import { safeResolve } from './safe-resolve';
@@ -85,5 +85,15 @@ export class RouterUtilsService {
           return of(config.emptyValue);
         })
       );
+  }
+
+  /**
+   * Generates a complete path from root to a selected {route}
+   */
+  getFullPath(route: ActivatedRouteSnapshot): string {
+    const relativePath = (segments: UrlSegment[]) => segments.reduce((a, v) => a += '/' + v.path, '');
+    const fullPath = (routes: ActivatedRouteSnapshot[]) => routes.reduce((a, v) => a += relativePath(v.url), '');
+
+    return fullPath(route.pathFromRoot);
   }
 }

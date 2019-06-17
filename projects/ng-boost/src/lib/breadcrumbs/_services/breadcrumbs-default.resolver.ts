@@ -5,15 +5,21 @@ import { BreadcrumbsResolver } from './breadcrumbs.resolver';
 import { isObject } from '../../utils/is';
 import { Injectable } from '@angular/core';
 import { BoostBreadcrumbsService } from './boost-breadcrumbs.service';
+import { RouterUtilsService } from '../../utils/router-utils.service';
 
 @Injectable()
 export class BreadcrumbsDefaultResolver extends BreadcrumbsResolver {
+
+  constructor(private routerUtilsService: RouterUtilsService) {
+    super();
+  }
+
   public resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Breadcrumb[]> | Promise<Breadcrumb[]> | Breadcrumb[] {
 
-    let breadcrumbsPath = this.getFullPath(route);
+    let breadcrumbsPath = this.routerUtilsService.getFullPath(route);
 
     const routerData = route.routeConfig.data[BoostBreadcrumbsService.ROUTE_DATA_FIELD_NAME];
 
