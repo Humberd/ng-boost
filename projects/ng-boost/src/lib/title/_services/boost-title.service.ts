@@ -1,4 +1,4 @@
-import { Injectable, Injector } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Injector } from '@angular/core';
 import { Destroy$ } from '../../utils/destroy';
 import { from, Observable, Subject } from 'rxjs';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
@@ -9,6 +9,12 @@ import { Title } from '@angular/platform-browser';
 import { TitleDefaultRouteResolver } from './title-default.route.resolver';
 import { TitleRouteResolver } from './title.route.resolver';
 import { TitleMainResolver } from './title.main.resolver';
+
+export const BOOST_TITLE_CONFIG_TOKEN = new InjectionToken<BoostTitleConfig>('Boost Title Config');
+
+export interface BoostTitleConfig {
+  mainTitle: string;
+}
 
 @Injectable()
 export class BoostTitleService {
@@ -23,7 +29,8 @@ export class BoostTitleService {
               private routerUtils: RouterUtilsService,
               private defaultResolver: TitleDefaultRouteResolver,
               private titleService: Title,
-              private titleMainResolver: TitleMainResolver
+              private titleMainResolver: TitleMainResolver,
+              @Inject(BOOST_TITLE_CONFIG_TOKEN) private config: BoostTitleConfig
   ) {
     this.router.events
       .pipe(
@@ -33,7 +40,7 @@ export class BoostTitleService {
         switchMap(() => this._resolveTitle())
       )
       .subscribe(title => {
-        this.titleService.setTitle(this.titleMainResolver.resolve(title, 'blblal'));
+        this.titleService.setTitle(this.titleMainResolver.resolve(title, this.config.mainTitle));
       });
   }
 
