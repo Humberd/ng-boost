@@ -4,7 +4,9 @@ import { Breadcrumb } from '../_models/breadcrumb';
 import { BreadcrumbsResolver } from './breadcrumbs.resolver';
 import { ROUTE_DATA_FIELD_NAME } from './boost-breadcrumbs.service';
 import { isObject } from '../../utils/is';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class BreadcrumbsDefaultResolver extends BreadcrumbsResolver {
   public resolve(
     route: ActivatedRouteSnapshot,

@@ -1,10 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
-import { catchError, filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { Breadcrumb } from '../_models/breadcrumb';
 import { BreadcrumbsDefaultResolver } from './breadcrumbs-default.resolver';
-import { wrapIntoObservable } from './breadcrumbs.shared';
 import { RouterUtilsService } from '../../utils/router-utils.service';
 import { Destroy$ } from '../../utils/destroy';
 import { BreadcrumbsResolver } from './breadcrumbs.resolver';
@@ -13,9 +12,9 @@ export const ROUTE_DATA_FIELD_NAME = 'breadcrumbs';
 
 @Injectable()
 export class BoostBreadcrumbsService {
+  static readonly EMPTY_BREADCRUMBS = [];
   @Destroy$() private readonly destroy$ = new Subject();
-  private readonly defaultResolver = new BreadcrumbsDefaultResolver();
-  private readonly _breadcrumbs$ = new BehaviorSubject<Breadcrumb[]>([]);
+  private readonly _breadcrumbs$ = new BehaviorSubject<Breadcrumb[]>(BoostBreadcrumbsService.EMPTY_BREADCRUMBS);
 
   readonly breadcrumbs$ = this._breadcrumbs$.asObservable();
 
@@ -25,7 +24,8 @@ export class BoostBreadcrumbsService {
 
   constructor(private router: Router,
               private injector: Injector,
-              private routerUtils: RouterUtilsService
+              private routerUtils: RouterUtilsService,
+              private defaultResolver: BreadcrumbsDefaultResolver
   ) {
     this.router.events
       .pipe(
@@ -50,29 +50,14 @@ export class BoostBreadcrumbsService {
   }
 
   private resolveBreadcrumbs(route: ActivatedRouteSnapshot): Observable<Breadcrumb[]> {
-    const data = route.routeConfig &&
-      route.routeConfig.data;
+    return this.routerUtils.resolveRouteData({
+      emptyValue: BoostBreadcrumbsService.EMPTY_BREADCRUMBS,
+      fieldName: ROUTE_DATA_FIELD_NAME,
+      resolverBaseClass: BreadcrumbsResolver,
+      route,
+      defaultResolver: this.defaultResolver
+    });
 
-    if (data && data[ROUTE_DATA_FIELD_NAME]) {
-
-      let resolver: BreadcrumbsResolver;
-
-      if (data[ROUTE_DATA_FIELD_NAME].prototype instanceof BreadcrumbsResolver) {
-        resolver = this.injector.get<BreadcrumbsResolver>(data[ROUTE_DATA_FIELD_NAME]);
-      } else {
-        resolver = this.defaultResolver;
-      }
-
-      const result = resolver.resolve(route, this.router.routerState.snapshot);
-
-      return wrapIntoObservable<Breadcrumb[]>(result)
-        .pipe(
-          catchError(err => {
-            console.error(err);
-            return of([]);
-          })
-        );
-    }
   }
 }
 

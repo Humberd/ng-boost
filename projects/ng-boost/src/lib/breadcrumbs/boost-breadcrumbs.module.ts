@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { BoostBreadcrumbsComponent } from './breadcrumbs/boost-breadcrumbs.component';
 import { RouterModule } from '@angular/router';
 import { BoostBreadcrumbsService } from './_services/boost-breadcrumbs.service';
+import { BreadcrumbsDefaultResolver } from './_services/breadcrumbs-default.resolver';
+import { RouterUtilsService } from '../utils/router-utils.service';
 
 /**
  * To use breadcrumbs add the following structure to the route definition:
@@ -64,7 +66,9 @@ export class BoostBreadcrumbsModule {
     return {
       ngModule: BoostBreadcrumbsModule,
       providers: [
-        BoostBreadcrumbsService
+        BoostBreadcrumbsService,
+        BreadcrumbsDefaultResolver,
+        RouterUtilsService
       ]
     };
   }
