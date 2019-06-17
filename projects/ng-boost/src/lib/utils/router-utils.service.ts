@@ -2,8 +2,8 @@ import { Injectable, Injector } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, pluck } from 'rxjs/operators';
-import { wrapIntoObservable } from '../breadcrumbs/_services/breadcrumbs.shared';
 import { safeResolve } from './safe-resolve';
+import { wrapIntoObservable } from './rxjs';
 
 export interface ResolveRouteDataConfig<T> {
   route: ActivatedRouteSnapshot;
