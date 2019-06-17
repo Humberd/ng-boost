@@ -2,9 +2,9 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Breadcrumb } from '../_models/breadcrumb';
 import { BreadcrumbsResolver } from './breadcrumbs.resolver';
-import { ROUTE_DATA_FIELD_NAME } from './boost-breadcrumbs.service';
 import { isObject } from '../../utils/is';
 import { Injectable } from '@angular/core';
+import { BoostBreadcrumbsService } from './boost-breadcrumbs.service';
 
 @Injectable()
 export class BreadcrumbsDefaultResolver extends BreadcrumbsResolver {
@@ -15,7 +15,7 @@ export class BreadcrumbsDefaultResolver extends BreadcrumbsResolver {
 
     let breadcrumbsPath = this.getFullPath(route);
 
-    const routerData = route.routeConfig.data[ROUTE_DATA_FIELD_NAME];
+    const routerData = route.routeConfig.data[BoostBreadcrumbsService.ROUTE_DATA_FIELD_NAME];
 
     let breadcrumbLabel: string;
 
@@ -25,7 +25,8 @@ export class BreadcrumbsDefaultResolver extends BreadcrumbsResolver {
       breadcrumbLabel = (routerData as Breadcrumb).label;
       breadcrumbsPath = (routerData as Breadcrumb).href;
     } else {
-      throw Error(`${ROUTE_DATA_FIELD_NAME} value type is not supported. Should be a string or a Breadcrumb type object`);
+      // tslint:disable-next-line:max-line-length
+      throw Error(`${BoostBreadcrumbsService.ROUTE_DATA_FIELD_NAME} value type is not supported. Should be a string or a Breadcrumb type object`);
     }
 
     const crumbs: Breadcrumb[] = [{
