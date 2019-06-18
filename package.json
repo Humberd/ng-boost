@@ -7,9 +7,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test-lib": "ng test ng-boost",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "test-lib:ci": "ng test ng-boost -c ci",
     "publish-lib": "cd projects/ng-boost && npm run publish-lib"
   },
   "license": "MIT",
@@ -55,6 +55,7 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "ng-packagr": "^5.1.0",
     "protractor": "~5.4.0",
+    "puppeteer": "^1.17.0",
     "ts-node": "~7.0.0",
     "tsickle": "^0.35.0",
     "tslint": "~5.15.0",
