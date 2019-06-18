@@ -10,6 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "test-lib:ci": "ng test ng-boost -c ci",
+    "build-lib:ci": "ng build ng-boost",
     "publish-lib": "cd projects/ng-boost && npm run publish-lib"
   },
   "license": "MIT",
