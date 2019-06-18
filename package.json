@@ -7,7 +7,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test-lib": "ng test ng-boost",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "publish-lib": "cd projects/ng-boost && npm run publish-lib"

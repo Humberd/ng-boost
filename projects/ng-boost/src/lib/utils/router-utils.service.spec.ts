@@ -4,15 +4,20 @@ import { RouterUtilsService } from './router-utils.service';
 import { NoopComponent, NoopModule } from './noop.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { NgZone } from '@angular/core';
 
 describe('RouterUtilsService', () => {
 
   describe('getParam', () => {
     let service: RouterUtilsService;
     let router: Router;
+    let ngZone: NgZone;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
+        providers: [
+          RouterUtilsService
+        ],
         imports: [
           NoopModule,
           RouterTestingModule.withRoutes([
@@ -39,12 +44,13 @@ describe('RouterUtilsService', () => {
                 }
               ]
             }
-          ])
-        ]
+          ]),
+        ],
       }).compileComponents();
 
       router = TestBed.get(Router);
       service = TestBed.get(RouterUtilsService);
+      ngZone = TestBed.get(NgZone);
     });
 
     it('should get desired params', async () => {
@@ -60,10 +66,10 @@ describe('RouterUtilsService', () => {
 
     it('should return null for not existing parameters', async () => {
       await router.navigateByUrl('/sla/abc');
-      expect(service.getParam('notExistingId')).toBe(null);
+      expect(service.getParam('notExistingId')).toBe(undefined);
 
       await router.navigateByUrl('/sites');
-      expect(service.getParam('siteId')).toBe(null);
+      expect(service.getParam('siteId')).toBe(undefined);
     });
   });
 
@@ -73,6 +79,9 @@ describe('RouterUtilsService', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
+        providers: [
+          RouterUtilsService
+        ],
         imports: [
           NoopModule,
           RouterTestingModule.withRoutes([

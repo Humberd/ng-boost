@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
-import { filter, flatMap, map, switchMap, takeUntil, toArray } from 'rxjs/operators';
+import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { Breadcrumb } from '../_models/breadcrumb';
 import { BreadcrumbsDefaultResolver } from './breadcrumbs-default.resolver';
 import { RouterUtilsService } from '../../utils/router-utils.service';
@@ -49,11 +49,17 @@ export class BoostBreadcrumbsService {
   private _resolveCrumbs(): Observable<Breadcrumb[][]> {
     const routesChain = this.routerUtils.getCurrentRoutesChain();
 
-    return from(routesChain)
-      .pipe(
-        flatMap(it => this.resolveBreadcrumbs(it.snapshot)),
-        toArray()
-      );
+    const routesToDisplay = routesChain
+      .map(it => this.resolveBreadcrumbs(it.snapshot))
+      .filter(it => !!it);
+
+    return combineLatest(routesToDisplay);
+
+    // return from(routesChain)
+    //   .pipe(
+    //     switchMap(it => this.resolveBreadcrumbs(it.snapshot)),
+    //     toArray()
+    //   );
   }
 
   private resolveBreadcrumbs(route: ActivatedRouteSnapshot): Observable<Breadcrumb[]> {
