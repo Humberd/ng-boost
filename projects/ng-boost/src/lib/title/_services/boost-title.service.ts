@@ -6,7 +6,6 @@ import { RouterUtilsService } from '../../utils/router-utils.service';
 import { defaultIfEmpty, filter, flatMap, switchMap, take, takeUntil } from 'rxjs/operators';
 import { reemitWhen } from '../../utils/rxjs';
 import { Title } from '@angular/platform-browser';
-import { TitleDefaultRouteResolver } from './title-default.route.resolver';
 import { TitleRouteResolver } from './title.route.resolver';
 import { TitleMainResolver } from './title.main.resolver';
 
@@ -27,7 +26,7 @@ export class BoostTitleService {
   constructor(private router: Router,
               private injector: Injector,
               private routerUtils: RouterUtilsService,
-              private defaultResolver: TitleDefaultRouteResolver,
+              private defaultResolver: TitleRouteResolver,
               private titleService: Title,
               private titleMainResolver: TitleMainResolver,
               @Inject(BOOST_TITLE_CONFIG_TOKEN) private config: BoostTitleConfig

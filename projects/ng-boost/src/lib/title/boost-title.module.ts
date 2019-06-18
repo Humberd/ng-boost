@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BOOST_TITLE_CONFIG_TOKEN, BoostTitleConfig, BoostTitleService } from './_services/boost-title.service';
 import { RouterUtilsService } from '../utils/router-utils.service';
 import { DefaultTitleMainResolver, TitleMainResolver } from './_services/title.main.resolver';
-import { TitleDefaultRouteResolver } from './_services/title-default.route.resolver';
+import { DefaultTitleRouteResolver, TitleRouteResolver } from './_services/title.route.resolver';
 
 @NgModule({
   declarations: [],
@@ -17,7 +17,10 @@ export class BoostTitleModule {
       ngModule: BoostTitleModule,
       providers: [
         BoostTitleService,
-        TitleDefaultRouteResolver,
+        {
+          provide: TitleRouteResolver,
+          useClass: DefaultTitleRouteResolver
+        },
         {
           provide: TitleMainResolver,
           useClass: DefaultTitleMainResolver
