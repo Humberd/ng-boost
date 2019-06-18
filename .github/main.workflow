@@ -1,6 +1,9 @@
 workflow "New workflow" {
   on = "push"
-  resolves = ["Install", "Build"]
+  resolves = [
+    "Install",
+    "Test",
+  ]
 }
 
 action "Install" {
@@ -14,3 +17,18 @@ action "Build" {
   args = ["run", "build-lib:ci"]
 }
 
+action "GitHub Action for npm" {
+  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
+}
+
+action "GitHub Action for npm-1" {
+  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
+  needs = ["GitHub Action for npm"]
+}
+
+action "Test" {
+  uses = "./.github/node-chrome"
+  needs = ["Build"]
+  runs = "sh -c"
+  args = "npm run test-lib:ci"
+}
