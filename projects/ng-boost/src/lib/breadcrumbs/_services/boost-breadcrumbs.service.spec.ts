@@ -7,9 +7,8 @@ import { filter, first, map } from 'rxjs/operators';
 import { Breadcrumb } from '../_models/breadcrumb';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NoopComponent, NoopModule } from '../../utils/noop.module';
-import { BreadcrumbsResolver } from './breadcrumbs.resolver';
+import { BreadcrumbsResolver, DefaultBreadcrumbsResolver } from './breadcrumbs.resolver';
 import { RouterUtilsService } from '../../utils/router-utils.service';
-import { BreadcrumbsDefaultResolver } from './breadcrumbs-default.resolver';
 
 
 describe('BreadcrumbsService', () => {
@@ -21,7 +20,10 @@ describe('BreadcrumbsService', () => {
       ],
       providers: [
         BoostBreadcrumbsService,
-        BreadcrumbsDefaultResolver,
+        {
+          provide: BreadcrumbsResolver,
+          useClass: DefaultBreadcrumbsResolver
+        },
         RouterUtilsService,
         ...providers
       ]

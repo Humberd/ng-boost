@@ -3,7 +3,6 @@ import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { Breadcrumb } from '../_models/breadcrumb';
-import { BreadcrumbsDefaultResolver } from './breadcrumbs-default.resolver';
 import { RouterUtilsService } from '../../utils/router-utils.service';
 import { Destroy$ } from '../../utils/destroy';
 import { BreadcrumbsResolver } from './breadcrumbs.resolver';
@@ -27,7 +26,7 @@ export class BoostBreadcrumbsService {
   constructor(private router: Router,
               private injector: Injector,
               private routerUtils: RouterUtilsService,
-              private defaultResolver: BreadcrumbsDefaultResolver
+              private defaultResolver: BreadcrumbsResolver
   ) {
     this.router.events
       .pipe(
