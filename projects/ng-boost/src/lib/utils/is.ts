@@ -4,5 +4,5 @@ export function isObject(obj: any) {
 }
 
 export function isPromise(value: any): boolean {
-  return value && (typeof value.then === 'function');
+  return !!value && (typeof value.then === 'function');
 }
