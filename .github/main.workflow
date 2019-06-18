@@ -22,5 +22,5 @@ action "Test" {
   uses = "./.github/node-chrome"
   needs = ["Build"]
   runs = "sh -c"
-  args = "npm run test-lib:ci"
+  args = ["npm run test-lib:ci"]
 }
