@@ -135,16 +135,25 @@ describe('RouterUtilsService', () => {
       ngZone = services.ngZone;
     });
 
-    it('should get routes chain', async () => {
-      await router.navigateByUrl('/sla');
+    it('should get routes chain', fakeAsync(() => {
+      ngZone.run(() => {
+        router.navigateByUrl('/sla');
+      });
+      tick(0);
       expect(service.getCurrentRoutesChain().length).toBe(2);
 
-      await router.navigateByUrl('/sites/1234');
+      ngZone.run(() => {
+        router.navigateByUrl('/sites/1234');
+      });
+      tick(0);
       expect(service.getCurrentRoutesChain().length).toBe(3);
 
-      await router.navigateByUrl('/sla/qwerty/details');
+      ngZone.run(() => {
+        router.navigateByUrl('/sla/qwerty/details');
+      });
+      tick(0);
       expect(service.getCurrentRoutesChain().length).toBe(4);
-    });
+    }));
   });
 
 });
