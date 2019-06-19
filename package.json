@@ -9,7 +9,7 @@
     "build": "ng build",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "test-lib:ci": "ng test ng-boost -c ci",
+    "test-lib:ci": "ng test ng-boost -c ci --code-coverage",
     "build-lib:ci": "ng build ng-boost",
     "publish-lib": "cd projects/ng-boost && npm run publish-lib"
   },
