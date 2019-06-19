@@ -25,9 +25,7 @@
           },
           "configurations": {
             "ci": {
-              "watch": false,
-              "progress": false,
-              "browsers": "ChromeHeadlessCI"
+              "karmaConfig": "projects/ng-boost/karma-ci.conf.js"
             }
           }
         },
