@@ -1,8 +1,10 @@
-<div class="boost-view-switcher-wrapper">
-  <button *ngFor="let listType of notSelectedListTypes$ | async; trackBy: trackBy"
-          (click)="selectView(listType.id)"
-          [attr.aria-label]="'Switch to' + (listType.id | titlecase) + ' View'"
-          [title]="(listType.id | titlecase) + ' View'">
-    {{(listType.id | titlecase) + ' View'}}
+<div class="boost-mat-view-switcher-wrapper">
+  <button *ngFor="let view of notSelectedViews$ | async; trackBy: trackBy"
+          mat-icon-button
+          [attr.aria-label]="'Switch to' + (view.id | titlecase) + ' View'"
+          [title]="(view.id | titlecase) + ' View'"
+          (click)="selectView(view.id)"
+  >
+    <mat-icon>{{view.icon}}</mat-icon>
   </button>
 </div>

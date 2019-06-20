@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AvailableViewType, ViewType } from '../../../../../ng-boost/src/lib/view-switcher/_models/view-switcher.model';
-import { BoostViewSwitcherService } from '../../../../../ng-boost/src/lib/view-switcher/_services/boost-view-switcher.service';
+import { AvailableViewType, BoostViewSwitcherService, ViewType } from 'ng-boost';
 
 @Component({
   selector: 'boost-mat-view-switcher',
@@ -12,13 +11,13 @@ import { BoostViewSwitcherService } from '../../../../../ng-boost/src/lib/view-s
   encapsulation: ViewEncapsulation.None
 })
 export class BoostMatViewSwitcherComponent implements OnInit {
-  notSelectedListTypes$: Observable<ViewType[]>;
+  notSelectedViews$: Observable<ViewType[]>;
 
   constructor(public viewSwitcher: BoostViewSwitcherService) {
   }
 
   ngOnInit(): void {
-    this.notSelectedListTypes$ = this.viewSwitcher
+    this.notSelectedViews$ = this.viewSwitcher
       .selectedView$
       .pipe(
         map(() => this.viewSwitcher.getNotSelected())

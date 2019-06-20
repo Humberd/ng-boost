@@ -13,8 +13,8 @@
     "build-ng-boost:ci": "ng build ng-boost",
     "publish-ng-boost": "cd projects/ng-boost && npm run publish-lib",
     "start-ng-boost-material-examples": "ng serve ng-boost-material-examples",
-    "test-ng-boost-material:ci": "ng test ng-boost -c ci --code-coverage",
-    "build-ng-boost-material:ci": "ng build ng-boost",
+    "test-ng-boost-material:ci": "ng test ng-boost-material -c ci --code-coverage",
+    "build-ng-boost-material:ci": "ng build ng-boost-material",
     "publish-ng-boost-material": "cd projects/ng-boost-material && npm run publish-lib"
   },
   "license": "MIT",
