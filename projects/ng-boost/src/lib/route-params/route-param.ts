@@ -5,7 +5,7 @@ import { skip, takeUntil } from 'rxjs/operators';
 import { Destroy$ } from '../utils/destroy';
 
 @Injectable()
-export abstract class RouterParam {
+export abstract class RouteParam {
   @Destroy$() protected readonly destroy$ = new Subject();
 
   private _value: string;

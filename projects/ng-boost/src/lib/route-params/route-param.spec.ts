@@ -3,7 +3,7 @@ import { NoopModule } from '../utils/noop.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component, Injectable, NgZone, Provider } from '@angular/core';
 import { Router, Routes } from '@angular/router';
-import { RouterParam } from './route-param';
+import { RouteParam } from './route-param';
 import { RouterUtilsService } from '../utils/router-utils.service';
 
 describe('RouteParam', () => {
@@ -31,7 +31,7 @@ describe('RouteParam', () => {
 
   it('should detect route params changes', fakeAsync(() => {
     @Injectable()
-    class UserIdRouteParam extends RouterParam {
+    class UserIdRouteParam extends RouteParam {
       protected paramName(): string {
         return 'userId';
       }
@@ -107,7 +107,7 @@ describe('RouteParam', () => {
 
   it('should not emit any values when providing a not existing field name', fakeAsync(() => {
     @Injectable()
-    class UserIdRouteParam extends RouterParam {
+    class UserIdRouteParam extends RouteParam {
       protected paramName(): string {
         return 'groupId'; // <-- notice here a wrong paramName
       }
