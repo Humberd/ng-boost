@@ -9,9 +9,12 @@
     "build": "ng build",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "test-lib:ci": "ng test ng-boost -c ci --code-coverage",
-    "build-lib:ci": "ng build ng-boost",
-    "publish-lib": "cd projects/ng-boost && npm run publish-lib"
+    "test-ng-boost:ci": "ng test ng-boost -c ci --code-coverage",
+    "build-ng-boost:ci": "ng build ng-boost",
+    "publish-ng-boost": "cd projects/ng-boost && npm run publish-lib",
+    "test-ng-boost-material:ci": "ng test ng-boost -c ci --code-coverage",
+    "build-ng-boost-material:ci": "ng build ng-boost",
+    "publish-ng-boost-material": "cd projects/ng-boost-material && npm run publish-lib"
   },
   "license": "MIT",
   "repository": {
