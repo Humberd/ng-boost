@@ -4,7 +4,10 @@ import { RouterUtilsService } from '../utils/router-utils.service';
 import { skip, takeUntil } from 'rxjs/operators';
 import { Destroy$ } from '../utils/destroy';
 
-@Injectable()
+@Injectable({
+  providedIn: null,
+  deps: [RouterUtilsService]
+})
 export abstract class RouterParam {
   @Destroy$() protected readonly destroy$ = new Subject();
 
