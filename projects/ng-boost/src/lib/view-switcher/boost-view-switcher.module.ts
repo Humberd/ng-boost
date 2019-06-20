@@ -2,6 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BoostViewDirective, BoostViewGridDirective, BoostViewTableDirective } from './view-selectors/view-selector-types.directive';
 import { defaultViewTypes, VIEW_SWITCHER_ROOT_CONFIG_TOKEN, ViewTypesRootConfig } from './_models/view-switcher.model';
+import { BoostViewSwitcherService } from './_services/boost-view-switcher.service';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ export class BoostViewSwitcherModule {
     return {
       ngModule: BoostViewSwitcherModule,
       providers: [
+        BoostViewSwitcherService,
         {
           provide: VIEW_SWITCHER_ROOT_CONFIG_TOKEN,
           useValue: {
