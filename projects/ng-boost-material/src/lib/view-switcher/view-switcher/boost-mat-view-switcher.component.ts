@@ -9,11 +9,6 @@ import { AvailableViewType, BoostViewSwitcherService, ViewType } from 'ng-boost'
   styleUrls: ['./boost-mat-view-switcher.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  viewProviders: [
-    BoostViewSwitcherService.configure({
-      storageKey: 'view-switcher-test'
-    })
-  ]
 })
 export class BoostMatViewSwitcherComponent implements OnInit {
   notSelectedViews$: Observable<ViewType[]>;

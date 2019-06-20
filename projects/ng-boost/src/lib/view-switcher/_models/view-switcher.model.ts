@@ -29,11 +29,11 @@ export function defaultViewTypes(): ViewType[] {
   return [
     {
       id: 'grid',
-      icon: 'enterprise'
+      icon: 'view_module'
     },
     {
       id: 'table',
-      icon: 'list'
+      icon: 'view_list'
     }
   ];
 }
