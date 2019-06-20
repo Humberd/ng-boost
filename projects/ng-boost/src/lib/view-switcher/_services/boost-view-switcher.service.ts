@@ -1,5 +1,4 @@
 import { BehaviorSubject } from 'rxjs';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Inject, Injectable, Provider } from '@angular/core';
 import {
   AvailableViewType,
@@ -19,8 +18,7 @@ export class BoostViewSwitcherService {
   private readonly config: Required<ViewTypesLocalConfig>;
 
   constructor(@Inject(VIEW_SWITCHER_LOCAL_CONFIG_TOKEN) localConfig: ViewTypesLocalConfig,
-              @Inject(VIEW_SWITCHER_ROOT_CONFIG_TOKEN) rootConfig: ViewTypesRootConfig,
-              private liveAnnouncer: LiveAnnouncer) {
+              @Inject(VIEW_SWITCHER_ROOT_CONFIG_TOKEN) rootConfig: ViewTypesRootConfig) {
     this.config = {
       viewTypes: rootConfig.viewTypes,
       defaultType: rootConfig.defaultType,
@@ -53,8 +51,6 @@ export class BoostViewSwitcherService {
 
     this._selectedView$.next(viewType);
     this.saveToStorage(viewType);
-
-    this.liveAnnouncer.announce(`Switched to ${viewType} view`);
   }
 
   static configure(localConfig: ViewTypesLocalConfig): Provider[] {
