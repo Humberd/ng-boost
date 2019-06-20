@@ -25,6 +25,12 @@
       ],
       "ng-boost/*": [
         "dist/ng-boost/*"
+      ],
+      "ng-boost-material": [
+        "dist/ng-boost-material"
+      ],
+      "ng-boost-material/*": [
+        "dist/ng-boost-material/*"
       ]
     }
   }

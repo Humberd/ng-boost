@@ -159,6 +159,41 @@
           }
         }
       }
+    },
+    "ng-boost-material": {
+      "projectType": "library",
+      "root": "projects/ng-boost-material",
+      "sourceRoot": "projects/ng-boost-material/src",
+      "prefix": "boost-mat",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-boost-material/tsconfig.lib.json",
+            "project": "projects/ng-boost-material/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-boost-material/src/test.ts",
+            "tsConfig": "projects/ng-boost-material/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-boost-material/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-boost-material/tsconfig.lib.json",
+              "projects/ng-boost-material/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "ng-boost"
 }
