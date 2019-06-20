@@ -221,7 +221,8 @@
             ],
             "styles": [
               "projects/ng-boost-material-examples/src/styles.scss",
-              "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
+              "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "node_modules/normalize.css/normalize.css"
             ],
             "scripts": []
           },
