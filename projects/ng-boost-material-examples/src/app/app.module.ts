@@ -11,7 +11,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   imports: [
     BrowserModule,
-    RouterModule.forRoot([]),
+    RouterModule.forRoot([{
+      path: 'title',
+      loadChildren: () => import('./pages/title/title.module').then(m => m.TitleModule)
+    }], {
+      useHash: false
+    }),
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -26,4 +31,5 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
