@@ -20,8 +20,6 @@ export abstract class BoostViewSelector implements OnInit {
     this.viewTypesService.selectedView$
       .pipe(takeUntil(this.destroy$))
       .subscribe(selectedView => {
-        console.log(this);
-        console.log(selectedView);
         if (selectedView === this.viewType) {
           this.viewRef.createEmbeddedView(this.templateRef);
         } else {
