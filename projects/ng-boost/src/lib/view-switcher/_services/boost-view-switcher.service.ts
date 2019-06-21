@@ -4,9 +4,9 @@ import {
   AvailableViewType,
   VIEW_SWITCHER_LOCAL_CONFIG_TOKEN,
   VIEW_SWITCHER_ROOT_CONFIG_TOKEN,
-  ViewType,
-  ViewTypesLocalConfig,
-  ViewTypesRootConfig
+  ViewSwitcherConfig,
+  ViewSwitcherRootConfig,
+  ViewType
 } from '../_models/view-switcher.model';
 
 
@@ -15,10 +15,10 @@ export class BoostViewSwitcherService {
   private readonly _selectedView$ = new BehaviorSubject<AvailableViewType>(null);
   readonly selectedView$ = this._selectedView$.asObservable();
 
-  private readonly config: Required<ViewTypesLocalConfig>;
+  private readonly config: Required<ViewSwitcherConfig>;
 
-  constructor(@Inject(VIEW_SWITCHER_LOCAL_CONFIG_TOKEN) localConfig: ViewTypesLocalConfig,
-              @Inject(VIEW_SWITCHER_ROOT_CONFIG_TOKEN) rootConfig: ViewTypesRootConfig) {
+  constructor(@Inject(VIEW_SWITCHER_LOCAL_CONFIG_TOKEN) localConfig: ViewSwitcherConfig,
+              @Inject(VIEW_SWITCHER_ROOT_CONFIG_TOKEN) rootConfig: ViewSwitcherRootConfig) {
     this.config = {
       viewTypes: rootConfig.viewTypes,
       defaultType: rootConfig.defaultType,
@@ -53,7 +53,7 @@ export class BoostViewSwitcherService {
     this.saveToStorage(viewType);
   }
 
-  static configure(localConfig: ViewTypesLocalConfig): Provider[] {
+  static configure(localConfig: ViewSwitcherConfig): Provider[] {
     return [
       {
         provide: VIEW_SWITCHER_LOCAL_CONFIG_TOKEN,
@@ -78,4 +78,10 @@ export class BoostViewSwitcherService {
   private isInViewTypes(typeId: AvailableViewType): boolean {
     return this.config.viewTypes.some(it => it.id === typeId);
   }
+}
+
+@Injectable()
+export class PotentialViewSwitcherService {
+  config: any;
+
 }

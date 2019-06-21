@@ -6,21 +6,21 @@ import { BoostViewSelector } from './view-selector';
 @Directive({
   selector: '[boostViewTable],[boost-view-table]'
 })
-export class BoostViewTableDirective extends BoostViewSelector {
+export class ViewTableDirective extends BoostViewSelector {
   viewType: AvailableViewType = 'table';
 }
 
 @Directive({
   selector: '[boostViewGrid],[boost-view-grid]'
 })
-export class BoostViewGridDirective extends BoostViewSelector {
+export class ViewGridDirective extends BoostViewSelector {
   viewType: AvailableViewType = 'grid';
 }
 
 @Directive({
   selector: '[boostView],[boost-view]'
 })
-export class BoostViewDirective extends BoostViewSelector {
+export class ViewDirective extends BoostViewSelector {
   @Input('boost-view') viewType: AvailableViewType;
 
   @Input('boostView')

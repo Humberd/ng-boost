@@ -7,23 +7,23 @@ export interface ViewType {
   icon: string;
 }
 
-export interface ViewTypesLocalConfig {
+export interface ViewSwitcherConfig {
   viewTypes?: ViewType[];
   defaultType?: AvailableViewType;
   storageKey: string;
   storage?: Storage;
 }
 
-export const VIEW_SWITCHER_LOCAL_CONFIG_TOKEN = new InjectionToken<ViewTypesLocalConfig>('View Switcher Local Config');
+export const VIEW_SWITCHER_LOCAL_CONFIG_TOKEN = new InjectionToken<ViewSwitcherConfig>('View Switcher Local Config');
 
 
-export interface ViewTypesRootConfig {
+export interface ViewSwitcherRootConfig {
   viewTypes?: ViewType[];
   defaultType?: AvailableViewType;
   storage?: Storage;
 }
 
-export const VIEW_SWITCHER_ROOT_CONFIG_TOKEN = new InjectionToken<ViewTypesRootConfig>('View Switcher Root Config');
+export const VIEW_SWITCHER_ROOT_CONFIG_TOKEN = new InjectionToken<ViewSwitcherRootConfig>('View Switcher Root Config');
 
 export function defaultViewTypes(): ViewType[] {
   return [

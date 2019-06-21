@@ -1,8 +1,8 @@
-import { Injectable, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Injectable, OnInit, Optional, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AvailableViewType } from '../_models/view-switcher.model';
-import { BoostViewSwitcherService } from '../_services/boost-view-switcher.service';
+import { BoostViewSwitcherService, PotentialViewSwitcherService } from '../_services/boost-view-switcher.service';
 import { Destroy$ } from '../../utils/destroy';
 
 @Injectable()
@@ -13,7 +13,9 @@ export abstract class BoostViewSelector implements OnInit {
 
   constructor(private readonly templateRef: TemplateRef<any>,
               private readonly viewRef: ViewContainerRef,
-              private readonly viewTypesService: BoostViewSwitcherService) {
+              private readonly viewTypesService: BoostViewSwitcherService,
+              @Optional() private potentialViewSwitcherService: PotentialViewSwitcherService) {
+    console.log(potentialViewSwitcherService);
   }
 
   ngOnInit(): void {

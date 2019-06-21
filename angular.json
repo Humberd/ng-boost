@@ -5,6 +5,12 @@
   "projects": {
     "ng-boost": {
       "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "changeDetection": "OnPush"
+        }
+      },
       "root": "projects/ng-boost",
       "sourceRoot": "projects/ng-boost/src",
       "prefix": "boost",
