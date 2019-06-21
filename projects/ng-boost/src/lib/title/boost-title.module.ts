@@ -34,4 +34,8 @@ export class BoostTitleModule {
     };
   }
 
+  constructor(boostTitleService: BoostTitleService) {
+
+  }
+
 }

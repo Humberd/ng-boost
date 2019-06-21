@@ -1,0 +1,11 @@
+section {
+  margin: 15px 25px;
+
+  .links {
+    margin-bottom: 10px;
+
+    a:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}

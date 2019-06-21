@@ -2,6 +2,7 @@
  * Public API Surface of ng-boost
  */
 
+export * from './lib/title/public-api';
 export * from './lib/view-switcher/public-api';
 
 export * from './lib/global-tokens/boost-global-tokens.module';
