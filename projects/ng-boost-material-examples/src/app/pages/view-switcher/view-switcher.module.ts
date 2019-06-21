@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ViewSwitcherComponent } from './view-switcher/view-switcher.component';
 import { BoostMatViewSwitcherModule } from 'ng-boost-material';
 import { SharedModule } from '../../shared/shared.module';
+import { ViewSwitcherDefaultComponent } from './view-switcher/view-switcher-default/view-switcher-default.component';
+import { ViewSwitcherCustomComponent } from './view-switcher/view-switcher-custom/view-switcher-custom.component';
 
 const routes: Routes = [{
   path: '',
@@ -17,7 +19,11 @@ const routes: Routes = [{
     RouterModule.forChild(routes),
     BoostMatViewSwitcherModule,
   ],
-  declarations: [ViewSwitcherComponent]
+  declarations: [
+    ViewSwitcherComponent,
+    ViewSwitcherDefaultComponent,
+    ViewSwitcherCustomComponent
+  ]
 })
 export class ViewSwitcherModule {
 }
