@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BoostViewSwitcherService, defaultViewTypes } from 'ng-boost';
+
 
 @Component({
   selector: 'app-view-switcher-custom',
@@ -15,18 +16,14 @@ import { BoostViewSwitcherService, defaultViewTypes } from 'ng-boost';
           icon: 'format_list_bulleted'
         },
         {
-          id: 'faces',
-          icon: 'face'
+          id: 'steps',
+          icon: 'assignment_turned_in'
         }
       ]
     })
   ]
 })
-export class ViewSwitcherCustomComponent implements OnInit {
+export class ViewSwitcherCustomComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
 
 }

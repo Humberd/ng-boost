@@ -21,7 +21,12 @@ export class BoostViewGridDirective extends BoostViewSelector {
   selector: '[boostView],[boost-view]'
 })
 export class BoostViewDirective extends BoostViewSelector {
-  @Input('boostView') viewType: AvailableViewType;
+  @Input('boost-view') viewType: AvailableViewType;
+
+  @Input('boostView')
+  set boostView(val: AvailableViewType) {
+    this.viewType = val;
+  }
 }
 
 
