@@ -9,3 +9,23 @@ section {
     margin-bottom: 10px;
   }
 }
+
+.custom-switcher {
+
+  .toggle-button {
+    margin-left: 20px;
+  }
+
+  .content {
+    display: flex;
+
+    .views {
+      flex: 1;
+    }
+
+    .vertical-switcher {
+      margin-left: 10px;
+    }
+  }
+
+}

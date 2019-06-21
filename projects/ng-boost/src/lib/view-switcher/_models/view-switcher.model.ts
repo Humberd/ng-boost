@@ -14,8 +14,6 @@ export interface ViewSwitcherConfig {
   storage?: Storage;
 }
 
-export const VIEW_SWITCHER_LOCAL_CONFIG_TOKEN = new InjectionToken<ViewSwitcherConfig>('View Switcher Local Config');
-
 
 export interface ViewSwitcherRootConfig {
   viewTypes?: ViewType[];

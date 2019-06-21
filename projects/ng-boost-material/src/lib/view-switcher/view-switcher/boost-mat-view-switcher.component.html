@@ -1,4 +1,6 @@
-<ul class="boost-mat-view-switcher-wrapper">
+<ul class="boost-mat-view-switcher-wrapper"
+    [ngClass]="orientation"
+>
   <li *ngFor="let view of notSelectedViews$ | async; trackBy: trackBy">
     <button mat-icon-button
             [attr.aria-label]="'Switch to ' + (view.id | titlecase) + ' View'"

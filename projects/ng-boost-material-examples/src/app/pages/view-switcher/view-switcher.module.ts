@@ -23,6 +23,7 @@ const routes: Routes = [{
     MatIconModule,
     MatTreeModule,
     MatButtonModule,
+    BoostMatViewSwitcherModule,
   ],
   declarations: [
     ViewSwitcherComponent,

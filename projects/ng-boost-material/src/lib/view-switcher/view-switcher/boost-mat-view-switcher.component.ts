@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AvailableViewType, BoostViewSwitcherService, ViewType } from 'ng-boost';
+
+export type BoostMatViewSwitcherOrientation = 'horizontal' | 'vertical';
 
 @Component({
   selector: 'boost-mat-view-switcher',
@@ -10,6 +12,7 @@ import { AvailableViewType, BoostViewSwitcherService, ViewType } from 'ng-boost'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoostMatViewSwitcherComponent implements OnInit {
+  @Input() orientation: BoostMatViewSwitcherOrientation = 'horizontal';
   notSelectedViews$: Observable<ViewType[]>;
 
   constructor(private viewSwitcher: BoostViewSwitcherService) {

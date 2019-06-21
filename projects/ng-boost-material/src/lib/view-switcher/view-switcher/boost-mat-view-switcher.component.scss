@@ -5,6 +5,14 @@
   display: flex;
   align-items: center;
 
+  &.horizontal {
+    flex-direction: row;
+  }
+
+  &.vertical {
+    flex-direction: column;
+  }
+
   li {
     list-style: none;
   }

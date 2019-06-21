@@ -14,17 +14,23 @@ export class ViewSwitcherComponent {
 
   customConfig: ViewSwitcherConfig = {
     storageKey: 'custom-example',
-        viewTypes: [
-          ...defaultViewTypes(),
-          {
-            id: 'list',
-            icon: 'format_list_bulleted'
-          },
-          {
-            id: 'steps',
-            icon: 'assignment_turned_in'
-          }
-        ]
+    viewTypes: [
+      ...defaultViewTypes(),
+      {
+        id: 'list',
+        icon: 'format_list_bulleted'
+      },
+      {
+        id: 'steps',
+        icon: 'assignment_turned_in'
+      }
+    ]
   };
+
+  isHorizontal = true;
+
+  toggleOrientation() {
+    this.isHorizontal = !this.isHorizontal;
+  }
 
 }
