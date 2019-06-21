@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, Optional, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AvailableViewType, BoostViewSwitcherService, ViewType } from 'ng-boost';
@@ -13,10 +13,8 @@ import { AvailableViewType, BoostViewSwitcherService, ViewType } from 'ng-boost'
 export class BoostMatViewSwitcherComponent implements OnInit {
   notSelectedViews$: Observable<ViewType[]>;
 
-  constructor(@Optional() private viewSwitcher: BoostViewSwitcherService) {
-    if (!viewSwitcher) {
-      throw Error(`You have probably forgot to import BoostViewSwitcherModule in your AppModule`);
-    }
+  constructor(private viewSwitcher: BoostViewSwitcherService) {
+
   }
 
   ngOnInit(): void {

@@ -1,8 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
-import { Inject, Injectable, Provider } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   AvailableViewType,
-  VIEW_SWITCHER_LOCAL_CONFIG_TOKEN,
   VIEW_SWITCHER_ROOT_CONFIG_TOKEN,
   ViewSwitcherConfig,
   ViewSwitcherRootConfig,
@@ -15,20 +14,26 @@ export class BoostViewSwitcherService {
   private readonly _selectedView$ = new BehaviorSubject<AvailableViewType>(null);
   readonly selectedView$ = this._selectedView$.asObservable();
 
-  private readonly config: Required<ViewSwitcherConfig>;
+  private config: Required<ViewSwitcherConfig>;
 
-  constructor(@Inject(VIEW_SWITCHER_LOCAL_CONFIG_TOKEN) localConfig: ViewSwitcherConfig,
-              @Inject(VIEW_SWITCHER_ROOT_CONFIG_TOKEN) rootConfig: ViewSwitcherRootConfig) {
+  constructor(@Inject(VIEW_SWITCHER_ROOT_CONFIG_TOKEN) private rootConfig: ViewSwitcherRootConfig) {
+  }
+
+  configure(config: ViewSwitcherConfig): void {
     this.config = {
-      viewTypes: rootConfig.viewTypes,
-      defaultType: rootConfig.defaultType,
-      storage: rootConfig.storage,
-      ...localConfig,
-      storageKey: `ng-boost.selected-view-type.${localConfig.storageKey}`
+      viewTypes: this.rootConfig.viewTypes,
+      defaultType: this.rootConfig.defaultType,
+      storage: this.rootConfig.storage,
+      ...config,
+      storageKey: `ng-boost.selected-view-type.${config.storageKey}`
     };
 
     if (!this.isInViewTypes(this.config.defaultType)) {
       throw Error(`${this.config.defaultType} type does not exist in viewTypes`);
+    }
+
+    if (this.selectedView) {
+      return;
     }
 
     const storageValue = this.loadFromStorage();
@@ -37,7 +42,6 @@ export class BoostViewSwitcherService {
     } else {
       this._selectedView$.next(this.config.defaultType);
     }
-
   }
 
   get selectedView(): string {
@@ -51,16 +55,6 @@ export class BoostViewSwitcherService {
 
     this._selectedView$.next(viewType);
     this.saveToStorage(viewType);
-  }
-
-  static configure(localConfig: ViewSwitcherConfig): Provider[] {
-    return [
-      {
-        provide: VIEW_SWITCHER_LOCAL_CONFIG_TOKEN,
-        useValue: localConfig
-      },
-      BoostViewSwitcherService
-    ];
   }
 
   private saveToStorage(viewType: AvailableViewType): void {
@@ -80,8 +74,3 @@ export class BoostViewSwitcherService {
   }
 }
 
-@Injectable()
-export class PotentialViewSwitcherService {
-  config: any;
-
-}

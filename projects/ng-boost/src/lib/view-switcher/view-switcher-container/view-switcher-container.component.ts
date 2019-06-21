@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ViewSwitcherConfig } from '../_models/view-switcher.model';
-import { PotentialViewSwitcherService } from '../_services/boost-view-switcher.service';
+import { BoostViewSwitcherService } from '../_services/boost-view-switcher.service';
 
 @Component({
   selector: 'boost-view-switcher-container',
@@ -8,10 +8,16 @@ import { PotentialViewSwitcherService } from '../_services/boost-view-switcher.s
   styleUrls: ['./view-switcher-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    PotentialViewSwitcherService
+    BoostViewSwitcherService
   ]
 })
 export class ViewSwitcherContainerComponent {
-  @Input() config: ViewSwitcherConfig;
+  @Input()
+  set config(config: ViewSwitcherConfig) {
+    this.boostViewSwitcherService.configure(config);
+  }
+
+  constructor(private boostViewSwitcherService: BoostViewSwitcherService) {
+  }
 
 }

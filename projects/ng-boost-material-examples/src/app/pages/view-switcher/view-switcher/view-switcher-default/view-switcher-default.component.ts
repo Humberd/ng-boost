@@ -1,21 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { BoostViewSwitcherService } from 'ng-boost';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ViewSwitcherConfig } from 'ng-boost';
 
 @Component({
   selector: 'app-view-switcher-default',
   templateUrl: './view-switcher-default.component.html',
   styleUrls: ['./view-switcher-default.component.scss'],
-  viewProviders: [
-    BoostViewSwitcherService.configure({
-      storageKey: 'view-switcher-example-test-default'
-    })
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewSwitcherDefaultComponent implements OnInit {
+export class ViewSwitcherDefaultComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  options: ViewSwitcherConfig = {
+    storageKey: 'foobar'
+  };
 
 }
