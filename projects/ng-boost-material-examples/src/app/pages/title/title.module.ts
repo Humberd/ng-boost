@@ -33,9 +33,7 @@ const routes: Routes = [{
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    BoostTitleModule.forRoot({
-      mainTitle: 'My Fancy App'
-    }),
+    BoostTitleModule.forRoot(),
     MatButtonModule,
     SharedModule,
     MatIconModule

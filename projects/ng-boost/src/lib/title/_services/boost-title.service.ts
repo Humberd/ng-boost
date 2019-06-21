@@ -1,4 +1,4 @@
-import { Inject, Injectable, InjectionToken, Injector, OnDestroy } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Destroy$ } from '../../utils/destroy';
 import { from, Observable, Subject } from 'rxjs';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
@@ -10,14 +10,8 @@ import { TitleRouteResolver } from './title.route.resolver';
 import { TitleMainResolver } from './title.main.resolver';
 import { EMPTY_TITLE, ROUTE_DATA_FIELD_NAME } from '../_models/fields';
 
-export const BOOST_TITLE_CONFIG_TOKEN = new InjectionToken<BoostTitleConfig>('Boost Title Config');
-
-export interface BoostTitleConfig {
-  mainTitle: string;
-}
-
 @Injectable()
-export class BoostTitleService implements OnDestroy {
+export class BoostTitleService {
   static readonly EMPTY_TITLE = EMPTY_TITLE;
   static readonly ROUTE_DATA_FIELD_NAME = ROUTE_DATA_FIELD_NAME;
 
@@ -32,7 +26,6 @@ export class BoostTitleService implements OnDestroy {
               private defaultResolver: TitleRouteResolver,
               private titleService: Title,
               private titleMainResolver: TitleMainResolver,
-              @Inject(BOOST_TITLE_CONFIG_TOKEN) private config: BoostTitleConfig
   ) {
     this.initialTitle = this.titleService.getTitle();
 
@@ -44,15 +37,9 @@ export class BoostTitleService implements OnDestroy {
         switchMap(() => this._resolveTitle())
       )
       .subscribe(title => {
-        this.titleService.setTitle(this.titleMainResolver.resolve(title, this.config.mainTitle));
+        this.titleService.setTitle(this.titleMainResolver.resolve(title, this.initialTitle));
       });
   }
-
-  ngOnDestroy(): void {
-    console.log('DESTROY BoostTitleService');
-    this.titleService.setTitle(this.initialTitle);
-  }
-
 
   refresh() {
     this.refresh$.next();
