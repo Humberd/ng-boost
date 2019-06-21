@@ -1,3 +1,36 @@
-<app-view-switcher-default></app-view-switcher-default>
+<section>
+  <h1 class="mat-h1">
+    Default Switcher
+  </h1>
+  <boost-view-switcher-container [config]="defaultConfig">
 
-<!--<app-view-switcher-custom></app-view-switcher-custom>-->
+    <boost-mat-view-switcher class="view-switcher"></boost-mat-view-switcher>
+
+    <app-example-table *boost-view-table></app-example-table>
+    <app-example-grid *boost-view-grid></app-example-grid>
+
+  </boost-view-switcher-container>
+
+</section>
+
+<section>
+  <h1 class="mat-h1">
+    Custom Views Switcher
+  </h1>
+
+  <boost-view-switcher-container [config]="customConfig">
+
+    <boost-mat-view-switcher class="view-switcher"></boost-mat-view-switcher>
+
+    <app-example-table *boost-view-table></app-example-table>
+    <app-example-grid *boost-view-grid></app-example-grid>
+    <app-example-list *boost-view="'list'"></app-example-list>
+    <app-example-tree *boostView="'steps'"></app-example-tree>
+
+  </boost-view-switcher-container>
+
+
+</section>
+
+
+

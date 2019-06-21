@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AvailableViewType, BoostViewSwitcherService, ViewType } from 'ng-boost';
@@ -8,7 +8,6 @@ import { AvailableViewType, BoostViewSwitcherService, ViewType } from 'ng-boost'
   templateUrl: './boost-mat-view-switcher.component.html',
   styleUrls: ['./boost-mat-view-switcher.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 export class BoostMatViewSwitcherComponent implements OnInit {
   notSelectedViews$: Observable<ViewType[]>;

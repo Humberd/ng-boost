@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { defaultViewTypes, ViewSwitcherConfig } from 'ng-boost';
 
 @Component({
   selector: 'app-view-switcher',
@@ -6,12 +7,24 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./view-switcher.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewSwitcherComponent implements OnInit {
+export class ViewSwitcherComponent {
+  defaultConfig: ViewSwitcherConfig = {
+    storageKey: 'default-example'
+  };
 
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
+  customConfig: ViewSwitcherConfig = {
+    storageKey: 'custom-example',
+        viewTypes: [
+          ...defaultViewTypes(),
+          {
+            id: 'list',
+            icon: 'format_list_bulleted'
+          },
+          {
+            id: 'steps',
+            icon: 'assignment_turned_in'
+          }
+        ]
+  };
 
 }
