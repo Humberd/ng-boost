@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExampleTableComponent } from './example-table/example-table.component';
-import { MatTableModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatTableModule } from '@angular/material';
+import { ExampleGridComponent } from './example-grid/example-grid.component';
 
 @NgModule({
-  declarations: [ExampleTableComponent],
+  declarations: [ExampleTableComponent, ExampleGridComponent],
   imports: [
     CommonModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule,
+    MatButtonModule
   ],
-  exports: [ExampleTableComponent]
+  exports: [ExampleTableComponent, ExampleGridComponent]
 })
 export class SharedModule { }
