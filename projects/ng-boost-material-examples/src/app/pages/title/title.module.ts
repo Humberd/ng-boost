@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { TitleComponent } from './title/title.component';
+import { TitleComponent } from './title.component';
 
 const routes: Routes = [{
   path: '',
@@ -13,7 +13,9 @@ const routes: Routes = [{
     CommonModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [TitleComponent]
+  declarations: [
+    TitleComponent
+  ]
 })
 export class TitleModule {
 }
