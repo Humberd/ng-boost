@@ -1,8 +1,9 @@
 import { BehaviorSubject } from 'rxjs';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import {
   AvailableViewType,
-  VIEW_SWITCHER_ROOT_CONFIG_TOKEN,
+  VIEW_SWITCHER_DEFAULT_ROOT_CONFIG,
+  VIEW_SWITCHER_ROOT_CONFIG,
   ViewSwitcherConfig,
   ViewSwitcherRootConfig,
   ViewType
@@ -16,14 +17,23 @@ export class BoostViewSwitcherService {
 
   private config: Required<ViewSwitcherConfig>;
 
-  constructor(@Inject(VIEW_SWITCHER_ROOT_CONFIG_TOKEN) private rootConfig: ViewSwitcherRootConfig) {
+  constructor(@Inject(VIEW_SWITCHER_DEFAULT_ROOT_CONFIG) defaultRootConfig: any,
+              @Optional() @Inject(VIEW_SWITCHER_ROOT_CONFIG) rootConfig: ViewSwitcherRootConfig = {}) {
+
+    /* {defaultRootConfig} is {any} because it threw an error when setting a type of {Required<ViewSwitcherRootConfig>}
+    * `Metadata collected contains an error that will be reported at runtime: Could not resolve type Required.`
+    * Version: typescript@3.4.5
+    *  */
+    this.config = {
+      ...(defaultRootConfig as Required<ViewSwitcherRootConfig>),
+      ...rootConfig,
+      storageKey: ''
+    };
   }
 
   configure(config: ViewSwitcherConfig): void {
     this.config = {
-      viewTypes: this.rootConfig.viewTypes,
-      defaultType: this.rootConfig.defaultType,
-      storage: this.rootConfig.storage,
+      ...this.config,
       ...config,
       storageKey: `ng-boost.selected-view-type.${config.storageKey}`
     };

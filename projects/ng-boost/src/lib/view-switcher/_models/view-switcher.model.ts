@@ -21,7 +21,9 @@ export interface ViewSwitcherRootConfig {
   storage?: Storage;
 }
 
-export const VIEW_SWITCHER_ROOT_CONFIG_TOKEN = new InjectionToken<ViewSwitcherRootConfig>('View Switcher Root Config');
+export const VIEW_SWITCHER_ROOT_CONFIG = new InjectionToken<ViewSwitcherRootConfig>('View Switcher Root Config');
+
+export const VIEW_SWITCHER_DEFAULT_ROOT_CONFIG = new InjectionToken<ViewSwitcherRootConfig>('View Switcher Default Root Config');
 
 export function defaultViewTypes(): ViewType[] {
   return [

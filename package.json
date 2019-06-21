@@ -1,8 +1,17 @@
 {
   "name": "ng-boost",
-  "version": "0.0.0",
-  "description": "Angular library, which boosts up a development by enforcing consistent patterns.",
   "author": "Maciej Sawicki",
+  "homepage": "https://humberd.github.io/ng-boost/",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Angular library, which boosts up a development by enforcing consistent patterns.",
+  "keywords": [
+    "Angular",
+    "framework",
+    "library",
+    "patterns",
+    "boost"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve ng-boost-material-examples",
@@ -20,7 +29,6 @@
     "publish-ng-boost-material": "cd projects/ng-boost-material && npm run publish-lib",
     "restart-all": "npm run build-ng-boost:ci && npm run build-ng-boost-material:ci && ng serve ng-boost-material-examples"
   },
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Humberd/ng-boost.git"
@@ -28,7 +36,6 @@
   "bugs": {
     "url": "https://github.com/Humberd/ng-boost/issues"
   },
-  "homepage": "https://github.com/Humberd/ng-boost#readme",
   "private": false,
   "dependencies": {
     "@angular/animations": "~8.0.1",
