@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BoostViewSwitcherService } from '../../../../../../../ng-boost/src/lib/view-switcher/_services/boost-view-switcher.service';
+import { BoostViewSwitcherService } from 'ng-boost';
 
 @Component({
   selector: 'app-view-switcher-default',

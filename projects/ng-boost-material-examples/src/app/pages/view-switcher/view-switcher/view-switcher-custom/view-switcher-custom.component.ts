@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BoostViewSwitcherService } from '../../../../../../../ng-boost/src/lib/view-switcher/_services/boost-view-switcher.service';
+import { BoostViewSwitcherService, defaultViewTypes } from 'ng-boost';
 
 @Component({
   selector: 'app-view-switcher-custom',
@@ -7,7 +7,18 @@ import { BoostViewSwitcherService } from '../../../../../../../ng-boost/src/lib/
   styleUrls: ['./view-switcher-custom.component.scss'],
   viewProviders: [
     BoostViewSwitcherService.configure({
-      storageKey: 'view-switcher-example-test-custom'
+      storageKey: 'view-switcher-example-test-custom',
+      viewTypes: [
+        ...defaultViewTypes(),
+        {
+          id: 'list',
+          icon: 'format_list_bulleted'
+        },
+        {
+          id: 'faces',
+          icon: 'face'
+        }
+      ]
     })
   ]
 })
