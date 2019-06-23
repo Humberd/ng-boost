@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormController } from './form.controller';
 
-export abstract class RootFormController<T> extends FormController<T> {
+export abstract class FormRootController<T> extends FormController<T> {
   private readonly _isLoading$ = new BehaviorSubject(false);
   isLoading$ = this._isLoading$.asObservable();
 
