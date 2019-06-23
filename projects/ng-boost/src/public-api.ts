@@ -2,6 +2,7 @@
  * Public API Surface of ng-boost
  */
 
+export * from './lib/controllers/public-api';
 export * from './lib/title/public-api';
 export * from './lib/view-switcher/public-api';
 

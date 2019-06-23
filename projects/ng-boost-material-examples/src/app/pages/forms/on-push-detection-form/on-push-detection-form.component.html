@@ -1,0 +1,37 @@
+<section>
+
+  <h1 class="mat-h1">Nested form with OnPush Change detection startegy</h1>
+
+  <form [formGroup]="rootForm"
+        (ngSubmit)="submit()"
+  >
+
+    <div class="container">
+      <mat-form-field>
+        <input matInput
+               placeholder="Name"
+               [formControl]="formDefinition.name"
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput
+               placeholder="Age"
+               type="number"
+               [formControl]="formDefinition.age"
+        >
+      </mat-form-field>
+
+      <app-on-push-badges [formGroupTemplate]="formDefinition.badgesForm"
+                          style="margin-left: 20px"
+      ></app-on-push-badges>
+
+    </div>
+
+
+    <button mat-raised-button color="primary">Submit</button>
+
+  </form>
+
+
+</section>
