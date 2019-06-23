@@ -16,6 +16,10 @@ const routes: Routes = [
   {
     path: 'view-switcher',
     loadChildren: () => import('./pages/view-switcher/view-switcher.module').then(m => m.ViewSwitcherModule)
+  },
+  {
+    path: 'forms',
+    loadChildren: () => import('./pages/forms/forms.module').then(m => m.FormsModule)
   }
 
 ];
