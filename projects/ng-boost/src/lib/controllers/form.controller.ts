@@ -1,5 +1,5 @@
 import { AbstractControl, AbstractControlOptions, FormGroup } from '@angular/forms';
-import { Input, OnInit } from '@angular/core';
+import { ApplicationRef, ChangeDetectorRef, Injectable, Input, NgZone, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Destroy$ } from '../utils/destroy';
 
@@ -7,12 +7,20 @@ export type FormControllerConfig<T> = {
   [key in keyof T]?: AbstractControl
 };
 
+@Injectable()
 export abstract class FormController<T> implements OnInit {
   @Destroy$() protected readonly destroy$ = new Subject();
+
+  @Input() marker: any;
 
   @Input() formGroupTemplate: FormGroup;
   formDefinition: FormControllerConfig<T>;
   rootForm: FormGroup;
+
+  constructor(protected cdr: ChangeDetectorRef,
+              protected applicationRef: ApplicationRef,
+              protected ngZone: NgZone) {
+  }
 
   ngOnInit(): void {
     const group = this.formGroupTemplate || new FormGroup({});

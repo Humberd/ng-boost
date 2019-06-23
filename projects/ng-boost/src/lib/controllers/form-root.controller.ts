@@ -60,7 +60,13 @@ export abstract class FormRootController<T> extends FormController<T> {
   }
 
   private markAsTouched(): void {
-    this._markAsTouched(this.rootForm);
+    this.ngZone.run(() => {
+      this._markAsTouched(this.rootForm);
+    });
+    this.applicationRef.tick();
+    this.cdr.detectChanges();
+    this.cdr.markForCheck();
+    // this.marker = !this.marker;
   }
 
   /**
