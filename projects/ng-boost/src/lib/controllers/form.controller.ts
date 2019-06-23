@@ -1,5 +1,5 @@
 import { AbstractControl, AbstractControlOptions, FormGroup } from '@angular/forms';
-import { ApplicationRef, ChangeDetectorRef, Injectable, Input, NgZone, OnInit } from '@angular/core';
+import { Injectable, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Destroy$ } from '../utils/destroy';
 
@@ -11,16 +11,15 @@ export type FormControllerConfig<T> = {
 export abstract class FormController<T> implements OnInit {
   @Destroy$() protected readonly destroy$ = new Subject();
 
-  @Input() marker: any;
-
+  /**
+   * When your component has a `changeDetection: OnPush` you should pass
+   * this variable down to other children FormControllers.
+   * Otherwise the children FormControllers' error states will not be visible.
+   */
+  @Input() onPush: any;
   @Input() formGroupTemplate: FormGroup;
   formDefinition: FormControllerConfig<T>;
   rootForm: FormGroup;
-
-  constructor(protected cdr: ChangeDetectorRef,
-              protected applicationRef: ApplicationRef,
-              protected ngZone: NgZone) {
-  }
 
   ngOnInit(): void {
     const group = this.formGroupTemplate || new FormGroup({});
