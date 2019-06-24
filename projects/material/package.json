@@ -1,7 +1,7 @@
 {
-  "name": "ng-boost-material",
-  "version": "0.0.1",
-  "description": "Angular Material components for ng-boost library",
+  "name": "@ng-boost/material",
+  "version": "0.0.0-PLACEHOLDER",
+  "description": "ng-boost - Angular Material components implementation",
   "author": "Maciej Sawicki",
   "license": "MIT",
   "repository": {
@@ -12,18 +12,13 @@
     "url": "https://github.com/Humberd/ng-boost/issues"
   },
   "homepage": "https://github.com/Humberd/ng-boost#readme",
-  "scripts": {
-    "build": "ng build",
-    "build:watch": "ng build --watch",
-    "publish-lib": "npm version patch && npm run build && npm publish ..\\..\\dist\\ng-boost-material\\"
-  },
   "peerDependencies": {
     "@angular/animations": "^8.0.1",
     "@angular/common": "^8.0.1",
     "@angular/core": "^8.0.1",
     "@angular/cdk": "^8.0.1",
     "@angular/material": "^8.0.1",
-    "ng-boost": "^0.0.9",
+    "@ng-boost/core": "^0.0.1",
     "rxjs": "^6.5.2"
   }
 }

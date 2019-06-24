@@ -16,17 +16,17 @@
     "build-core": "ng build core",
     "build-core:watch": "ng build core --watch",
     "build-core:ci": "ng build core",
+    "build-material": "ng build material",
+    "build-material:watch": "ng build material --watch",
+    "build-material:ci": "ng build material",
 
     "test-core:ci": "ng test core -c ci --code-coverage",
+    "test-material:ci": "ng test material -c ci --code-coverage",
 
     "start": "ng serve ng-boost-material-examples",
     "publish-ng-boost": "cd projects/core && npm run publish-lib",
     "start-ng-boost-material-examples": "ng serve ng-boost-material-examples",
-    "test-ng-boost-material:ci": "ng test ng-boost-material -c ci --code-coverage",
-    "build-ng-boost-material:ci": "ng build ng-boost-material",
-    "build-ng-boost-material:ci-watch": "ng build ng-boost-material --watch",
     "publish-ng-boost-material": "cd projects/material && npm run publish-lib",
-    "restart-all": "npm run build-ng-boost:ci && npm run build-ng-boost-material:ci && ng serve ng-boost-material-examples"
   },
   "repository": {
     "type": "git",
