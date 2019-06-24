@@ -20,11 +20,11 @@
       "dom"
     ],
     "paths": {
-      "ng-boost": [
-        "dist/ng-boost"
+      "@ng-boost/core": [
+        "dist/core"
       ],
-      "ng-boost/*": [
-        "dist/ng-boost/*"
+      "@ng-boost/core/*": [
+        "dist/core/*"
       ],
       "ng-boost-material": [
         "dist/ng-boost-material"
