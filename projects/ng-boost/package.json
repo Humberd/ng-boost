@@ -1,5 +1,5 @@
 {
-  "name": "ng-boost",
+  "name": "@ng-boost/core",
   "version": "0.0.12",
   "description": "Angular library, which boosts up a development by enforcing consistent patterns.",
   "author": "Maciej Sawicki",
