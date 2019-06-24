@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BoostMatViewSwitcherComponent } from './view-switcher/boost-mat-view-switcher.component';
 import { MatButtonModule, MatIconModule, MatListModule } from '@angular/material';
-import { BoostViewSwitcherModule } from 'ng-boost';
+import { BoostViewSwitcherModule } from '@ng-boost/core';
 
 @NgModule({
   imports: [

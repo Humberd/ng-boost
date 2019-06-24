@@ -26,7 +26,7 @@
     "start": "ng serve ng-boost-material-examples",
     "publish-ng-boost": "cd projects/core && npm run publish-lib",
     "start-ng-boost-material-examples": "ng serve ng-boost-material-examples",
-    "publish-ng-boost-material": "cd projects/material && npm run publish-lib",
+    "publish-ng-boost-material": "cd projects/material && npm run publish-lib"
   },
   "repository": {
     "type": "git",
