@@ -1,5 +1,5 @@
 /*
- * Public API Surface of ng-boost
+ * Public API Surface of @ng-boost/core
  */
 
 export * from './lib/controllers/public-api';

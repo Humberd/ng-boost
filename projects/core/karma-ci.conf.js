@@ -17,7 +17,7 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, '../../coverage/ng-boost'),
+      dir: require('path').join(__dirname, '../../coverage/core'),
       reports: ['html', 'cobertura'],
       fixWebpackSourcePaths: true
     },
@@ -37,7 +37,7 @@ module.exports = function (config) {
     restartOnFileChange: false,
     // @see https://github.com/karma-runner/karma-junit-reporter
     junitReporter: {
-      outputDir: '../../tests/ng-boost',
+      outputDir: '../../tests/core',
     }
   });
 };

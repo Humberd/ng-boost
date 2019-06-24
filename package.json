@@ -13,14 +13,13 @@
     "boost"
   ],
   "scripts": {
-    "ng": "ng",
+    "build-core": "ng build core",
+    "build-core:watch": "ng build core --watch",
+    "build-core:ci": "ng build core",
+
+    "test-core:ci": "ng test ng-boost -c ci --code-coverage",
+
     "start": "ng serve ng-boost-material-examples",
-    "build": "ng build",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "test-ng-boost:ci": "ng test ng-boost -c ci --code-coverage",
-    "build-ng-boost:ci": "ng build ng-boost",
-    "build-ng-boost:ci-watch": "ng build ng-boost --watch",
     "publish-ng-boost": "cd projects/core && npm run publish-lib",
     "start-ng-boost-material-examples": "ng serve ng-boost-material-examples",
     "test-ng-boost-material:ci": "ng test ng-boost-material -c ci --code-coverage",

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-boost": {
+    "core": {
       "projectType": "library",
       "schematics": {
         "@schematics/angular:component": {
@@ -11,27 +11,27 @@
           "changeDetection": "OnPush"
         }
       },
-      "root": "projects/ng-boost",
-      "sourceRoot": "projects/ng-boost/src",
+      "root": "projects/core",
+      "sourceRoot": "projects/core/src",
       "prefix": "boost",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/ng-boost/tsconfig.lib.json",
-            "project": "projects/ng-boost/ng-package.json"
+            "tsConfig": "projects/core/tsconfig.lib.json",
+            "project": "projects/core/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ng-boost/src/test.ts",
-            "tsConfig": "projects/ng-boost/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-boost/karma.conf.js"
+            "main": "projects/core/src/test.ts",
+            "tsConfig": "projects/core/tsconfig.spec.json",
+            "karmaConfig": "projects/core/karma.conf.js"
           },
           "configurations": {
             "ci": {
-              "karmaConfig": "projects/ng-boost/karma-ci.conf.js"
+              "karmaConfig": "projects/core/karma-ci.conf.js"
             }
           }
         },
@@ -39,8 +39,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ng-boost/tsconfig.lib.json",
-              "projects/ng-boost/tsconfig.spec.json"
+              "projects/core/tsconfig.lib.json",
+              "projects/core/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
