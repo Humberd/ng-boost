@@ -21,7 +21,7 @@
     "test-ng-boost:ci": "ng test ng-boost -c ci --code-coverage",
     "build-ng-boost:ci": "ng build ng-boost",
     "build-ng-boost:ci-watch": "ng build ng-boost --watch",
-    "publish-ng-boost": "cd projects/ng-boost && npm run publish-lib",
+    "publish-ng-boost": "cd projects/core && npm run publish-lib",
     "start-ng-boost-material-examples": "ng serve ng-boost-material-examples",
     "test-ng-boost-material:ci": "ng test ng-boost-material -c ci --code-coverage",
     "build-ng-boost-material:ci": "ng build ng-boost-material",
