@@ -17,7 +17,7 @@
     "build-core:watch": "ng build core --watch",
     "build-core:ci": "ng build core",
 
-    "test-core:ci": "ng test ng-boost -c ci --code-coverage",
+    "test-core:ci": "ng test core -c ci --code-coverage",
 
     "start": "ng serve ng-boost-material-examples",
     "publish-ng-boost": "cd projects/core && npm run publish-lib",
