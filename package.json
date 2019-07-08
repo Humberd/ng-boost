@@ -19,15 +19,12 @@
     "build-material": "ng build material",
     "build-material:watch": "ng build material --watch",
     "build-material:ci": "ng build material",
-
     "test-core:ci": "ng test core -c ci --code-coverage",
     "test-material:ci": "ng test material -c ci --code-coverage",
-
     "start": "ng serve ng-boost-material-examples",
     "publish-ng-boost": "cd projects/core && npm run publish-lib",
     "start-ng-boost-material-examples": "ng serve ng-boost-material-examples",
     "publish-ng-boost-material": "cd projects/material && npm run publish-lib",
-
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -62,10 +59,10 @@
     "@angular/compiler-cli": "~8.0.1",
     "@angular/language-service": "~8.0.1",
     "@babel/core": "^7.5.0",
-    "@storybook/addon-actions": "^5.1.9",
-    "@storybook/addon-links": "^5.1.9",
-    "@storybook/addon-notes": "^5.1.9",
-    "@storybook/addons": "^5.1.9",
+    "@storybook/addon-actions": "^5.0.9",
+    "@storybook/addon-links": "^5.0.9",
+    "@storybook/addon-notes": "^5.0.9",
+    "@storybook/addons": "^5.0.9",
     "@storybook/angular": "^5.1.9",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
