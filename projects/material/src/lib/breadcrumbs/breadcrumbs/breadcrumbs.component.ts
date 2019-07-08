@@ -9,7 +9,7 @@ import { BoostBreadcrumbsService } from '@ng-boost/core';
 })
 export class BreadcrumbsComponent {
 
-  constructor(private breadcrumbsService: BoostBreadcrumbsService) {
+  constructor(public breadcrumbsService: BoostBreadcrumbsService) {
   }
 
 }
