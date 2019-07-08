@@ -18,7 +18,7 @@
     "@angular/core": "^8.0.1",
     "@angular/cdk": "^8.0.1",
     "@angular/material": "^8.0.1",
-    "@ng-boost/core": "^0.0.1",
+    "@ng-boost/core": "0.0.0-PLACEHOLDER",
     "rxjs": "^6.5.2"
   }
 }

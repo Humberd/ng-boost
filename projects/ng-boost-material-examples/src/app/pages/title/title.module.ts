@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TitleComponent } from './title.component';
 import { GroupsComponent } from './groups/groups.component';
 import { UsersComponent } from './users/users.component';
-import { BoostTitleModule } from 'ng-boost';
+import { BoostTitleModule } from '@ng-boost/core';
 import { MatButtonModule, MatIconModule } from '@angular/material';
 import { SharedModule } from '../../shared/shared.module';
 

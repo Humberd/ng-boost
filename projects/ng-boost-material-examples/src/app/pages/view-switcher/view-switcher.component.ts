@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { defaultViewTypes, ViewSwitcherConfig } from 'ng-boost';
+import { defaultViewTypes, ViewSwitcherConfig } from '@ng-boost/core';
 
 @Component({
   selector: 'app-view-switcher',

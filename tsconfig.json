@@ -26,11 +26,11 @@
       "@ng-boost/core/*": [
         "dist/core/*"
       ],
-      "ng-boost-material": [
-        "dist/ng-boost-material"
+      "@ng-boost/material": [
+        "dist/material"
       ],
-      "ng-boost-material/*": [
-        "dist/ng-boost-material/*"
+      "@ng-boost/material/*": [
+        "dist/material/*"
       ]
     }
   }

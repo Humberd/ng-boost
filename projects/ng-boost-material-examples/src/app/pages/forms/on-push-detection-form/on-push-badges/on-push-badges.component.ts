@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormController, FormControllerConfig } from 'ng-boost';
+import { FormController, FormControllerConfig } from '@ng-boost/core';
 import { FormControl, Validators } from '@angular/forms';
 
 export interface Fruit {

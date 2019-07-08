@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControllerConfig, FormRootController } from 'ng-boost';
+import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { Observable, of } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OnPushBadgesFormValues } from './on-push-badges/on-push-badges.component';
