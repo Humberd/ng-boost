@@ -4,7 +4,7 @@ import { from, Observable, Subject } from 'rxjs';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { RouterUtilsService } from '../../utils/router-utils.service';
 import { defaultIfEmpty, filter, flatMap, switchMap, take, takeUntil } from 'rxjs/operators';
-import { reemitWhen } from '../../utils/rxjs';
+import { reemitWhen, wrapIntoObservable } from '../../utils/rxjs';
 import { Title } from '@angular/platform-browser';
 import { TitleRouteResolver } from './title.route.resolver';
 import { TitleMainResolver } from './title.main.resolver';
@@ -34,10 +34,11 @@ export class BoostTitleService {
         takeUntil(this.destroy$),
         filter(it => it instanceof NavigationEnd),
         reemitWhen(this.refresh$),
-        switchMap(() => this._resolveTitle())
+        switchMap(() => this._resolveTitle()),
+        switchMap(title => wrapIntoObservable(this.titleMainResolver.resolve(title, this.initialTitle)))
       )
       .subscribe(title => {
-        this.titleService.setTitle(this.titleMainResolver.resolve(title, this.initialTitle));
+        this.titleService.setTitle(title);
       });
   }
 
