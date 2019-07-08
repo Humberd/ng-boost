@@ -54,6 +54,12 @@
       "root": "projects/material",
       "sourceRoot": "projects/material/src",
       "prefix": "boost-mat",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "changeDetection": "OnPush"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

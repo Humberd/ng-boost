@@ -1,6 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BoostBreadcrumbsComponent } from './breadcrumbs/boost-breadcrumbs.component';
 import { RouterModule } from '@angular/router';
 import { BoostBreadcrumbsService } from './_services/boost-breadcrumbs.service';
 import { RouterUtilsService } from '../utils/router-utils.service';
@@ -11,12 +10,6 @@ import { BreadcrumbsResolver, DefaultBreadcrumbsResolver } from './_services/bre
     CommonModule,
     RouterModule,
   ],
-  declarations: [
-    BoostBreadcrumbsComponent
-  ],
-  exports: [
-    BoostBreadcrumbsComponent
-  ]
 })
 export class BoostBreadcrumbsModule {
 
