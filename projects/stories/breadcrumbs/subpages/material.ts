@@ -39,7 +39,7 @@ export default (api: IApi) => {
         providers: [
           {
             provide: APP_BASE_HREF,
-            useValue: '/iframe.html'
+            useValue: ''
           }
         ]
       }
