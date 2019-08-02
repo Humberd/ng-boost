@@ -21,6 +21,7 @@ export abstract class FormController<T> implements OnInit {
   formDefinition: FormControllerConfig<T>;
   rootForm: FormGroup;
 
+  // tslint:disable-next-line:contextual-lifecycle
   ngOnInit(): void {
     const group = this.formGroupTemplate || new FormGroup({});
     this.formDefinition = this.getFormDefinition();

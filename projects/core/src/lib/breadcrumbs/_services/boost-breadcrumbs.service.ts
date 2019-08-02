@@ -7,16 +7,14 @@ import { RouterUtilsService } from '../../utils/router-utils.service';
 import { Destroy$ } from '../../utils/destroy';
 import { BreadcrumbsResolver } from './breadcrumbs.resolver';
 import { reemitWhen } from '../../utils/rxjs';
+import { EMPTY_BREADCRUMBS, ROUTE_DATA_FIELD_NAME } from './boost-breadcrumbs.constants';
 
 @Injectable()
 export class BoostBreadcrumbsService {
-  static readonly EMPTY_BREADCRUMBS = [];
-  static readonly ROUTE_DATA_FIELD_NAME = 'breadcrumbs';
-
   @Destroy$() private readonly destroy$ = new Subject();
   private readonly refresh$ = new Subject();
 
-  private readonly _breadcrumbs$ = new BehaviorSubject<Breadcrumb[]>(BoostBreadcrumbsService.EMPTY_BREADCRUMBS);
+  private readonly _breadcrumbs$ = new BehaviorSubject<Breadcrumb[]>(EMPTY_BREADCRUMBS);
   readonly breadcrumbs$ = this._breadcrumbs$.asObservable();
 
   get breadcrumbs() {
@@ -63,8 +61,8 @@ export class BoostBreadcrumbsService {
 
   private resolveBreadcrumbs(route: ActivatedRouteSnapshot): Observable<Breadcrumb[]> {
     return this.routerUtils.resolveRouteData({
-      emptyValue: BoostBreadcrumbsService.EMPTY_BREADCRUMBS,
-      fieldName: BoostBreadcrumbsService.ROUTE_DATA_FIELD_NAME,
+      emptyValue: EMPTY_BREADCRUMBS,
+      fieldName: ROUTE_DATA_FIELD_NAME,
       resolverBaseClass: BreadcrumbsResolver,
       route,
       defaultResolver: this.defaultResolver

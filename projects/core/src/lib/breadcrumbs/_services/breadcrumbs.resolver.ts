@@ -3,8 +3,8 @@ import { Observable, of } from 'rxjs';
 import { Breadcrumb } from '../_models/breadcrumb';
 import { Injectable } from '@angular/core';
 import { RouterUtilsService } from '../../utils/router-utils.service';
-import { BoostBreadcrumbsService } from './boost-breadcrumbs.service';
 import { isObject } from '../../utils/is';
+import { ROUTE_DATA_FIELD_NAME } from './boost-breadcrumbs.constants';
 
 export abstract class BreadcrumbsResolver implements Resolve<Breadcrumb[]> {
   abstract resolve(
@@ -28,7 +28,7 @@ export class DefaultBreadcrumbsResolver extends BreadcrumbsResolver {
 
     let breadcrumbsPath = this.routerUtilsService.getFullPath(route);
 
-    const routerData = route.routeConfig.data[BoostBreadcrumbsService.ROUTE_DATA_FIELD_NAME];
+    const routerData = route.routeConfig.data[ROUTE_DATA_FIELD_NAME];
 
     let breadcrumbLabel: string;
 
@@ -39,7 +39,7 @@ export class DefaultBreadcrumbsResolver extends BreadcrumbsResolver {
       breadcrumbsPath = (routerData as Breadcrumb).href;
     } else {
       // tslint:disable-next-line:max-line-length
-      throw Error(`${BoostBreadcrumbsService.ROUTE_DATA_FIELD_NAME} value type is not supported. Should be a string or a Breadcrumb type object`);
+      throw Error(`${ROUTE_DATA_FIELD_NAME} value type is not supported. Should be a string or a Breadcrumb type object`);
     }
 
     const crumbs: Breadcrumb[] = [{
