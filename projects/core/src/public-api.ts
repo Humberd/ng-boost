@@ -8,3 +8,4 @@ export * from './lib/view-switcher/public-api';
 export * from './lib/global-tokens/public-api';
 export * from './lib/utils/public-api';
 export * from './lib/breadcrumbs/public-api';
+export * from './lib/refresher/public-api';

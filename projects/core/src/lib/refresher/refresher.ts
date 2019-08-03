@@ -1,5 +1,5 @@
 import { autorefresh, AutorefreshConsumer, AutorefreshMode } from './autorefresh';
-import { OnDestroy, OnInit } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -20,7 +20,7 @@ export interface RefresherConfig {
   mode: AutorefreshMode;
 }
 
-export abstract class Refresher<SourceData, ParsedData = SourceData> implements OnDestroy, OnInit {
+export abstract class Refresher<SourceData, ParsedData = SourceData> implements OnDestroy {
   private readonly _data$ = new BehaviorSubject<ParsedData>(NOT_INITIALIZED);
   readonly data$: Observable<ParsedData> = this._data$.asObservable().pipe(filter(it => it !== NOT_INITIALIZED));
 
@@ -64,7 +64,7 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
   /**
    * Have to call it manually in the component
    */
-  ngOnInit(): void {
+  start(): void {
     this.initDefaultState();
 
     const dataSourceHandlers$ = this.applyDataSourceHandlers(this.getDataSource());
@@ -124,7 +124,7 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
   }
 
   resume(): void {
-    this.ngOnInit();
+    this.start();
     console.log('Refresher has been resumed');
   }
 

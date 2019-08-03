@@ -41,7 +41,7 @@ export class ViewHelperRefresherDebuggerService implements ViewHelperRefresherDe
   readonly refreshers: Map<RefresherViewHelper, Saver> = new Map();
   selectedState: 'content' | 'empty' | 'loader' | 'error' | null;
 
-  constructor(@Inject(SESSION_STORAGE_TOKEN) private storage: Storage) {
+  constructor(@Inject(SESSION_STORAGE_TOKEN) private storage: any) {
     this.selectedState = storage.getItem(this.STORAGE_KEY) as any || null;
   }
 
