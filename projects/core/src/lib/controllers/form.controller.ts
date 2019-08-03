@@ -27,7 +27,7 @@ export abstract class FormController<T> implements OnInit {
     const group = this.formGroupTemplate || new FormGroup({});
     this.formDefinition = this.getFormDefinition();
 
-    Object.entries(this.formDefinition)
+    Object.entries(this.formDefinition || {})
       .forEach(([key, value]: [string, AbstractControl]) => {
         group.setControl(key, value);
       });
