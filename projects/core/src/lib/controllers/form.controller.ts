@@ -17,6 +17,7 @@ export abstract class FormController<T> implements OnInit {
    * Otherwise the children FormControllers' error states will not be visible.
    */
   @Input() onPush: any;
+  @Input() initialValues: Partial<T> = {};
   @Input() formGroupTemplate: FormGroup;
   formDefinition: FormControllerConfig<T>;
   rootForm: FormGroup;
