@@ -30,13 +30,13 @@ class TestRefresher extends Refresher<number, number> {
 }
 
 describe('Refresher', () => {
-  describe('ngOnInit', () => {
+  describe('start', () => {
     it('should start autorefresh with 2 seconds period', fakeAsync(() => {
       let counter = 0;
       const emitter = of(null).pipe(map(() => ++counter));
       const refresher = new TestRefresher(emitter, 2000);
 
-      refresher.ngOnInit();
+      refresher.start();
 
       tick(1);
       expect(counter).toBe(1);
@@ -65,7 +65,7 @@ describe('Refresher', () => {
         );
       const refresher = new TestRefresher(emitter, 2000);
 
-      refresher.ngOnInit();
+      refresher.start();
 
       expect(refresher.isLoading).toBe(true);
 
@@ -95,7 +95,7 @@ describe('Refresher', () => {
     it('should init with default state', fakeAsync(() => {
       const refresher = new TestRefresher(of(1), 2000);
 
-      refresher.ngOnInit();
+      refresher.start();
 
       expect(refresher.isLoading).toBe(true);
       expect(refresher.isError).toBe(false);
@@ -112,7 +112,7 @@ describe('Refresher', () => {
       spyOn(refresher, 'onSuccess').and.callThrough();
       spyOn(refresher, 'onError').and.callThrough();
 
-      refresher.ngOnInit();
+      refresher.start();
 
       tick(0);
       expect(refresher.onSuccess).toHaveBeenCalledWith(1234);
@@ -136,8 +136,8 @@ describe('Refresher', () => {
       spyOn(refresher, 'onSuccess').and.callThrough();
       spyOn(refresher, 'onError').and.callThrough();
 
-      otherRefresher.ngOnInit();
-      refresher.ngOnInit();
+      otherRefresher.start();
+      refresher.start();
 
       tick(0);
       expect(refresher.onSuccess).toHaveBeenCalledWith(1234);
@@ -159,7 +159,7 @@ describe('Refresher', () => {
       const emitter = of(null).pipe(map(() => ++counter));
       const refresher = new TestRefresher(emitter, 2000);
 
-      refresher.ngOnInit();
+      refresher.start();
 
       tick(0);
       expect(counter).toBe(1);
@@ -192,7 +192,7 @@ describe('Refresher', () => {
     it('should set appropriate flags', fakeAsync(() => {
       const refresher = new TestRefresher(throwError('test-error'), 2000);
 
-      refresher.ngOnInit();
+      refresher.start();
 
       tick(1);
       expect(refresher.isLoading).toBe(false);
@@ -209,7 +209,7 @@ describe('Refresher', () => {
     it('should set appropriate flags', fakeAsync(() => {
       const refresher = new TestRefresher(of(1234), 2000);
 
-      refresher.ngOnInit();
+      refresher.start();
 
       tick(1);
       expect(refresher.isLoading).toBe(false);
