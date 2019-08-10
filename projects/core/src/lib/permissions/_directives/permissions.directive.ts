@@ -2,8 +2,8 @@ import { ChangeDetectorRef, Directive, Input, OnInit, TemplateRef, ViewContainer
 import { BoostPermissionsService, PermissionInput } from '../_services/boost-permissions.service';
 import { Destroy$ } from '../../utils/destroy';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
-import { reemitWhen } from '@ng-boost/core/lib/utils/rxjs';
+import { map, skip, takeUntil } from 'rxjs/operators';
+import { reemitWhen } from '../../utils/rxjs';
 
 @Directive({
   selector: '[boostPermissions]'
@@ -35,7 +35,7 @@ export class PermissionsDirective implements OnInit {
     this.permissionsService.permissions$
       .pipe(
         takeUntil(this.destroy$),
-        reemitWhen(this.boostPermissions$),
+        reemitWhen(this.boostPermissions$.pipe(skip(1))),
         map(() => this.permissionsService.hasPermissions(this.boostPermissions$.value))
       )
       .subscribe((hasPermissions) => this.applyViewTemplates(hasPermissions));
@@ -56,11 +56,12 @@ export class PermissionsDirective implements OnInit {
     }
 
     this.currentViewTemplate = templateRef;
-    if (!templateRef) {
-      return;
+    this.viewContainerRef.clear();
+
+    if (templateRef) {
+      this.viewContainerRef.createEmbeddedView(templateRef);
     }
 
-    this.viewContainerRef.createEmbeddedView(templateRef);
     this.cdr.markForCheck();
   }
 
