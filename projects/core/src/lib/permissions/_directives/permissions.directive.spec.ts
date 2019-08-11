@@ -48,61 +48,62 @@ describe('PermissionsDirective', () => {
     return TestBed.createComponent(component);
   }
 
-  describe('Permissions change template rendering', () => {
-    @Component({
-      template: `
+  describe('Global permissions', () => {
+    describe('Permissions change template rendering', () => {
+      @Component({
+        template: `
         <div *boostPermissions="permissions">
           Hello
         </div>
       `
-    })
-    class TestComp {
-      permissions = 'user.read';
-    }
+      })
+      class TestComp {
+        permissions = 'user.read';
+      }
 
-    it('should not show a template when user role hasn\'t been initialized', () => {
-      const fixture = createComponent(TestComp);
-      fixture.detectChanges();
+      it('should not show a template when user role hasn\'t been initialized', () => {
+        const fixture = createComponent(TestComp);
+        fixture.detectChanges();
 
-      const div = queryElement(fixture, 'div');
-      expect(div).toBeFalsy();
+        const div = queryElement(fixture, 'div');
+        expect(div).toBeFalsy();
+      });
+
+      it('should toggle views when global user role changes', () => {
+        const fixture = createComponent(TestComp);
+        globalRoleService.set('USER');
+        fixture.detectChanges();
+
+        const div1 = queryElement(fixture, 'div');
+        expect(div1).toBeDefined();
+
+        globalRoleService.clear();
+        fixture.detectChanges();
+
+        const div2 = queryElement(fixture, 'div');
+        expect(div2).toBeFalsy();
+      });
+
+      it('should toggle views when required permissions change', () => {
+        const fixture = createComponent(TestComp);
+        globalRoleService.set('USER');
+        fixture.detectChanges();
+
+        const div1 = queryElement(fixture, 'div');
+        expect(div1).toBeDefined();
+
+        fixture.componentInstance.permissions = 'user.remove';
+        fixture.detectChanges();
+
+        const div2 = queryElement(fixture, 'div');
+        expect(div2).toBeFalsy();
+      });
+
     });
 
-    it('should toggle views when global user role changes', () => {
-      const fixture = createComponent(TestComp);
-      globalRoleService.set('USER');
-      fixture.detectChanges();
-
-      const div1 = queryElement(fixture, 'div');
-      expect(div1).toBeDefined();
-
-      globalRoleService.clear();
-      fixture.detectChanges();
-
-      const div2 = queryElement(fixture, 'div');
-      expect(div2).toBeFalsy();
-    });
-
-    it('should toggle views when required permissions change', () => {
-      const fixture = createComponent(TestComp);
-      globalRoleService.set('USER');
-      fixture.detectChanges();
-
-      const div1 = queryElement(fixture, 'div');
-      expect(div1).toBeDefined();
-
-      fixture.componentInstance.permissions = 'user.remove';
-      fixture.detectChanges();
-
-      const div2 = queryElement(fixture, 'div');
-      expect(div2).toBeFalsy();
-    });
-
-  });
-
-  describe('Then template rendering', () => {
-    @Component({
-      template: `
+    describe('Then template rendering', () => {
+      @Component({
+        template: `
         <div *boostPermissions="'user.read'; then success">
           Hello
         </div>
@@ -113,30 +114,30 @@ describe('PermissionsDirective', () => {
           </div>
         </ng-template>
       `
-    })
-    class TestComp {
+      })
+      class TestComp {
 
-    }
+      }
 
-    it('should render then template instead of elements inside', () => {
-      const fixture = createComponent(TestComp);
-      globalRoleService.set('USER');
-      fixture.detectChanges();
+      it('should render then template instead of elements inside', () => {
+        const fixture = createComponent(TestComp);
+        globalRoleService.set('USER');
+        fixture.detectChanges();
 
-      const div1 = queryElement(fixture, 'div');
-      expect(div1.nativeElement.innerHTML.trim()).toBe('I am allowed');
+        const div1 = queryElement(fixture, 'div');
+        expect(div1.nativeElement.innerHTML.trim()).toBe('I am allowed');
 
-      globalRoleService.clear();
-      fixture.detectChanges();
+        globalRoleService.clear();
+        fixture.detectChanges();
 
-      const div2 = queryElement(fixture, 'div');
-      expect(div2).toBeFalsy();
+        const div2 = queryElement(fixture, 'div');
+        expect(div2).toBeFalsy();
+      });
     });
-  });
 
-  describe('Else template rendering', () => {
-    @Component({
-      template: `
+    describe('Else template rendering', () => {
+      @Component({
+        template: `
         <div *boostPermissions="'user.read'; else fail">
           Hello
         </div>
@@ -147,30 +148,30 @@ describe('PermissionsDirective', () => {
           </div>
         </ng-template>
       `
-    })
-    class TestComp {
+      })
+      class TestComp {
 
-    }
+      }
 
-    it('should render else template when there is no permission', () => {
-      const fixture = createComponent(TestComp);
-      globalRoleService.set('USER');
-      fixture.detectChanges();
+      it('should render else template when there is no permission', () => {
+        const fixture = createComponent(TestComp);
+        globalRoleService.set('USER');
+        fixture.detectChanges();
 
-      const div1 = queryElement(fixture, 'div');
-      expect(div1.nativeElement.innerHTML.trim()).toBe('Hello');
+        const div1 = queryElement(fixture, 'div');
+        expect(div1.nativeElement.innerHTML.trim()).toBe('Hello');
 
-      globalRoleService.clear();
-      fixture.detectChanges();
+        globalRoleService.clear();
+        fixture.detectChanges();
 
-      const div2 = queryElement(fixture, 'div');
-      expect(div2.nativeElement.innerHTML.trim()).toBe('Not allowed');
+        const div2 = queryElement(fixture, 'div');
+        expect(div2.nativeElement.innerHTML.trim()).toBe('Not allowed');
+      });
     });
-  });
 
-  describe('Then + Else template rendering', () => {
-    @Component({
-      template: `
+    describe('Then + Else template rendering', () => {
+      @Component({
+        template: `
         <div *boostPermissions="'user.read'; then success; else fail">
           Hello
         </div>
@@ -187,24 +188,25 @@ describe('PermissionsDirective', () => {
           </div>
         </ng-template>
       `
-    })
-    class TestComp {
+      })
+      class TestComp {
 
-    }
+      }
 
-    it('should render else template when there is no permission', () => {
-      const fixture = createComponent(TestComp);
-      globalRoleService.set('USER');
-      fixture.detectChanges();
+      it('should render else template when there is no permission', () => {
+        const fixture = createComponent(TestComp);
+        globalRoleService.set('USER');
+        fixture.detectChanges();
 
-      const div1 = queryElement(fixture, 'div');
-      expect(div1.nativeElement.innerHTML.trim()).toBe('I am allowed');
+        const div1 = queryElement(fixture, 'div');
+        expect(div1.nativeElement.innerHTML.trim()).toBe('I am allowed');
 
-      globalRoleService.clear()
-      fixture.detectChanges();
+        globalRoleService.clear()
+        fixture.detectChanges();
 
-      const div2 = queryElement(fixture, 'div');
-      expect(div2.nativeElement.innerHTML.trim()).toBe('Not allowed');
+        const div2 = queryElement(fixture, 'div');
+        expect(div2.nativeElement.innerHTML.trim()).toBe('Not allowed');
+      });
     });
   });
 
