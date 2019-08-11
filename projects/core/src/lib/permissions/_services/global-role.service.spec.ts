@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BoostPermissionsService } from './boost-permissions.service';
+import { GlobalRoleService } from './global-permissions.service';
 
 describe('PermissionsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: BoostPermissionsService = TestBed.get(BoostPermissionsService);
+    const service: GlobalRoleService = TestBed.get(GlobalRoleService);
     expect(service).toBeTruthy();
   });
 });

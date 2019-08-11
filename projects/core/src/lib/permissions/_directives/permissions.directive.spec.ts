@@ -1,12 +1,12 @@
 import { PermissionsDirective } from './permissions.directive';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BoostPermissionsModule } from '../boost-permissions.module';
-import { BoostPermissionsService } from '../_services/boost-permissions.service';
 import { Component, Type } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { GlobalRoleService } from '../_services/global-role.service';
 
 describe('PermissionsDirective', () => {
-  let permissionsService: BoostPermissionsService;
+  let roleService: GlobalRoleService;
 
   function createComponent<T>(component: Type<T>) {
     TestBed.configureTestingModule({
@@ -18,7 +18,7 @@ describe('PermissionsDirective', () => {
       ]
     });
 
-    permissionsService = TestBed.get(BoostPermissionsService);
+    roleService = TestBed.get(GlobalRoleService);
 
     return TestBed.createComponent(component);
   }
@@ -45,13 +45,13 @@ describe('PermissionsDirective', () => {
 
     it('should toggle views when user permissions change', () => {
       const fixture = createComponent(TestComp);
-      permissionsService.loadPermissions('user.create');
+      roleService.set('user');
       fixture.detectChanges();
 
       const div1 = queryElement(fixture, 'div');
       expect(div1).toBeDefined();
 
-      permissionsService.removePermissions('user.create');
+      roleService.removePermissions('user.create');
       fixture.detectChanges();
 
       const div2 = queryElement(fixture, 'div');
@@ -60,7 +60,7 @@ describe('PermissionsDirective', () => {
 
     it('should toggle views when required permissions change', () => {
       const fixture = createComponent(TestComp);
-      permissionsService.loadPermissions('user.create');
+      roleService.loadPermissions('user.create');
       fixture.detectChanges();
 
       const div1 = queryElement(fixture, 'div');
@@ -95,13 +95,13 @@ describe('PermissionsDirective', () => {
 
     it('should render then template instead of elements inside', () => {
       const fixture = createComponent(TestComp);
-      permissionsService.loadPermissions('user.create');
+      roleService.loadPermissions('user.create');
       fixture.detectChanges();
 
       const div1 = queryElement(fixture, 'div');
       expect(div1.nativeElement.innerHTML.trim()).toBe('I am allowed');
 
-      permissionsService.removePermissions('user.create');
+      roleService.removePermissions('user.create');
       fixture.detectChanges();
 
       const div2 = queryElement(fixture, 'div');
@@ -129,13 +129,13 @@ describe('PermissionsDirective', () => {
 
     it('should render else template when there is no permission', () => {
       const fixture = createComponent(TestComp);
-      permissionsService.loadPermissions('user.create');
+      roleService.loadPermissions('user.create');
       fixture.detectChanges();
 
       const div1 = queryElement(fixture, 'div');
       expect(div1.nativeElement.innerHTML.trim()).toBe('Hello');
 
-      permissionsService.removePermissions('user.create');
+      roleService.removePermissions('user.create');
       fixture.detectChanges();
 
       const div2 = queryElement(fixture, 'div');
@@ -169,13 +169,13 @@ describe('PermissionsDirective', () => {
 
     it('should render else template when there is no permission', () => {
       const fixture = createComponent(TestComp);
-      permissionsService.loadPermissions('user.create');
+      roleService.loadPermissions('user.create');
       fixture.detectChanges();
 
       const div1 = queryElement(fixture, 'div');
       expect(div1.nativeElement.innerHTML.trim()).toBe('I am allowed');
 
-      permissionsService.removePermissions('user.create');
+      roleService.removePermissions('user.create');
       fixture.detectChanges();
 
       const div2 = queryElement(fixture, 'div');

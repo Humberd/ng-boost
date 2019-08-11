@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { BoostPermissionsService, PermissionInput } from '../_services/boost-permissions.service';
 import { Destroy$ } from '../../utils/destroy';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { map, skip, takeUntil } from 'rxjs/operators';
-import { reemitWhen } from '../../utils/rxjs';
+import { BehaviorSubject, iif, Observable, Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { Permission, Role } from '../_services/roles-cache.service';
+import { GlobalRoleService } from '../_services/global-role.service';
+import { LocalRoleService } from '../_services/local-role.service';
 
 @Directive({
   selector: '[boostPermissions]'
@@ -11,34 +12,63 @@ import { reemitWhen } from '../../utils/rxjs';
 export class PermissionsDirective implements OnInit {
   @Destroy$() private readonly destroy$ = new Subject();
 
-  private boostPermissions$ = new BehaviorSubject<PermissionInput>(undefined);
+  private boostPermissions$ = new BehaviorSubject<Permission[]>(undefined);
 
   @Input()
-  set boostPermissions(value: PermissionInput) {
-    this.boostPermissions$.next(value);
+  set boostPermissions(value: Permission | Permission[]) {
+    this.boostPermissions$.next(Array.isArray(value) ? value : [value]);
   }
 
   @Input() boostPermissionsThen: TemplateRef<any>;
   @Input() boostPermissionsElse: TemplateRef<any>;
 
+
+  private forRole$ = new BehaviorSubject<Role>(null);
+
+  @Input()
+  set forRole(value: Role) {
+    this.forRole$.next(value);
+  }
+
   private currentViewTemplate?: TemplateRef<any> = undefined;
 
   constructor(
     private templateRef: TemplateRef<any>,
-    private permissionsService: BoostPermissionsService,
+    private globalPermissionsService: GlobalRoleService,
+    private localPermissionsService: LocalRoleService,
     private cdr: ChangeDetectorRef,
-    private viewContainerRef: ViewContainerRef
+    private viewContainerRef: ViewContainerRef,
   ) {
   }
 
   ngOnInit(): void {
-    this.permissionsService.permissions$
+    this.forRole$
       .pipe(
         takeUntil(this.destroy$),
-        reemitWhen(this.boostPermissions$.pipe(skip(1))),
-        map(() => this.permissionsService.hasPermissions(this.boostPermissions$.value))
+        switchMap((forRole) =>
+          iif(
+            () => forRole === null,
+            this.hasGlobalPermissions(),
+            this.hasLocalPermissions(forRole)
+          )
+        )
       )
       .subscribe((hasPermissions) => this.applyViewTemplates(hasPermissions));
+
+  }
+
+  private hasGlobalPermissions(): Observable<boolean> {
+    return this.boostPermissions$
+      .pipe(
+        switchMap((permissions) => this.globalPermissionsService.hasPermission(permissions))
+      );
+  }
+
+  private hasLocalPermissions(forRole: string): Observable<boolean> {
+    return this.boostPermissions$
+      .pipe(
+        switchMap((permissions) => this.localPermissionsService.hasPermission(permissions, forRole))
+      );
   }
 
   private applyViewTemplates(hasPermissions: boolean) {
