@@ -9,7 +9,7 @@ import { Permission, PERMISSIONS_LOADER, PermissionsLoader } from '../_services/
 import { Observable, of, throwError } from 'rxjs';
 
 const TEST_ROLES = {
-  DUMMY: [],
+  SLAVE: [],
   USER: ['user.read'],
   ADMIN: ['user.read', 'user.create']
 
@@ -76,7 +76,7 @@ describe('PermissionsDirective', () => {
       const div1 = queryElement(fixture, 'div');
       expect(div1).toBeDefined();
 
-      globalRoleService.set('DUMMY');
+      globalRoleService.clear();
       fixture.detectChanges();
 
       const div2 = queryElement(fixture, 'div');
@@ -126,7 +126,7 @@ describe('PermissionsDirective', () => {
       const div1 = queryElement(fixture, 'div');
       expect(div1.nativeElement.innerHTML.trim()).toBe('I am allowed');
 
-      globalRoleService.set('DUMMY');
+      globalRoleService.clear();
       fixture.detectChanges();
 
       const div2 = queryElement(fixture, 'div');
@@ -160,7 +160,7 @@ describe('PermissionsDirective', () => {
       const div1 = queryElement(fixture, 'div');
       expect(div1.nativeElement.innerHTML.trim()).toBe('Hello');
 
-      globalRoleService.set('DUMMY');
+      globalRoleService.clear();
       fixture.detectChanges();
 
       const div2 = queryElement(fixture, 'div');
@@ -200,7 +200,7 @@ describe('PermissionsDirective', () => {
       const div1 = queryElement(fixture, 'div');
       expect(div1.nativeElement.innerHTML.trim()).toBe('I am allowed');
 
-      globalRoleService.set('DUMMY');
+      globalRoleService.clear()
       fixture.detectChanges();
 
       const div2 = queryElement(fixture, 'div');

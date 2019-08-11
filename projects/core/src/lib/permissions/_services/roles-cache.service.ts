@@ -2,8 +2,10 @@ import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-const NOT_INITIALIZED = undefined;
+const NOT_INITIALIZED_PERMISSIONS = undefined;
 const NO_PERMISSIONS = [];
+
+export const EMPTY_ROLE = undefined;
 
 export type Role = string;
 export type Permission = string;
@@ -19,7 +21,7 @@ export class RolesCacheService {
   private readonly roles = new Map<Role, BehaviorSubject<Permission[]>>();
 
   constructor(@Inject(PERMISSIONS_LOADER) private permissionsLoader: PermissionsLoader) {
-
+    this.roles.set(EMPTY_ROLE, new BehaviorSubject<Permission[]>(NO_PERMISSIONS));
   }
 
   register(roleName: Role) {
@@ -27,7 +29,7 @@ export class RolesCacheService {
       return;
     }
 
-    this.roles.set(roleName, new BehaviorSubject(NOT_INITIALIZED));
+    this.roles.set(roleName, new BehaviorSubject(NOT_INITIALIZED_PERMISSIONS));
 
     this.flush(roleName);
   }
@@ -39,7 +41,7 @@ export class RolesCacheService {
 
     return this.roles.get(roleName)
       .pipe(
-        filter((permissions) => permissions !== NOT_INITIALIZED)
+        filter((permissions) => permissions !== NOT_INITIALIZED_PERMISSIONS)
       );
   }
 
@@ -49,8 +51,8 @@ export class RolesCacheService {
     }
 
     const permissions = this.roles.get(roleName).value;
-    if (permissions === NOT_INITIALIZED) {
-      return NO_PERMISSIONS;
+    if (permissions === NOT_INITIALIZED_PERMISSIONS) {
+      throw new Error('Not initialized yet');
     }
 
     return permissions;
@@ -81,11 +83,8 @@ export class RolesCacheService {
   }
 
   flushAll() {
-    this.roles.forEach((
-      _,
-      roleName
-    ) => {
-      this.flush(roleName);
-    });
+    Array.from(this.roles.keys())
+      .filter((roleName) => roleName !== EMPTY_ROLE)
+      .forEach((roleName) => this.flush(roleName));
   }
 }

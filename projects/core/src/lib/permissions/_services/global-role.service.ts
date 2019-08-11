@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Permission, Role, RolesCacheService } from './roles-cache.service';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { EMPTY_ROLE, Permission, Role, RolesCacheService } from './roles-cache.service';
+import { map, switchMap } from 'rxjs/operators';
 import { PermissionsValidatorService } from './permissions-validator.service';
-
-const NOT_INITIALIZED = undefined;
 
 @Injectable()
 export class GlobalRoleService {
-  private readonly _globalRole$ = new BehaviorSubject<Role>(NOT_INITIALIZED);
+  private readonly _globalRole$ = new BehaviorSubject<Role>(EMPTY_ROLE);
   globalRole$ = this._globalRole$.asObservable();
 
   get globalRole() {
@@ -27,14 +25,13 @@ export class GlobalRoleService {
   }
 
   clear() {
-    this._globalRole$.next(NOT_INITIALIZED);
+    this._globalRole$.next(EMPTY_ROLE);
   }
 
   hasPermission(permissions: Permission[]): Observable<boolean> {
     return this.globalRole$
       .pipe(
         switchMap((globalRole) => this.rolesCacheService.get$(globalRole)),
-        tap(it => console.log({it})),
         map((rolePermissions) => this.permissionsValidatorService.hasSomePermissions(rolePermissions, permissions))
       );
   }

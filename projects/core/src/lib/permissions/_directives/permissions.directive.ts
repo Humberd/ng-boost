@@ -73,7 +73,6 @@ export class PermissionsDirective implements OnInit {
   }
 
   private applyViewTemplates(hasPermissions: boolean) {
-    console.log({hasPermissions});
     if (!hasPermissions) {
       this.embedView(this.boostPermissionsElse);
       return;
