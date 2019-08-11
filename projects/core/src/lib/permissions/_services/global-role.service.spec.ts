@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { GlobalRoleService } from './global-role.service';
 
-import { GlobalRoleService } from './global-permissions.service';
 
 describe('PermissionsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

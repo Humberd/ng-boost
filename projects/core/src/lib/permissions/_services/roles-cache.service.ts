@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 const NOT_INITIALIZED = undefined;
+const NO_PERMISSIONS = [];
 
 export type Role = string;
 export type Permission = string;
@@ -49,7 +50,7 @@ export class RolesCacheService {
 
     const permissions = this.roles.get(roleName).value;
     if (permissions === NOT_INITIALIZED) {
-      return [];
+      return NO_PERMISSIONS;
     }
 
     return permissions;
@@ -66,9 +67,16 @@ export class RolesCacheService {
 
   flush(roleName: Role) {
     this.permissionsLoader.load(roleName)
-      .subscribe((permissions) => {
-        const subject = this.roles.get(roleName);
-        subject.next(permissions);
+      .subscribe({
+        next: (permissions) => {
+          const subject = this.roles.get(roleName);
+          subject.next(permissions);
+        },
+        error: (err) => {
+          console.error(err);
+          const subject = this.roles.get(roleName);
+          subject.next(NO_PERMISSIONS);
+        }
       });
   }
 

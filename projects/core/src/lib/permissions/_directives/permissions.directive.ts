@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Destroy$ } from '../../utils/destroy';
-import { BehaviorSubject, iif, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { Permission, Role } from '../_services/roles-cache.service';
 import { GlobalRoleService } from '../_services/global-role.service';
@@ -37,7 +37,7 @@ export class PermissionsDirective implements OnInit {
     private globalPermissionsService: GlobalRoleService,
     private localPermissionsService: LocalRoleService,
     private cdr: ChangeDetectorRef,
-    private viewContainerRef: ViewContainerRef,
+    private viewContainerRef: ViewContainerRef
   ) {
   }
 
@@ -45,12 +45,13 @@ export class PermissionsDirective implements OnInit {
     this.forRole$
       .pipe(
         takeUntil(this.destroy$),
-        switchMap((forRole) =>
-          iif(
-            () => forRole === null,
-            this.hasGlobalPermissions(),
-            this.hasLocalPermissions(forRole)
-          )
+        switchMap((forRole) => {
+            if (forRole === null) {
+              return this.hasGlobalPermissions();
+            }
+
+            return this.hasLocalPermissions(forRole);
+          }
         )
       )
       .subscribe((hasPermissions) => this.applyViewTemplates(hasPermissions));
@@ -72,6 +73,7 @@ export class PermissionsDirective implements OnInit {
   }
 
   private applyViewTemplates(hasPermissions: boolean) {
+    console.log({hasPermissions});
     if (!hasPermissions) {
       this.embedView(this.boostPermissionsElse);
       return;
