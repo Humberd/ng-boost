@@ -15,7 +15,7 @@ export interface AutorefreshConfig {
 
 export enum AutorefreshMode {
   CONSTANT, // constant refreshing every x seconds
-  SOURCE_DEPENDANT // starts a new countdown only after surce emits a value
+  COUNT_AFTER_PREVIOUS_ENDS // starts a new countdown only after surce emits a value
 }
 
 export class AutorefreshConsumerImpl implements AutorefreshConsumer {
@@ -48,7 +48,7 @@ export class AutorefreshConsumerImpl implements AutorefreshConsumer {
       );
     }
 
-    if (this.config.mode === AutorefreshMode.SOURCE_DEPENDANT) {
+    if (this.config.mode === AutorefreshMode.COUNT_AFTER_PREVIOUS_ENDS) {
       return pipe(
         switchMap(() => this.config.source()
           .pipe(

@@ -5,19 +5,28 @@ import { paginateArray } from '../rxjs-operators/paginate.operator';
 import { isAscending, keyFromSortKey, sortArray } from '../rxjs-operators/sort-by.operator';
 
 // tslint:disable-next-line:max-line-length
-export abstract class ClientSidePageableDataRefresher<SourceData, ParsedData = SourceData> extends PageableDataRefresher<SourceData, ParsedData> {
+export abstract class ClientSidePageableDataRefresher<SourceData, ParsedData = SourceData> extends PageableDataRefresher<SourceData[], ParsedData> {
 
   constructor(config: Partial<RefresherConfig> = {}) {
     super({
       period: 10_000,
-      mode: AutorefreshMode.CONSTANT,
+      mode: AutorefreshMode.COUNT_AFTER_PREVIOUS_ENDS,
       ...config
     });
   }
 
-  abstract searchFilterFn(item: ParsedData, searchQuery: string): boolean;
+  /**
+   * When searching with a query you can spacify what to look for.
+   *
+   * By default it passes through all the items.
+   *
+   * You can override this method
+   */
+  protected searchFilterFn(item: ParsedData, searchQuery: string): boolean {
+    return true;
+  }
 
-  protected parseSourceData(response: SourceData): ParsedData[] {
+  protected parseSourceData(response: SourceData[]): ParsedData[] {
     return response as any as ParsedData[];
   }
 

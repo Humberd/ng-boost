@@ -113,7 +113,7 @@ describe('AutorefreshConsumerImpl', () => {
       const consumer = autorefresh({
         source: () => obs,
         period: 1000,
-        mode: AutorefreshMode.SOURCE_DEPENDANT
+        mode: AutorefreshMode.COUNT_AFTER_PREVIOUS_ENDS
       });
 
       expect(received).toBe('foo');
@@ -143,7 +143,7 @@ describe('AutorefreshConsumerImpl', () => {
       const consumer = autorefresh({
         source: () => obs,
         period: 1000,
-        mode: AutorefreshMode.SOURCE_DEPENDANT
+        mode: AutorefreshMode.COUNT_AFTER_PREVIOUS_ENDS
       });
 
       tick(1);
@@ -176,7 +176,7 @@ describe('AutorefreshConsumerImpl', () => {
       const consumer = autorefresh({
         source: () => obs,
         period: 1000,
-        mode: AutorefreshMode.SOURCE_DEPENDANT
+        mode: AutorefreshMode.COUNT_AFTER_PREVIOUS_ENDS
       });
 
       tick(1500);
@@ -205,7 +205,7 @@ describe('AutorefreshConsumerImpl', () => {
       const consumer = autorefresh({
         source: () => obs,
         period: 1000,
-        mode: AutorefreshMode.SOURCE_DEPENDANT
+        mode: AutorefreshMode.COUNT_AFTER_PREVIOUS_ENDS
       });
 
       tick(1500);
