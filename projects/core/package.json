@@ -1,9 +1,12 @@
 {
   "name": "@ng-boost/core",
-  "version": "0.0.0-PLACEHOLDER",
+  "version": "0.0.1-beta",
   "description": "ng-boost - core library",
   "author": "Maciej Sawicki",
   "license": "MIT",
+  "scripts": {
+    "publish-lib": "npm publish ../../dist/core --access public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Humberd/ng-boost.git"
