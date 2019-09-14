@@ -23,6 +23,9 @@ export abstract class PageableDataRefresher<SourceData, ParsedData = SourceData>
   }
 
   get itemsCount(): number {
+    if (!this.data) {
+      return 0;
+    }
     return this.data.length;
   }
 

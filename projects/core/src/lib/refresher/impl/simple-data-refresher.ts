@@ -6,7 +6,7 @@ export abstract class SimpleDataRefresher<SourceData, ParsedData = SourceData> e
   constructor(config: Partial<RefresherConfig> = {}) {
     super({
       period: 10_000,
-      mode: AutorefreshMode.CONSTANT,
+      mode: AutorefreshMode.COUNT_AFTER_PREVIOUS_ENDS,
       ...config
     });
   }
