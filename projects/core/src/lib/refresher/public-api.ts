@@ -1,4 +1,5 @@
 export * from './refresher';
+export * from './autorefresh';
 export * from './debugger/view-helper-refresher-debugger.service';
 export * from './impl/client-side-pageable-data-refresher';
 export * from './impl/elasticsearch-pageable-data-refresher';
