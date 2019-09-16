@@ -25,7 +25,8 @@
     "publish-ng-boost": "cd projects/core && npm run publish-lib",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "release-version:beta": "publish.bat"
+    "release-version:beta": "publish.bat",
+    "bump-version:beta": "node scripts/version-update.js"
   },
   "repository": {
     "type": "git",

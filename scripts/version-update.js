@@ -1,19 +1,20 @@
 const shell = require('shelljs');
 
+const DEBUG_MODE = true;
+
 const PROJECTS = [
   'core',
   'material',
 ];
 
-if (hasUncommitedFiles()) {
+if (!DEBUG_MODE && hasUncommitedFiles()) {
   throw Error('You have some uncommited files');
 }
-shell.cd('projects');
 
 for (const project of PROJECTS) {
-  shell.cd(`projects/${project}`);
+  shell.cd(`./projects/${project}`);
 
-  shell.exec('npm version prerelease --preid=beta');
+  shell.exec('npm version prerelease --preid=beta -m "Version: %s"');
 
   shell.cd('../../');
 
