@@ -1,5 +1,5 @@
-<nav aria-label="Breadcrumb">
-  <ol class="breadcrumbs">
+<nav aria-label="Breadcrumbs">
+  <ol class="boost-breadcrumbs">
 
     <li
       *ngFor="let crumb of breadcrumbs || (breadcrumbsService.breadcrumbs$ | async); let last = last"
@@ -24,6 +24,7 @@
 
       <a
         *ngIf="last"
+        class="current-page"
         aria-current="page"
         [routerLink]="crumb.href"
       >

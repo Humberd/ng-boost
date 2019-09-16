@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BoostMatIconComponent } from './icon/icon.component';
 
 export interface BoostIconModuleConfig {
-  iconsPaths: string[];
+  iconPaths: string[];
 }
 
 export const BOOST_MAT_ICON_CONFIG_INJECTION_TOKEN = new InjectionToken('Boost Icon Config');
@@ -65,7 +65,7 @@ export function registerIcons(
    * @see https://github.com/ng-packagr/ng-packagr/issues/696#issuecomment-387114613
    */
   const fun = () => {
-    for (const path of config.iconsPaths) {
+    for (const path of config.iconPaths) {
       matRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl(`${baseHref}/${path}`));
     }
   };
