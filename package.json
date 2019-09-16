@@ -19,12 +19,13 @@
     "build-material": "ng build material",
     "build-material:watch": "ng build material --watch",
     "build-material:ci": "ng build material",
+    "version:beta-core": "cd projects/core && npm run version:beta",
     "test-core:ci": "ng test core -c ci --code-coverage",
     "test-material:ci": "ng test material -c ci --code-coverage",
     "publish-ng-boost": "cd projects/core && npm run publish-lib",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "version-patch": "publish.bat"
+    "release-version:beta": "publish.bat"
   },
   "repository": {
     "type": "git",
