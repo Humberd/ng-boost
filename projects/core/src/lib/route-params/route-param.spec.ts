@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Component, Injectable, NgZone, Provider } from '@angular/core';
 import { Router, Routes } from '@angular/router';
 import { RouteParam } from './route-param';
-import { RouterUtilsService } from '../utils/router-utils.service';
 
 describe('RouteParam', () => {
 
@@ -18,8 +17,7 @@ describe('RouteParam', () => {
         RouterTestingModule.withRoutes(routes)
       ],
       providers: [
-        ...providers,
-        RouterUtilsService
+        ...providers
       ]
     }).compileComponents();
 

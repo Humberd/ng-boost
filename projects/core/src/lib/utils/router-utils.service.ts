@@ -13,7 +13,9 @@ export interface ResolveRouteDataConfig<T> {
   emptyValue: any;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RouterUtilsService {
 
   constructor(private router: Router,

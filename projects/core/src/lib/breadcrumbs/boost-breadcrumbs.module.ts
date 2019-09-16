@@ -2,7 +2,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BoostBreadcrumbsService } from './_services/boost-breadcrumbs.service';
-import { RouterUtilsService } from '../utils/router-utils.service';
 import { BreadcrumbsResolver, DefaultBreadcrumbsResolver } from './_services/breadcrumbs.resolver';
 
 @NgModule({
@@ -21,8 +20,7 @@ export class BoostBreadcrumbsModule {
         {
           provide: BreadcrumbsResolver,
           useClass: DefaultBreadcrumbsResolver
-        },
-        RouterUtilsService
+        }
       ]
     };
   }

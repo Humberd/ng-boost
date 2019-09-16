@@ -19,6 +19,7 @@
     "build-material": "ng build material",
     "build-material:watch": "ng build material --watch",
     "build-material:ci": "ng build material",
+    "test-core": "ng test core",
     "test-core:ci": "ng test core -c ci --code-coverage",
     "test-material:ci": "ng test material -c ci --code-coverage",
     "start": "ng serve ng-boost-material-examples",
