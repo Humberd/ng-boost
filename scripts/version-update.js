@@ -25,7 +25,7 @@ for (const project of PROJECTS) {
 
 shell.exec('git add -A');
 
-shell.exec(`git commit -m "Version: ${currentVersion}"`);
+shell.exec(`git commit -m "Version: ${currentVersion.split(1)}"`);
 
 function hasUncommitedFiles() {
   return !!shell.exec('git status --porcelain', {silent: true}).stdout;
