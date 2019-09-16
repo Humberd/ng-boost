@@ -5,7 +5,7 @@
   "author": "Maciej Sawicki",
   "license": "MIT",
   "scripts": {
-    "version:beta": "npm version prerelease --preid=beta",
+    "version:beta": "npm version prerelease --preid=beta -m \"Version prerelease: %s\"",
     "preversion": "cd ../../ && npm run test-core:ci",
     "version": "cd ../../ && npm run build-core",
     "postversion": "git push && git push --tags && npm run publish-lib",
