@@ -1,11 +1,7 @@
 const shell = require('shelljs');
+const PROJECTS = require('./release.js');
 
 const DEBUG_MODE = true;
-
-const PROJECTS = [
-  'core',
-  'material',
-];
 
 if (!DEBUG_MODE && hasUncommitedFiles()) {
   throw Error('You have some uncommited files');
