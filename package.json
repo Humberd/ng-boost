@@ -2,7 +2,7 @@
   "name": "ng-boost",
   "author": "Maciej Sawicki",
   "homepage": "https://humberd.github.io/ng-boost/",
-  "version": "0.0.0",
+  "version": "0.0.1-beta.0",
   "license": "MIT",
   "description": "Angular library, which boosts up a development by enforcing consistent patterns.",
   "keywords": [
