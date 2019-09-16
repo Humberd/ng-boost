@@ -1,6 +1,6 @@
 {
   "name": "@ng-boost/material",
-  "version": "0.0.0-PLACEHOLDER",
+  "version": "0.0.1-beta.9",
   "description": "ng-boost - Angular Material components implementation",
   "author": "Maciej Sawicki",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "@angular/core": "^8.0.1",
     "@angular/cdk": "^8.0.1",
     "@angular/material": "^8.0.1",
-    "@ng-boost/core": "0.0.0-PLACEHOLDER",
+    "@ng-boost/core": "^0.0.0",
     "rxjs": "^6.5.2"
   }
 }

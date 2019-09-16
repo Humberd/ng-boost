@@ -4,5 +4,5 @@
 
 export * from './lib/breadcrumbs/public-api';
 export * from './lib/view-switcher/public-api';
-
+export * from './lib/icon/public-api';
 
