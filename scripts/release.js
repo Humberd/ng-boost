@@ -1,5 +1,5 @@
 const shell = require('shelljs');
-const PROJECTS = require('./release.js');
+const PROJECTS = require('./projects');
 
 shell.cd('dist');
 
