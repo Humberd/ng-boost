@@ -19,13 +19,9 @@
     "build-material": "ng build material",
     "build-material:watch": "ng build material --watch",
     "build-material:ci": "ng build material",
-    "test-core": "ng test core",
     "test-core:ci": "ng test core -c ci --code-coverage",
     "test-material:ci": "ng test material -c ci --code-coverage",
-    "start": "ng serve ng-boost-material-examples",
     "publish-ng-boost": "cd projects/core && npm run publish-lib",
-    "start-ng-boost-material-examples": "ng serve ng-boost-material-examples",
-    "publish-ng-boost-material": "cd projects/material && npm run publish-lib",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

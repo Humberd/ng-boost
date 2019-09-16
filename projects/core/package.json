@@ -1,10 +1,14 @@
 {
   "name": "@ng-boost/core",
-  "version": "0.0.1-beta.3",
+  "version": "0.0.1-beta.4",
   "description": "ng-boost - core library",
   "author": "Maciej Sawicki",
   "license": "MIT",
   "scripts": {
+    "version:beta": "npm version prerelease --preid=beta",
+    "preversion": "cd ../../ && npm run test-core:ci",
+    "version": "cd ../../ && npm run build-core",
+    "postversion": "git push && git push --tags && npm run publish-lib",
     "publish-lib": "npm publish ../../dist/core --access public"
   },
   "repository": {
