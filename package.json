@@ -23,7 +23,8 @@
     "test-material:ci": "ng test material -c ci --code-coverage",
     "publish-ng-boost": "cd projects/core && npm run publish-lib",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "version-patch": "publish.bat"
   },
   "repository": {
     "type": "git",
