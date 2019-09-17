@@ -1,5 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router, UrlSegment } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Params,
+  QueryParamsHandling,
+  Resolve,
+  Router,
+  UrlSegment,
+} from '@angular/router';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, pluck } from 'rxjs/operators';
 import { safeResolve } from './safe-resolve';
@@ -97,5 +105,18 @@ export class RouterUtilsService {
     const fullPath = (routes: ActivatedRouteSnapshot[]) => routes.reduce((a, v) => a += relativePath(v.url), '');
 
     return fullPath(route.pathFromRoot);
+  }
+
+  /**
+   * Updates query params for the current route.
+   */
+  updateQueryParams(queryParams: Params, queryParamsHandling: QueryParamsHandling = 'merge') {
+    return this.router.navigate(
+      [],
+      {
+        relativeTo: this.router.routerState.root,
+        queryParams,
+        queryParamsHandling
+      });
   }
 }
