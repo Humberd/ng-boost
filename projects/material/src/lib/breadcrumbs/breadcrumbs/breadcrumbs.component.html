@@ -8,12 +8,22 @@
 
       <ng-container *ngIf="!last">
 
-        <a
-          class="previous-page"
-          [routerLink]="crumb.href"
-        >
-          {{ crumb.label }}
-        </a>
+        <ng-container>
+          <a
+            class="previous-page"
+            [routerLink]="crumb.href"
+            *ngIf="crumb.href"
+          >
+            {{ crumb.label }}
+          </a>
+
+          <span
+            class="previous-page"
+            *ngIf="!crumb.href"
+          >
+            {{crumb.label}}
+          </span>
+        </ng-container>
 
         <div class="icon-wrapper">
           <!--          <app-icon class="icon"-->

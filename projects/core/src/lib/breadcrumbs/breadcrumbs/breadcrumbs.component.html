@@ -1,0 +1,55 @@
+<nav aria-label="Breadcrumbs">
+  <ol class="boost-breadcrumbs">
+
+    <li
+      *ngFor="let crumb of breadcrumbs; let last = last"
+      class="breadcrumb__item"
+    >
+
+      <ng-container *ngIf="!last">
+
+        <ng-container>
+          <a
+            class="previous-page link"
+            [routerLink]="crumb.href"
+            *ngIf="crumb.href"
+          >
+            {{ crumb.label }}
+          </a>
+
+          <span
+            class="previous-page"
+            *ngIf="!crumb.href"
+          >
+            {{crumb.label}}
+          </span>
+        </ng-container>
+
+        <div class="separator">
+          <ng-container [ngTemplateOutlet]="separator"></ng-container>
+        </div>
+
+      </ng-container>
+
+      <ng-container *ngIf="last">
+        <a
+          class="current-page link"
+          aria-current="page"
+          [routerLink]="crumb.href"
+          *ngIf="crumb.href"
+        >
+          {{ crumb.label }}
+        </a>
+
+        <span
+          class="current-page"
+          aria-current="page"
+          *ngIf="!crumb.href"
+        >
+          {{crumb.label}}
+        </span>
+      </ng-container>
+
+    </li>
+  </ol>
+</nav>
