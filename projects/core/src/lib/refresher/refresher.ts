@@ -42,6 +42,10 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
     return this._isLoading$.value;
   }
 
+  set isLoading(isLoading: boolean) {
+    this._isLoading$.next(isLoading);
+  }
+
   private readonly _isError$ = new BehaviorSubject<boolean>(false);
   readonly isError$ = this._isError$.asObservable();
 
@@ -78,7 +82,7 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
     this.autorefreshConsumer = autorefresh({
       period: this.config.period,
       mode: this.config.mode,
-      source
+      source,
     });
     console.log('Autorefresh initiated');
   }
@@ -103,8 +107,8 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
       .pipe(
         tap({
           next: value => this.handleSuccess(value),
-          error: err => this.handleError(err)
-        })
+          error: err => this.handleError(err),
+        }),
       );
   }
 
