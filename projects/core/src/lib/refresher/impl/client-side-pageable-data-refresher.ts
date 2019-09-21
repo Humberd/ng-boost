@@ -1,4 +1,4 @@
-import { PageableDataRefresher } from './pageable-data-refresher';
+import { PageableDataRefresher, PageOptions } from './pageable-data-refresher';
 import { RefresherConfig } from '../refresher';
 import { AutorefreshMode } from '../autorefresh';
 import { paginateArray } from '../rxjs-operators/paginate.operator';
@@ -7,12 +7,12 @@ import { isAscending, keyFromSortKey, sortArray } from '../rxjs-operators/sort-b
 // tslint:disable-next-line:max-line-length
 export abstract class ClientSidePageableDataRefresher<SourceData, ParsedData = SourceData> extends PageableDataRefresher<SourceData[], ParsedData> {
 
-  constructor(config: Partial<RefresherConfig> = {}) {
+  constructor(config: Partial<RefresherConfig> = {}, initialPage?: Partial<PageOptions>) {
     super({
       period: 10_000,
       mode: AutorefreshMode.COUNT_AFTER_PREVIOUS_ENDS,
       ...config
-    });
+    }, initialPage);
   }
 
   /**

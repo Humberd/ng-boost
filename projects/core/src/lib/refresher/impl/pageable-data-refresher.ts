@@ -1,4 +1,4 @@
-import { Refresher, RefresherDataSource } from '../refresher';
+import { Refresher, RefresherConfig, RefresherDataSource } from '../refresher';
 
 export interface PageOptions {
   pageNumber: number;
@@ -8,11 +8,22 @@ export interface PageOptions {
 }
 
 export abstract class PageableDataRefresher<SourceData, ParsedData = SourceData> extends Refresher<SourceData, ParsedData[]> {
-  private _pageNumber = 0;
-  private _pageSize = 10;
-  private _sort = '';
+  private _pageNumber: number;
+  private _pageSize: number;
+  private _sort: string;
+  private _searchQuery: string;
   private _totalItemsCount = 0;
-  private _searchQuery = '';
+
+  constructor(refresherConfig: RefresherConfig, initialPage?: Partial<PageOptions>) {
+    super(refresherConfig);
+
+    initialPage = initialPage || {};
+    this._pageNumber = initialPage.pageNumber || 0;
+    this._pageSize = initialPage.pageSize || 10;
+    this._sort = initialPage.sort || '';
+    this._searchQuery = initialPage.search || '';
+
+  }
 
   get totalItemsCount(): number {
     return this._totalItemsCount;
@@ -86,7 +97,7 @@ export abstract class PageableDataRefresher<SourceData, ParsedData = SourceData>
       pageNumber: this.pageNumber,
       pageSize: this.pageSize,
       sort: this.sort,
-      search: this.searchQuery
+      search: this.searchQuery,
     });
   }
 
