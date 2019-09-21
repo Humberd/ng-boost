@@ -1,13 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  Params,
-  QueryParamsHandling,
-  Resolve,
-  Router,
-  UrlSegment,
-} from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Params, Resolve, Router, UrlSegment } from '@angular/router';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, pluck } from 'rxjs/operators';
 import { safeResolve } from './safe-resolve';
@@ -110,7 +102,7 @@ export class RouterUtilsService {
   /**
    * Updates query params for the current route.
    */
-  updateQueryParams(queryParams: Params, queryParamsHandling: QueryParamsHandling = 'merge') {
+  updateQueryParams(queryParams: Params, queryParamsHandling: 'merge' | 'preserve' | '' = 'merge') {
     return this.router.navigate(
       [],
       {
