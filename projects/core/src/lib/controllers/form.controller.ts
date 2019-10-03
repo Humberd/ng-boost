@@ -8,7 +8,7 @@ export type FormControllerConfig<T> = {
 };
 
 @Injectable()
-export abstract class FormController<T> implements OnInit {
+export abstract class FormController<Values> implements OnInit {
   @Destroy$() protected readonly destroy$ = new Subject();
 
   /**
@@ -17,9 +17,9 @@ export abstract class FormController<T> implements OnInit {
    * Otherwise the children FormControllers' error states will not be visible.
    */
   @Input() onPush: any;
-  @Input() initialValues: Partial<T> = {};
+  @Input() initialValues: Partial<Values> = {};
   @Input() formGroupTemplate: FormGroup;
-  formDefinition: FormControllerConfig<T>;
+  formDefinition: FormControllerConfig<Values>;
   rootForm: FormGroup;
 
   // tslint:disable-next-line:contextual-lifecycle
@@ -40,7 +40,7 @@ export abstract class FormController<T> implements OnInit {
     this.rootForm = group;
   }
 
-  abstract getFormDefinition(): FormControllerConfig<T>;
+  abstract getFormDefinition(): FormControllerConfig<Values>;
 
   getFormOptions(): AbstractControlOptions {
     return {};
