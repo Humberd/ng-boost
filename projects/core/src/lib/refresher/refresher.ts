@@ -21,21 +21,21 @@ export interface RefresherConfig {
 }
 
 export abstract class Refresher<SourceData, ParsedData = SourceData> implements OnDestroy {
-  private readonly _data$ = new BehaviorSubject<ParsedData>(NOT_INITIALIZED);
+  protected readonly _data$ = new BehaviorSubject<ParsedData>(NOT_INITIALIZED);
   readonly data$: Observable<ParsedData> = this._data$.asObservable().pipe(filter(it => it !== NOT_INITIALIZED));
 
   get data(): ParsedData {
     return this._data$.value;
   }
 
-  private readonly _dataError$ = new BehaviorSubject<any>(NOT_INITIALIZED);
+  protected readonly _dataError$ = new BehaviorSubject<any>(NOT_INITIALIZED);
   readonly dataError$ = this._dataError$.asObservable().pipe(filter(it => it !== NOT_INITIALIZED));
 
   get dataError(): any {
     return this._dataError$.value;
   }
 
-  private readonly _isLoading$ = new BehaviorSubject<boolean>(false);
+  protected readonly _isLoading$ = new BehaviorSubject<boolean>(false);
   readonly isLoading$ = this._isLoading$.asObservable();
 
   get isLoading() {
@@ -46,14 +46,14 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
     this._isLoading$.next(isLoading);
   }
 
-  private readonly _isError$ = new BehaviorSubject<boolean>(false);
+  protected readonly _isError$ = new BehaviorSubject<boolean>(false);
   readonly isError$ = this._isError$.asObservable();
 
   get isError() {
     return this._isError$.value;
   }
 
-  private readonly _isInitialized$ = new BehaviorSubject<boolean>(false);
+  protected readonly _isInitialized$ = new BehaviorSubject<boolean>(false);
   readonly isInitialized$ = this._isInitialized$.asObservable();
 
   get isInitialized() {
