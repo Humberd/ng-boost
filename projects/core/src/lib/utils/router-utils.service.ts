@@ -14,12 +14,14 @@ export interface ResolveRouteDataConfig<T> {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RouterUtilsService {
 
-  constructor(private router: Router,
-              private injector: Injector) {
+  constructor(
+    private router: Router,
+    private injector: Injector,
+  ) {
   }
 
   /**
@@ -44,6 +46,30 @@ export class RouterUtilsService {
       }
     }
     return EMPTY;
+  }
+
+  /**
+   * Traverses a router tree from root to a leaf looking for {@queryParam}.
+   */
+  getQueryParam(queryParam: string): string {
+    for (const route of this.getCurrentRoutesChain()) {
+      if (route.snapshot.queryParamMap.has(queryParam)) {
+        return route.snapshot.queryParamMap.get(queryParam);
+      }
+    }
+    return undefined;
+  }
+
+  /**
+   * Traverses a router tree from root to a leaf looking for {@queryParam}.
+   */
+  getQueryParam$(queryParam: string): Observable<string> {
+    for (const route of this.getCurrentRoutesChain()) {
+      if (route.snapshot.queryParamMap.has(queryParam)) {
+        return route.queryParams.pipe(pluck(queryParam));
+      }
+    }
+    return undefined;
   }
 
   /**
@@ -85,7 +111,7 @@ export class RouterUtilsService {
         catchError(err => {
           console.error(err);
           return of(config.emptyValue);
-        })
+        }),
       );
   }
 
@@ -108,7 +134,7 @@ export class RouterUtilsService {
       {
         relativeTo: this.router.routerState.root,
         queryParams,
-        queryParamsHandling
+        queryParamsHandling,
       });
   }
 }
