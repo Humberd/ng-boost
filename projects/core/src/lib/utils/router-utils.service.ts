@@ -1,7 +1,15 @@
 import { Injectable, Injector } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, Params, Resolve, Router, UrlSegment } from '@angular/router';
-import { EMPTY, Observable, of } from 'rxjs';
-import { catchError, pluck } from 'rxjs/operators';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  NavigationEnd,
+  Params,
+  Resolve,
+  Router,
+  UrlSegment,
+} from '@angular/router';
+import { EMPTY, merge, Observable, of } from 'rxjs';
+import { catchError, distinctUntilChanged, filter, map, pluck } from 'rxjs/operators';
 import { safeResolve } from './safe-resolve';
 import { wrapIntoObservable } from './rxjs';
 
@@ -25,7 +33,7 @@ export class RouterUtilsService {
   }
 
   /**
-   * Traverses a router tree from root to a leaf looking for {@param}.
+   * Traverses a router tree from root to a leaf looking for {param}.
    */
   getParam(param: string): string {
     for (const route of this.getCurrentRoutesChain()) {
@@ -37,7 +45,11 @@ export class RouterUtilsService {
   }
 
   /**
-   * Traverses a router tree from root to a leaf looking for {@param}.
+   * Traverses a router tree from root to a leaf looking for {param}.
+   *
+   * @deprecated Use RouterUtilsService.watchParam().
+   *             This method listenes to params only on the current route, when
+   *             route changes it stops working.
    */
   getParam$(param: string): Observable<string> {
     for (const route of this.getCurrentRoutesChain()) {
@@ -49,7 +61,25 @@ export class RouterUtilsService {
   }
 
   /**
-   * Traverses a router tree from root to a leaf looking for {@queryParam}.
+   * After every route change tries to traverse a router tree
+   * from root to a leaf looking for {param}
+   */
+  watchParam(param: string): Observable<string> {
+    return merge(
+      of(this.getParam(param)),
+      this.router.events
+        .pipe(
+          filter(event => event instanceof NavigationEnd),
+          map(() => this.getParam(param)),
+        ),
+    )
+      .pipe(
+        distinctUntilChanged(),
+      );
+  }
+
+  /**
+   * Traverses a router tree from root to a leaf looking for {queryParam}.
    */
   getQueryParam(queryParam: string): string {
     for (const route of this.getCurrentRoutesChain()) {
@@ -61,7 +91,11 @@ export class RouterUtilsService {
   }
 
   /**
-   * Traverses a router tree from root to a leaf looking for {@queryParam}.
+   * Traverses a router tree from root to a leaf looking for {queryParam}.
+   *
+   * @deprecated Use RouterUtilsService.watchQueryParam().
+   *             This method listenes to params only on the current route, when
+   *             route changes it stops working.
    */
   getQueryParam$(queryParam: string): Observable<string> {
     for (const route of this.getCurrentRoutesChain()) {
@@ -71,6 +105,25 @@ export class RouterUtilsService {
     }
     return undefined;
   }
+
+  /**
+   * After every route change tries to traverse a router tree
+   * from root to a leaf looking for {queryParam}
+   */
+  watchQueryParam(queryParam: string): Observable<string> {
+    return merge(
+      of(this.getQueryParam(queryParam)),
+      this.router.events
+        .pipe(
+          filter(event => event instanceof NavigationEnd),
+          map(() => this.getQueryParam(queryParam)),
+        ),
+    )
+      .pipe(
+        distinctUntilChanged(),
+      );
+  }
+
 
   /**
    * Retrieves a chain of {ActivatedRoutes} from root to a leaf.
