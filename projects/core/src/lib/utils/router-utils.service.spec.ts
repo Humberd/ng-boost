@@ -84,7 +84,6 @@ describe('RouterUtilsService', () => {
       }));
 
       it('should return undefined for not existing parameters', fakeAsync(() => {
-        tick(0);
         goTo('/sla/abc');
         expect(service.getParam('notExistingId')).toBe(undefined);
 
@@ -93,8 +92,43 @@ describe('RouterUtilsService', () => {
       }));
     });
 
-    describe('getParam$', () => {
+    describe('watchParam', () => {
+      it('should emit paramId when route changes after going to a route without param', fakeAsync(() => {
+        goTo('/sites/1234');
 
+        let currentSideId: string;
+        service.watchParam('siteId')
+          .subscribe(siteId => currentSideId = siteId);
+
+        expect(currentSideId).toBe('1234');
+
+        goTo('/sites/my-new-site-id');
+        expect(currentSideId).toBe('my-new-site-id');
+
+        goTo('/sla/some-sla-id');
+        expect(currentSideId).toBe(undefined);
+
+        goTo('/sites/5667');
+        expect(currentSideId).toBe('5667');
+      }));
+
+      it('should emit paramId when route changes before going to a route without param', fakeAsync(() => {
+        let currentSideId: string;
+        service.watchParam('siteId')
+          .subscribe(siteId => currentSideId = siteId);
+
+        goTo('/sites/1234');
+        expect(currentSideId).toBe('1234');
+
+        goTo('/sites/my-new-site-id');
+        expect(currentSideId).toBe('my-new-site-id');
+
+        goTo('/sla/some-sla-id');
+        expect(currentSideId).toBe(undefined);
+
+        goTo('/sites/5667');
+        expect(currentSideId).toBe('5667');
+      }));
     });
   });
 
