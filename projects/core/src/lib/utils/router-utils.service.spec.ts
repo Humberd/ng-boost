@@ -11,7 +11,7 @@ describe('RouterUtilsService', () => {
   function initiateModule(routes: Routes) {
     TestBed.configureTestingModule({
       providers: [
-        RouterUtilsService
+        RouterUtilsService,
       ],
       imports: [
         NoopModule,
@@ -26,7 +26,7 @@ describe('RouterUtilsService', () => {
     return {router, service, ngZone};
   }
 
-  describe('getParam', () => {
+  describe('param', () => {
     let service: RouterUtilsService;
     let router: Router;
     let ngZone: NgZone;
@@ -38,9 +38,9 @@ describe('RouterUtilsService', () => {
           children: [
             {
               path: ':siteId',
-              component: NoopComponent
-            }
-          ]
+              component: NoopComponent,
+            },
+          ],
         },
         {
           path: 'sla',
@@ -50,12 +50,12 @@ describe('RouterUtilsService', () => {
               children: [
                 {
                   path: 'details',
-                  component: NoopComponent
-                }
-              ]
-            }
-          ]
-        }
+                  component: NoopComponent,
+                },
+              ],
+            },
+          ],
+        },
       ]);
 
       router = services.router;
@@ -63,40 +63,41 @@ describe('RouterUtilsService', () => {
       ngZone = services.ngZone;
     });
 
-    it('should get desired params', fakeAsync(() => {
+    function goTo(url: string) {
       ngZone.run(() => {
-        router.navigateByUrl('/sla/abc');
+        router.navigateByUrl(url);
       });
       tick(0);
-      expect(service.getParam('slaId')).toBe('abc');
+    }
 
-      ngZone.run(() => {
-        router.navigateByUrl('/sites/xyz');
-      });
-      tick(0);
-      expect(service.getParam('siteId')).toBe('xyz');
+    describe('getParam', () => {
 
-      ngZone.run(() => {
-        router.navigateByUrl('/sla/456/details');
-      });
-      tick(0);
-      expect(service.getParam('slaId')).toBe('456');
-    }));
+      it('should get desired params', fakeAsync(() => {
+        goTo('/sla/abc');
+        expect(service.getParam('slaId')).toBe('abc');
 
-    it('should return null for not existing parameters', fakeAsync(() => {
-      ngZone.run(() => {
-        router.navigateByUrl('/sla/abc');
-      });
-      tick(0);
-      expect(service.getParam('notExistingId')).toBe(undefined);
+        goTo('/sites/xyz');
+        expect(service.getParam('siteId')).toBe('xyz');
 
-      ngZone.run(() => {
-        router.navigateByUrl('/sites');
-      });
-      tick(0);
-      expect(service.getParam('siteId')).toBe(undefined);
-    }));
+        goTo('/sla/456/details');
+        expect(service.getParam('slaId')).toBe('456');
+      }));
+
+      it('should return undefined for not existing parameters', fakeAsync(() => {
+        tick(0);
+        goTo('/sla/abc');
+        expect(service.getParam('notExistingId')).toBe(undefined);
+
+        goTo('/sites');
+        expect(service.getParam('siteId')).toBe(undefined);
+      }));
+    });
+
+    describe('getParam$', () => {
+
+    });
   });
+
 
   describe('getCurrentRoutesChain', () => {
     let service: RouterUtilsService;
@@ -110,9 +111,9 @@ describe('RouterUtilsService', () => {
           children: [
             {
               path: ':siteId',
-              component: NoopComponent
-            }
-          ]
+              component: NoopComponent,
+            },
+          ],
         },
         {
           path: 'sla',
@@ -122,12 +123,12 @@ describe('RouterUtilsService', () => {
               children: [
                 {
                   path: 'details',
-                  component: NoopComponent
-                }
-              ]
-            }
-          ]
-        }
+                  component: NoopComponent,
+                },
+              ],
+            },
+          ],
+        },
       ]);
 
       router = services.router;

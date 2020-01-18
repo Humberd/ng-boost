@@ -48,6 +48,12 @@ export class RouterUtilsService {
     return EMPTY;
   }
 
+  // watchParam$(param: string): Observable<string> {
+  //   return this.router.events
+  //     .pipe(
+  //     )
+  // }
+
   /**
    * Traverses a router tree from root to a leaf looking for {@queryParam}.
    */
