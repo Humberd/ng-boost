@@ -16,7 +16,7 @@ for (const project of PROJECTS) {
 
   shell.cd('../../');
 
-  shell.exec(`ng build ${project}`);
+  shell.exec(`ng build ${project} --prod`);
 }
 
 shell.exec('git add -A');
