@@ -11,7 +11,7 @@ import { DefaultTitleRouteResolver, TitleRouteResolver } from './_services/title
   ],
 })
 export class BoostTitleModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<BoostTitleModule> {
     return {
       ngModule: BoostTitleModule,
       providers: [

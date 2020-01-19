@@ -27,7 +27,7 @@ import { sessionStorageProvider } from './tokens/session-storage';
 @NgModule({})
 export class BoostGlobalTokensModule {
 
-  static forRoot(config: { environment: any }): ModuleWithProviders {
+  static forRoot(config: { environment: any }): ModuleWithProviders<BoostGlobalTokensModule> {
     return {
       ngModule: BoostGlobalTokensModule,
       providers: [
@@ -35,7 +35,7 @@ export class BoostGlobalTokensModule {
         localStorageProvider,
         sessionStorageProvider,
         environmentProvider(config.environment),
-      ]
+      ],
     };
   }
 }

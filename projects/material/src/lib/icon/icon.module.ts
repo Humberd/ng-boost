@@ -27,7 +27,7 @@ export const BOOST_MAT_ICON_CONFIG_INJECTION_TOKEN = new InjectionToken('Boost I
 })
 export class BoostMatIconModule {
 
-  static forRoot(config: BoostIconModuleConfig): ModuleWithProviders {
+  static forRoot(config: BoostIconModuleConfig): ModuleWithProviders<BoostMatIconModule> {
     return {
       ngModule: BoostMatIconModule,
       providers: [

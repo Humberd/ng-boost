@@ -19,16 +19,16 @@ import { BoostBreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 })
 export class BoostBreadcrumbsModule {
 
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<BoostBreadcrumbsModule> {
     return {
       ngModule: BoostBreadcrumbsModule,
       providers: [
         BoostBreadcrumbsService,
         {
           provide: BreadcrumbsResolver,
-          useClass: DefaultBreadcrumbsResolver
-        }
-      ]
+          useClass: DefaultBreadcrumbsResolver,
+        },
+      ],
     };
   }
 }
