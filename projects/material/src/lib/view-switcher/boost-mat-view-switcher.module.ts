@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BoostMatViewSwitcherComponent } from './view-switcher/boost-mat-view-switcher.component';
-import { MatButtonModule, MatIconModule, MatListModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { BoostViewSwitcherModule } from '@ng-boost/core';
 
 @NgModule({
@@ -10,7 +12,7 @@ import { BoostViewSwitcherModule } from '@ng-boost/core';
     MatButtonModule,
     MatIconModule,
     BoostViewSwitcherModule,
-    MatListModule
+    MatListModule,
   ],
   declarations: [BoostMatViewSwitcherComponent],
   exports: [

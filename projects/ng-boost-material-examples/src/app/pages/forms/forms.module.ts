@@ -4,21 +4,19 @@ import { FormsComponent } from './forms.component';
 import { RouterModule, Routes } from '@angular/router';
 import { OnPushDetectionFormComponent } from './on-push-detection-form/on-push-detection-form.component';
 import { OnPushBadgesComponent } from './on-push-detection-form/on-push-badges/on-push-badges.component';
-import {
-  MatAutocompleteModule,
-  MatButtonModule,
-  MatChipsModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule
-} from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
     path: '',
-    component: FormsComponent
-  }
+    component: FormsComponent,
+  },
 ];
 
 @NgModule({

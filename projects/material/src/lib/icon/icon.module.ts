@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
-import { MatIconModule, MatIconRegistry } from '@angular/material';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BoostMatIconComponent } from './icon/icon.component';

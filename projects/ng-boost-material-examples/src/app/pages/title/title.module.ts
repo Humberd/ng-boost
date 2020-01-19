@@ -5,7 +5,8 @@ import { TitleComponent } from './title.component';
 import { GroupsComponent } from './groups/groups.component';
 import { UsersComponent } from './users/users.component';
 import { BoostTitleModule } from '@ng-boost/core';
-import { MatButtonModule, MatIconModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../../shared/shared.module';
 
 const routes: Routes = [{
