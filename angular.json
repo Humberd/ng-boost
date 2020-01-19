@@ -20,6 +20,11 @@
           "options": {
             "tsConfig": "projects/core/tsconfig.lib.json",
             "project": "projects/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/core/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -66,6 +71,11 @@
           "options": {
             "tsConfig": "projects/material/tsconfig.lib.json",
             "project": "projects/material/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/material/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -110,7 +120,7 @@
             "main": "projects/ng-boost-material-examples/src/main.ts",
             "polyfills": "projects/ng-boost-material-examples/src/polyfills.ts",
             "tsConfig": "projects/ng-boost-material-examples/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/ng-boost-material-examples/src/favicon.ico",
               "projects/ng-boost-material-examples/src/assets"
@@ -135,7 +145,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -144,6 +153,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
