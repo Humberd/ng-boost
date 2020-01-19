@@ -1,5 +1,5 @@
 import { AbstractControl, AbstractControlOptions, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { Injectable, Input, OnInit } from '@angular/core';
+import { Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Destroy$ } from '../utils/destroy';
 
@@ -7,7 +7,6 @@ export type FormControllerConfig<T> = {
   [key in keyof T]?: AbstractControl | FormControl | FormGroup | FormArray
 };
 
-@Injectable()
 export abstract class FormController<FormDefinition, FormInitialValues = FormDefinition> implements OnInit {
   @Destroy$() protected readonly destroy$ = new Subject();
 
@@ -22,7 +21,6 @@ export abstract class FormController<FormDefinition, FormInitialValues = FormDef
   formDefinition: FormControllerConfig<FormDefinition>;
   rootForm: FormGroup;
 
-  // tslint:disable-next-line:contextual-lifecycle
   ngOnInit(): void {
     const group = this.formGroupTemplate || new FormGroup({});
     this.formDefinition = this.getFormDefinition();
