@@ -1,14 +1,14 @@
-import { AbstractControl, AbstractControlOptions, FormGroup } from '@angular/forms';
+import { AbstractControl, AbstractControlOptions, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Injectable, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Destroy$ } from '../utils/destroy';
 
 export type FormControllerConfig<T> = {
-  [key in keyof T]?: AbstractControl
+  [key in keyof T]?: AbstractControl | FormControl | FormGroup | FormArray
 };
 
 @Injectable()
-export abstract class FormController<T> implements OnInit {
+export abstract class FormController<FormDefinition, FormInitialValues = FormDefinition> implements OnInit {
   @Destroy$() protected readonly destroy$ = new Subject();
 
   /**
@@ -17,9 +17,9 @@ export abstract class FormController<T> implements OnInit {
    * Otherwise the children FormControllers' error states will not be visible.
    */
   @Input() onPush: any;
-  @Input() initialValues: Partial<T> = {};
+  @Input() initialValues?: FormInitialValues;
   @Input() formGroupTemplate: FormGroup;
-  formDefinition: FormControllerConfig<T>;
+  formDefinition: FormControllerConfig<FormDefinition>;
   rootForm: FormGroup;
 
   // tslint:disable-next-line:contextual-lifecycle
@@ -40,7 +40,7 @@ export abstract class FormController<T> implements OnInit {
     this.rootForm = group;
   }
 
-  abstract getFormDefinition(): FormControllerConfig<T>;
+  abstract getFormDefinition(): FormControllerConfig<FormDefinition>;
 
   getFormOptions(): AbstractControlOptions {
     return {};
