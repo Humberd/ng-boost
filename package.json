@@ -13,12 +13,12 @@
     "boost"
   ],
   "scripts": {
-    "build-core": "ng build core",
-    "build-core:watch": "ng build core --watch",
-    "build-core:ci": "ng build core",
-    "build-material": "ng build material",
-    "build-material:watch": "ng build material --watch",
-    "build-material:ci": "ng build material",
+    "build-core": "ng build core --prod",
+    "build-core:watch": "ng build core --prod --watch",
+    "build-core:ci": "ng build core --prod",
+    "build-material": "ng build material --prod",
+    "build-material:watch": "ng build material --prod --watch",
+    "build-material:ci": "ng build material --prod",
     "version:beta-core": "cd projects/core && npm run version:beta",
     "test-core:ci": "ng test core -c ci --code-coverage",
     "test-material:ci": "ng test material -c ci --code-coverage",
