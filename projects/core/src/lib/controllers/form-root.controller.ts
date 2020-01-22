@@ -2,7 +2,10 @@ import { takeUntil } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormController } from './form.controller';
+import { Directive } from '@angular/core';
 
+@Directive()
+// tslint:disable-next-line:directive-class-suffix
 export abstract class FormRootController<T> extends FormController<T> {
   private readonly _isLoading$ = new BehaviorSubject(false);
   isLoading$ = this._isLoading$.asObservable();
@@ -24,7 +27,7 @@ export abstract class FormRootController<T> extends FormController<T> {
     this._isLoading$.next(true);
 
     this.submitAction(this.rootForm.value)
-    /* When we cancel a form we don't want the request to be handled anymore  */
+      /* When we cancel a form we don't want the request to be handled anymore  */
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         {

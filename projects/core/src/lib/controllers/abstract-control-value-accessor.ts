@@ -1,6 +1,8 @@
 import { ControlValueAccessor, FormControl } from '@angular/forms';
-import { Input } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 
+@Directive()
+// tslint:disable-next-line:directive-class-suffix
 export abstract class AbstractControlValueAccessor<ValueType> implements ControlValueAccessor {
   @Input() formControl: FormControl;
 

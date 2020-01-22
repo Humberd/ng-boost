@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Directive } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { RouterUtilsService } from '../utils/router-utils.service';
 import { map, skip, takeUntil } from 'rxjs/operators';
@@ -28,7 +28,8 @@ import { Destroy$ } from '../utils/destroy';
  *
  * This allows to make the param statically typed across many components
  */
-@Injectable()
+@Directive()
+// tslint:disable-next-line:directive-class-suffix
 export abstract class RouteParam<T = string> {
   @Destroy$() protected readonly destroy$ = new Subject();
 

@@ -1,5 +1,5 @@
 import { AbstractControl, AbstractControlOptions, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { Input, OnInit } from '@angular/core';
+import { Directive, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Destroy$ } from '../utils/destroy';
 
@@ -7,6 +7,8 @@ export type FormControllerConfig<T> = {
   [key in keyof T]?: AbstractControl | FormControl | FormGroup | FormArray
 };
 
+@Directive()
+// tslint:disable-next-line:directive-class-suffix
 export abstract class FormController<FormDefinition, FormInitialValues = FormDefinition> implements OnInit {
   @Destroy$() protected readonly destroy$ = new Subject();
 

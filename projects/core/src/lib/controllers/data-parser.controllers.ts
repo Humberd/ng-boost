@@ -1,8 +1,10 @@
-import { ChangeDetectorRef, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Directive, Input, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Destroy$ } from '../utils/destroy';
 import { takeUntil } from 'rxjs/operators';
 
+@Directive()
+// tslint:disable-next-line:directive-class-suffix
 export abstract class InputDataParserController<InputData, OutputData> {
   outputData: OutputData;
   private _data: InputData;
@@ -17,6 +19,8 @@ export abstract class InputDataParserController<InputData, OutputData> {
 
 }
 
+@Directive()
+// tslint:disable-next-line:directive-class-suffix
 export abstract class StreamDataParserController<InputData, OutputData> implements OnInit {
   @Destroy$() protected readonly destroy$ = new Subject();
   outputData: OutputData;
