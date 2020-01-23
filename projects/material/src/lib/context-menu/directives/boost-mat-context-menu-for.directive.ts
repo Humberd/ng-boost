@@ -12,7 +12,6 @@ import { Destroy$ } from '@ng-boost/core';
   },
   exportAs: 'boostMatContextMenuTriggerFor',
 })
-// @ts-ignore
 export class BoostMatContextMenuTriggerForDirective extends MatMenuTrigger implements OnInit {
   @Destroy$() private readonly destroy$ = new Subject();
 
@@ -29,6 +28,9 @@ export class BoostMatContextMenuTriggerForDirective extends MatMenuTrigger imple
   };
 
   ngOnInit(): void {
+    // @ts-ignore
+    this._getOverlayConfig = this._getOverlayConfigOverride.bind(this);
+
     this.menuOpened
       .pipe(
         switchMap(() => {
@@ -76,7 +78,12 @@ export class BoostMatContextMenuTriggerForDirective extends MatMenuTrigger imple
     super._handleClick(event);
   }
 
-  private _getOverlayConfig(): OverlayConfig {
+  /**
+   * We need to override the `getOverlayConfig`, but it is private
+   * and we cannot override private methods in compilation time.
+   * Thus we do this in the runtime in the `ngOnInit method`
+   */
+  private _getOverlayConfigOverride(): OverlayConfig {
     return new OverlayConfig({
       // @ts-ignore
       positionStrategy: this._overlay.position()
