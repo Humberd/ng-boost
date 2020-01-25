@@ -3,7 +3,7 @@ import { Destroy$ } from '../../utils/destroy';
 import { from, Observable, Subject } from 'rxjs';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { RouterUtilsService } from '../../utils/router-utils.service';
-import { defaultIfEmpty, filter, flatMap, switchMap, take, takeUntil } from 'rxjs/operators';
+import { concatMap, defaultIfEmpty, filter, switchMap, takeUntil, takeWhile } from 'rxjs/operators';
 import { reemitWhen, wrapIntoObservable } from '../../utils/rxjs';
 import { Title } from '@angular/platform-browser';
 import { TitleRouteResolver } from './title.route.resolver';
@@ -20,12 +20,13 @@ export class BoostTitleService {
 
   private readonly initialTitle: string;
 
-  constructor(private router: Router,
-              private injector: Injector,
-              private routerUtils: RouterUtilsService,
-              private defaultResolver: TitleRouteResolver,
-              private titleService: Title,
-              private titleMainResolver: TitleMainResolver,
+  constructor(
+    private router: Router,
+    private injector: Injector,
+    private routerUtils: RouterUtilsService,
+    private defaultResolver: TitleRouteResolver,
+    private titleService: Title,
+    private titleMainResolver: TitleMainResolver,
   ) {
     this.initialTitle = this.titleService.getTitle();
 
@@ -35,7 +36,7 @@ export class BoostTitleService {
         filter(it => it instanceof NavigationEnd),
         reemitWhen(this.refresh$),
         switchMap(() => this._resolveTitle()),
-        switchMap(title => wrapIntoObservable(this.titleMainResolver.resolve(title, this.initialTitle)))
+        switchMap(title => wrapIntoObservable(this.titleMainResolver.resolve(title, this.initialTitle))),
       )
       .subscribe(title => {
         this.titleService.setTitle(title);
@@ -48,15 +49,24 @@ export class BoostTitleService {
 
   private _resolveTitle(): Observable<string> {
     const routesChain = this.routerUtils.getCurrentRoutesChain()
-    /* So that while iterating we would get leaf first */
+      /* So that while iterating we would get leaf first */
       .reverse();
+
+    let wasResolved = false;
 
     return from(routesChain)
       .pipe(
-        flatMap(it => this.resolveTitle(it.snapshot)),
-        filter(Boolean),
-        take(1),
-        defaultIfEmpty(BoostTitleService.EMPTY_TITLE)
+        takeWhile(() => !wasResolved),
+        concatMap(it => this.resolveTitle(it.snapshot)),
+        filter(value => {
+          if (value) {
+            wasResolved = true;
+            return true;
+          }
+
+          return false;
+        }),
+        defaultIfEmpty(BoostTitleService.EMPTY_TITLE),
       );
 
   }
@@ -67,7 +77,7 @@ export class BoostTitleService {
       fieldName: BoostTitleService.ROUTE_DATA_FIELD_NAME,
       resolverBaseClass: TitleRouteResolver,
       route,
-      defaultResolver: this.defaultResolver
+      defaultResolver: this.defaultResolver,
     });
   }
 }
