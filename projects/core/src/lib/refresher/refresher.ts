@@ -1,7 +1,7 @@
 import { autorefresh, AutorefreshConsumer, AutorefreshMode } from './autorefresh';
 import { OnDestroy } from '@angular/core';
-import { BehaviorSubject, merge, Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { BehaviorSubject, merge, Observable, of } from 'rxjs';
+import { catchError, filter, tap } from 'rxjs/operators';
 
 export const NEVER_REFRESH = 999_999_000;
 
@@ -102,8 +102,11 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
       .pipe(
         tap({
           next: value => this.handleSuccess(value),
-          error: err => this.handleError(err),
         }),
+        catchError(err => {
+          this.handleError(err);
+          return of();
+        })
       );
   }
 
