@@ -58,22 +58,22 @@ export abstract class PageableDataRefresher<SourceData, ParsedData = SourceData>
 
   nextPage(): void {
     this._pageNumber++;
-    this.refresh();
+    this.hardRefresh();
   }
 
   previousPage(): void {
     this._pageNumber--;
-    this.refresh();
+    this.hardRefresh();
   }
 
   firstPage(): void {
     this._pageNumber = 0;
-    this.refresh();
+    this.hardRefresh();
   }
 
   lastPage(): void {
     this._pageNumber = Math.floor(this.totalItemsCount / this.pageSize) || 0;
-    this.refresh();
+    this.hardRefresh();
   }
 
   page(pageNumber: number, pageSize: number, sort?: string) {
@@ -81,13 +81,13 @@ export abstract class PageableDataRefresher<SourceData, ParsedData = SourceData>
     this._pageSize = pageSize;
     this._sort = sort || '';
     console.log({pageNumber, pageSize, sort});
-    this.refresh();
+    this.hardRefresh();
   }
 
   search(searchQuery: string) {
     this._searchQuery = searchQuery || '';
     console.log({searchQuery});
-    this.refresh();
+    this.hardRefresh();
   }
 
   protected abstract getPageableDataSource(pageOptions: PageOptions): RefresherDataSource<SourceData>;

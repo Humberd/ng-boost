@@ -63,14 +63,13 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
   protected autorefreshConsumer: AutorefreshConsumer;
 
   constructor(private config: RefresherConfig) {
+    this.initDefaultState();
   }
 
   /**
    * Have to call it manually in the component
    */
   start(): void {
-    this.initDefaultState();
-
     const dataSourceHandlers$ = this.applyDataSourceHandlers(this.getDataSource());
 
     const source = () => {
@@ -84,7 +83,6 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
       mode: this.config.mode,
       source,
     });
-    console.log('Autorefresh initiated');
   }
 
   private applyDataSourceHandlers(dataSource: RefresherDataSource<SourceData>) {
@@ -98,11 +96,9 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
       const b = dataSource.dataError$
         .pipe(tap(it => this.handleError(it)));
 
-      console.log(`Applying data source: ${dataSource.constructor.name} -> ${this.constructor.name}`);
       return merge(a, b);
     }
 
-    console.log(`Applying data source: Stream -> ${this.constructor.name}`);
     return dataSource
       .pipe(
         tap({
@@ -114,7 +110,6 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
 
   ngOnDestroy(): void {
     this.autorefreshConsumer.stop();
-    console.log('Autorefresh destroyed');
     this._data$.complete();
     this._dataError$.complete();
     this._isInitialized$.complete();
@@ -124,12 +119,10 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
 
   stop(): void {
     this.autorefreshConsumer.stop();
-    console.log('Refresher has been stopped.');
   }
 
   resume(): void {
     this.start();
-    console.log('Refresher has been resumed');
   }
 
   restart(): void {
@@ -137,9 +130,13 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
     this.resume();
   }
 
-  refresh(): void {
+  softRefresh(): void {
     this.autorefreshConsumer.fetch();
-    console.log('Refreshing manually');
+  }
+
+  hardRefresh(): void {
+    this.stop();
+    this.start();
   }
 
   private initDefaultState() {
