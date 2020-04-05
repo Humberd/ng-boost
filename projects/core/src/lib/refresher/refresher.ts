@@ -2,7 +2,6 @@ import { autorefresh, AutorefreshConsumer, AutorefreshMode } from './autorefresh
 import { OnDestroy } from '@angular/core';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
 
 export const NEVER_REFRESH = 999_999_000;
 
@@ -162,11 +161,6 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
   }
 
   private handleError(err: any): void {
-    if ((err instanceof HttpErrorResponse) && err.status === 404) {
-      this.handleSuccess(EMPTY);
-      return;
-    }
-
     this._onError(err);
     this.onError(err);
   }
