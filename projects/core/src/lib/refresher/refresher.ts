@@ -169,13 +169,13 @@ export abstract class Refresher<SourceData, ParsedData = SourceData> implements 
   }
 
   private _onError(err: any): void {
-    console.error(err);
     this._isLoading$.next(false);
     this._isError$.next(true);
     this._dataError$.next(err);
   }
 
   protected onError(err: any): void {
+    console.error(err);
     // implemented by the user
   }
 
